@@ -16,8 +16,12 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+        {# Font stylesheets #}
+
+
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/stanovanja.css' %}">
+        <link rel="stylesheet" href="https://use.typekit.net/pok0lzt.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -30,6 +34,7 @@
         {% block content %}{% endblock %}
 
         {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/stanovanja.js' %}"></script>
 
         {% block extra_js %}

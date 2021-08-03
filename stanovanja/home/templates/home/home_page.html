@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "home/base_page.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -7,6 +7,8 @@
 
 {% endblock extra_css %}
 
-{% block content %}
+{% block page_body %}
 
-{% endblock content %}
+<h1>hollo,</h1>
+
+{% endblock %}

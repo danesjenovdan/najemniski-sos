@@ -1,2 +1,7 @@
 // Add custom styles here.
 // This file is included after Bootstrap.
+
+h1 {
+  color: red;
+  font-family: $font-family-header;
+}

@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<div class="bg-section bg-section--{{ value.color }}">
+    <section class="container">
+        {% for block in value.body %}
+            <div class="row my-2">
+                {% include_block block %}
+            </div>
+        {% endfor %}
+    </section>
+</div>
