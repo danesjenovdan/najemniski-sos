@@ -9,11 +9,13 @@
 
 {% include "home/includes/header.html" %}
 
-<!-- <div class="container"> -->
 {% block page_body %}
 
+{% for block in page.body %}
+    {% include_block block %}
+{% endfor %}
+
 {% endblock %}
-<!-- </div> -->
 
 {% include "home/includes/footer.html" %}
 

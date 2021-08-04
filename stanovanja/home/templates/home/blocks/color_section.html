@@ -3,9 +3,8 @@
 <div class="bg-section bg-section--{{ value.color }}">
     <section class="container">
         {% for block in value.body %}
-            <div class="row my-2">
-                {% include_block block %}
-            </div>
+            {% include_block block %}
         {% endfor %}
     </section>
+    <hr />
 </div>

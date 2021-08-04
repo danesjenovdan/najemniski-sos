@@ -1,7 +1,61 @@
 from django.utils.translation import gettext_lazy as _
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core import blocks
+from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
+
+
+class ExternalLinkBlock(blocks.StructBlock):
+    name = blocks.CharBlock(label=_('Ime'))
+    url = blocks.URLBlock(label=_('Povezava'))
+
+    class Meta:
+        label = _('Zunanja povezava')
+        icon = 'link'
+
+
+class PageLinkBlock(blocks.StructBlock):
+    name = blocks.CharBlock(required=False, label=_('Ime'), help_text=_('Če je prazno se uporabi naslov strani.'))
+    page = blocks.PageChooserBlock(label=_('Stran'))
+
+    class Meta:
+        label = _('Povezava do strani')
+        icon = 'link'
+
+
+class ButtonBlock(blocks.StructBlock):
+    style = blocks.ChoiceBlock(
+        choices = [
+            ('underlined', 'Samo podčrtan'),
+            ('normal', 'Z obrobo'),
+            ('background', 'Z obrobo in ozadjem')
+        ],
+        label=_('Stil gumba'),
+    )
+    text = blocks.CharBlock(label=_('Besedilo na gumbu'))
+    page = blocks.PageChooserBlock(label=_('Stran'))
+
+
+class ButtonStreamBlock(blocks.StreamBlock):
+    button = blocks.StructBlock(
+    [
+        ('style', blocks.ChoiceBlock(
+          choices = [
+              ('underlined', 'Samo podčrtan'),
+              ('normal', 'Z obrobo'),
+              ('background', 'Z obrobo in ozadjem')
+          ],
+          label=_('Stil gumba'),
+        )),
+        ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+        ('page', blocks.PageChooserBlock(label=_('Stran'))),
+    ],
+    label=_('Gumb'),)
+
+    class Meta:
+        label = _('Gumbi')
+        icon = 'snippet'
+
 
 class ContentBlock(blocks.StreamBlock):
     headline = blocks.StructBlock(
@@ -10,6 +64,7 @@ class ContentBlock(blocks.StreamBlock):
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
+            ('buttons', ButtonStreamBlock(required=False, label=_('Gumbi'))),
         ],
         label=_('Naslov'),
         template='home/blocks/headline.html',
@@ -27,8 +82,8 @@ class ColorSectionBlock(blocks.StructBlock):
             ('white', 'Bela'),
             ('yellow', 'Rumena'),
             ('purple', 'Vijolična'),
-            ('gradientGreenYellow', 'Gradient zelena - rumena'),
-            ('gradientPurpleGreen', 'Gradient vijolična - zelena'),
+            ('gradient_green_yellow', 'Zeleno-rumena'),
+            ('gradient_purple_green', 'Vijolično-zelena'),
         ],
         label=_('Barva'),
     )

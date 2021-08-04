@@ -1,7 +1,73 @@
 // Add custom styles here.
 // This file is included after Bootstrap.
 
-h1 {
-  color: red;
-  font-family: $font-family-header;
+body {
+  font-family: $font-family-text;
+}
+
+.bg-section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative;
+
+  hr {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: $primary;
+    opacity: 1;
+    bottom: -30px;
+    z-index: 1;
+  }
+}
+
+.bg-section--yellow {
+  background-color: #fef0c5;
+}
+
+.bg-section--purple {
+  background-color: #f2f0f9;
+}
+
+.bg-section--gradient_green_yellow {
+  background-image: linear-gradient(-57deg, #fef0c5 0%, #e9f5e0 100%);
+}
+
+.bg-section--gradient_purple_green {
+  background-image: linear-gradient(-57deg, #e9f5e0 0%, #f2f0f9 100%);
+}
+
+.header {
+  .nav-item a {
+    font-size: 0.75rem;
+    font-family: $font-family-header;
+    font-weight: 700;
+  }
+  border-bottom: 2px solid $primary;
+}
+
+.hero {
+  h1 {
+    font-size: 3rem;
+    font-family: $font-family-header;
+    font-weight: 900;
+    color: $primary;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  @media (min-width: 992px) {
+    img {
+      position: absolute;
+    }
+  }
+  .image-left img {
+    left: 2rem;
+    width: 240px;
+  }
+  .image-right img {
+    right: 0;
+    bottom: 2rem;
+    width: 240px;
+  }
 }

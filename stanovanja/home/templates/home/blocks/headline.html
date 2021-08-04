@@ -1,2 +1,26 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
+<div class="hero">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2">
+            {% if value.image_left %}
+            <div class="image-left">{% image value.image_left width-1100 class="img-fluid" %}</div>
+            {% endif %}
+        </div>
+        <div class="col-12 col-lg-8">
+            <h1 class="text-center my-4">{{ value.title }}</h1>
+            <div class="text-center">{{ value.description }}</div>
+            <div class="text-center">
+                {% for button in value.buttons %}
+                <a class="btn btn-{{ button.value.style }}" href="{% pageurl button.value.page %}">{{ button.value.text }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-lg-2">
+            {% if value.image_right %}
+            <div class="image-right text-center my-2">{% image value.image_right width-1100 class="img-fluid" %}</div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
