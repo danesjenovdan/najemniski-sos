@@ -19,8 +19,8 @@
             <div class="collapse navbar-collapse mt-4 mt-md-0 justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     {% for header_link in settings.home.MetaSettings.header_links %}
-                        <li class="nav-item position-relative mx-2">
-                            <a class="nav-link position-relative px-3 {% if request.path == header_link.value.page.url %}active{% endif %}"
+                        <li class="nav-item">
+                            <a class="nav-link link--elara px-1 {% if request.path == header_link.value.page.url %}active{% endif %}"
                                href="{% if header_link.value.url %}{{ header_link.value.url }}{% elif header_link.value.page %}{% pageurl header_link.value.page %}{% endif %}">
                                 <span>
                                     {% if header_link.value.name %}

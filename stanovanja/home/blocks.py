@@ -23,20 +23,7 @@ class PageLinkBlock(blocks.StructBlock):
         icon = 'link'
 
 
-class ButtonBlock(blocks.StructBlock):
-    style = blocks.ChoiceBlock(
-        choices = [
-            ('underlined', 'Samo podčrtan'),
-            ('normal', 'Z obrobo'),
-            ('background', 'Z obrobo in ozadjem')
-        ],
-        label=_('Stil gumba'),
-    )
-    text = blocks.CharBlock(label=_('Besedilo na gumbu'))
-    page = blocks.PageChooserBlock(label=_('Stran'))
-
-
-class ButtonStreamBlock(blocks.StreamBlock):
+class ButtonsBlock(blocks.StreamBlock):
     button = blocks.StructBlock(
     [
         ('style', blocks.ChoiceBlock(
@@ -64,7 +51,7 @@ class ContentBlock(blocks.StreamBlock):
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
-            ('buttons', ButtonStreamBlock(required=False, label=_('Gumbi'))),
+            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
         ],
         label=_('Naslov'),
         template='home/blocks/headline.html',

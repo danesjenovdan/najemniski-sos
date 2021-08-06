@@ -37,11 +37,111 @@ body {
   background-image: linear-gradient(-57deg, #e9f5e0 0%, #f2f0f9 100%);
 }
 
+.btn {
+  color: $primary;
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-family: $font-family-header;
+  padding: 0.875rem 1.75rem;
+  margin: 1rem 1rem;
+}
+
+.btn-underlined {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+.btn-background {
+  border: 2px solid #105099;
+  //background-image: linear-gradient(-236deg, #d8d4f2 0%, #dcf0cf 100%);
+  background-image: linear-gradient(-236deg, #d8d4f2, #dcf0cf, #dcf0cf , #d8d4f2);
+  padding-right: 2rem;
+}
+
+.btn-normal {
+  border: 2px solid #105099;
+  background-image: linear-gradient(to right, transparent, transparent, #dcf0cf , #d8d4f2);
+}
+
+.btn-normal, .btn-background {
+  background-size: 300% 100%;
+  /* Transition duration and style */
+  moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  &:hover {
+    color: $primary;
+    /* Changes the start position of the gradient background upon hover, giving the illusion of motion. */
+    background-position: 100% 0;
+    /* Duration of gradient transition */
+    moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+  }
+}
+
 .header {
+  .nav-item {
+    width: 100%;
+    height: 100%;
+    margin: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+    }
+  }
   .nav-item a {
     font-size: 0.75rem;
     font-family: $font-family-header;
     font-weight: 700;
+  }
+  .nav-link {
+    padding: 0 0.125rem;
+    position: relative;
+    white-space: nowrap;
+
+    &:before,
+    &:after {
+      position: absolute;
+      width: 100%;
+      height: 0.5px;
+      background: $primary;
+      top: 100%;
+      left: 0;
+      pointer-events: none;
+    }
+
+    &:before {
+      content: '';
+      /* show by default */
+    }
+
+    &.link--elara::before {
+      transform-origin: 50% 100%;
+      transition: clip-path 0.3s, transform 0.3s cubic-bezier(0.2, 1, 0.8, 1);
+      clip-path: polygon(0% 0%, 0% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 0%);
+    }
+    &.link--elara:hover::before {
+      transform: translate3d(0, 2px, 0) scale3d(1.08, 3, 1);
+      clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 50% 0, 50% 0, 50% 100%, 50% 100%, 0 100%, 100% 100%, 100% 0%);
+    }
+    &.link--elara span {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.2, 1, 0.8, 1);
+    }
+    &.link--elara:hover span {
+      transform: translate3d(0, -2px, 0);
+    }
   }
   border-bottom: 2px solid $primary;
 }
