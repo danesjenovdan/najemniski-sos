@@ -1,0 +1,30 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="newsletter">
+  <div class="row">
+    <div class="col-12 col-lg-8 offset-lg-2">
+      <h2 class="text-center my-4">{{ value.title }}</h2>
+      <div class="text-center">{{ value.description }}</div>
+      <div class="">
+        <form class="my-4">
+          <div class="input-group text-center">
+            <input type="email" class="form-control" id="email" name="email" required>
+            <button class="btn btn-normal" type="submit">{{ value.submit_button }}</button>
+          </div>
+          <div class="input-group mt-1">
+            <div class="form-text" id="response"></div>
+          </div>
+          <label for="confirm-email" class="checkbox-wrapper text-start">
+            <input type="checkbox" id="confirm-email" name="confirm-email" required>
+            <span>{{ value.checkbox_text }}</span>
+          </label>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-lg-2">
+      {% if value.image_right %}
+      <div class="image-right text-center my-2">{% image value.image_right width-1100 class="img-fluid" %}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

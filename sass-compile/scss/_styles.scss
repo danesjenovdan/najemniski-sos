@@ -211,3 +211,72 @@ footer {
     width: 240px;
   }
 }
+
+.newsletter {
+  h2 {
+    font-size: 2rem;
+    font-family: $font-family-header;
+    font-weight: 700;
+    color: $primary;
+  }
+  p {
+  }
+  input {
+    font-size: 0.75rem;
+    color: black;
+    border: 2px solid $primary;
+  }
+  .btn {
+    margin: 0;
+    //color: $primary;
+    //background-color: transparent;
+    //border: 2px solid $primary;
+  }
+  @media (min-width: 992px) {
+    img {
+      position: absolute;
+    }
+  }
+  .image-right img {
+    right: 0;
+    bottom: 2rem;
+    width: 240px;
+  }
+}
+
+.checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  margin-left: 2.5rem;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    transform: translate(-20px, 20px);
+  }
+
+  span {
+    line-height: 1rem;
+    font-size: 0.75rem;
+  }
+
+  span:after {
+    content: "";
+    position: absolute;
+    left: -2.5rem;
+    top: 0;
+    border: 2px solid $primary;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: white;
+  }
+
+  input:checked + span:after {
+    background-image: url("../icons/checkbox.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+  }
+}

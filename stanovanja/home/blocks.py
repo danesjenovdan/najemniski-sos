@@ -57,6 +57,18 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/headline.html',
         icon='title',
     )
+    newsletter = blocks.StructBlock(
+        [
+            ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
+            ('submit_button', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+            ('checkbox_text', blocks.CharBlock(label=_('Pogoji'))),
+        ],
+        label=_('Obvestilnik'),
+        template='home/blocks/newsletter.html',
+        icon='title',
+    )
 
     class Meta:
         label = _('Vsebina')
