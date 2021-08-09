@@ -69,6 +69,27 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/newsletter.html',
         icon='title',
     )
+    share_and_care = blocks.StructBlock(
+        [
+            ('left_box', blocks.StructBlock(
+                [
+                  ('title', blocks.CharBlock(label=_('Naslov'))),
+                  ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+                ],
+                label=_('Leva škatla'),
+            )),
+            ('right_box', blocks.StructBlock(
+                [
+                    ('title', blocks.CharBlock(label=_('Naslov'))),
+                    ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+                ],
+                label=_('Desna škatla'),
+            )),
+        ],
+        label=_('Deli naprej'),
+        template='home/blocks/share_and_care.html',
+        icon='title',
+    )
 
     class Meta:
         label = _('Vsebina')
