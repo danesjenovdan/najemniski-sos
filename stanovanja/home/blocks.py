@@ -134,6 +134,17 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/frequent_questions.html',
         icon='title',
     )
+    image_section = blocks.StructBlock(
+        [
+            ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
+            ('image', ImageChooserBlock(required=False, label=_('Slika'))),
+        ],
+        label=_('Sekcija s sliko'),
+        template='home/blocks/image_section.html',
+        icon='title',
+    )
 
     class Meta:
         label = _('Vsebina')

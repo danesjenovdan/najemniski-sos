@@ -171,6 +171,7 @@ h2 {
     }
   }
   border-bottom: 2px solid $primary;
+  z-index: 100;
 }
 
 footer {
@@ -349,5 +350,11 @@ footer {
       right: 1rem;
       bottom: 1rem;
     }
+  }
+}
+
+.image-section {
+  .btn {
+    margin: 0 0 1rem 0;
   }
 }

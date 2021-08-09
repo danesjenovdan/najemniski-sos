@@ -1,0 +1,20 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="image-section">
+    <div class="row">
+        <div class="col-12 col-lg-6 d-flex flex-column justify-content-center">
+            <h2>{{ value.title }}</h2>
+            {{ value.description }}
+            <div class="my-2">
+                {% for button in value.buttons %}
+                <div>
+                    <a class="btn btn-{{ button.value.style }}" href="{% pageurl button.value.page %}">{{ button.value.text }}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="">{% image value.image width-1100 class="img-fluid" %}</div>
+        </div>
+    </div>
+</div>
