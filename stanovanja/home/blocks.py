@@ -90,6 +90,50 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/share_and_care.html',
         icon='title',
     )
+    frequent_questions = blocks.StructBlock(
+        [
+            ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('button1', blocks.StructBlock(
+                [
+                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
+                ],
+                label=_('Prvi gumb'),
+            )),
+            ('button2', blocks.StructBlock(
+                [
+                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
+                ],
+                label=_('Drugi gumb'),
+            )),
+            ('button3', blocks.StructBlock(
+                [
+                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
+                ],
+                label=_('Tretji gumb'),
+            )),
+            ('button4', blocks.StructBlock(
+                [
+                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
+                ],
+                label=_('Četrti gumb'),
+            )),
+            ('button_redirect', blocks.StructBlock(
+                [
+                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
+                ],
+                label=_('Gumb za preusmeritev'),
+            )),
+        ],
+        label=_('Pogosta vprašanja'),
+        template='home/blocks/frequent_questions.html',
+        icon='title',
+    )
 
     class Meta:
         label = _('Vsebina')
