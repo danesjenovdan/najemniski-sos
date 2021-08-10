@@ -1,0 +1,61 @@
+{% extends "home/base_page.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}page page--solution{% endblock %}
+
+{% block page_body %}
+
+<div class="hero bg-section bg-section--gradient_purple_green">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-9">
+                <span class="supertitle">Pred najemom</span>
+                <h1 class="">{{ page.title }}</h1>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div class="bg-section">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 rich-text">
+                {% for block in page.body %}
+                {% include_block block %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-4">
+                <div class="clap-box">
+                    <h4>Ti je rešitev pomagala? Pokaži nam.</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="btn btn-clap">
+                        <img src="../static/icons/clap.svg" />
+                        <span>12</span>
+                    </button>
+                </div>
+                <div class="related-box">
+                    <h4>Povezani problemi</h4>
+                    <a href="" class="btn btn-fq position-relative h-100">
+                        <div class="border-box"></div>
+                        Kako mora izgledati moja pogodba?
+                        <img src="../static/icons/curved-arrow.svg" class="position-absolute" />
+                    </a>
+                    <a href="" class="btn btn-fq position-relative h-100">
+                        <div class="border-box"></div>
+                        Kako popisati inventar in stanje pred najemom?
+                        <img src="../static/icons/curved-arrow.svg" class="position-absolute" />
+                    </a>
+                    <a href="" class="btn btn-fq position-relative h-100">
+                        <div class="border-box"></div>
+                        Kaj narediti, če lastnik kar naprej vstopa v stanovanje?
+                        <img src="../static/icons/curved-arrow.svg" class="position-absolute" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+{% endblock %}

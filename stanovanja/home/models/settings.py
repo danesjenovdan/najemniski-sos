@@ -1,15 +1,15 @@
 from django.db import models
-
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, ObjectList,
-                                         StreamFieldPanel, TabbedInterface)
-
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    ObjectList,
+    StreamFieldPanel,
+    TabbedInterface,
+)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from .blocks import (ExternalLinkBlock, PageLinkBlock, SectionBlock)
+from .blocks import PageLinkBlock, ExternalLinkBlock
 
 
 @register_setting(icon='cog')
@@ -100,28 +100,3 @@ class MetaSettings(BaseSetting):
 
     class Meta:
         verbose_name = 'Meta nastavitve'
-
-
-class HomePage(Page):
-    body = StreamField(
-        [('section', SectionBlock())],
-        verbose_name=_('Vsebina'),
-        default='',
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-
-
-class ContentPage(Page):
-    body = StreamField(
-        [('section', SectionBlock())],
-        verbose_name=_('Vsebina'),
-        default='',
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-

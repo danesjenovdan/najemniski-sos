@@ -12,11 +12,15 @@ body {
   flex-grow: 1;
 }
 
-h2 {
-  font-size: 2rem;
+h1, h2, h3, h4, h5, h6 {
   font-family: $font-family-header;
   font-weight: 700;
   color: $primary;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
 }
 
 .bg-section {
@@ -79,9 +83,26 @@ h2 {
 .btn-fq {
   border: none;
   background-image: linear-gradient(-236deg, white, white, #dcf0cf , #d8d4f2);
+  padding: 2rem 2rem;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: $font-family-text;
+  text-align: left;
+  line-height: 1.25;
 }
 
-.btn-normal, .btn-background, .btn-fq {
+.btn-clap {
+  background-image: linear-gradient(-236deg, #fef0c5, #fef0c5, #dcf0cf , #d8d4f2);
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  img {
+    width: 2rem;
+  }
+}
+
+.btn-normal, .btn-background, .btn-fq, .btn-clap {
   background-size: 300% 100%;
   /* Transition duration and style */
   moz-transition: all .5s ease-in-out;
@@ -109,6 +130,22 @@ h2 {
   left: 1rem;
   z-index: 1;
   pointer-events: none;
+}
+
+.rich-text {
+  h2, h3, h4 {
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  hr {
+    position: relative;
+    background-image: linear-gradient(-57deg, #e9f5e0 0%, #f2f0f9 100%);
+    height: 0.5rem;
+    bottom: 0;
+    margin: 5rem 0;
+  }
 }
 
 .header {
@@ -176,10 +213,6 @@ h2 {
 
 footer {
   background-color: #d8d4f2;
-  h6 {
-    font-family: $font-family-header;
-    font-weight: 700;
-  }
   a {
     font-family: $font-family-header;
     font-weight: 700;
@@ -211,14 +244,12 @@ footer {
 }
 
 .hero {
-  h1 {
-    font-size: 3rem;
-    font-family: $font-family-header;
-    font-weight: 900;
-    color: $primary;
-  }
   p {
     font-size: 1.5rem;
+  }
+  .supertitle {
+    font-size: 0.75rem;
+    background-color: #fef0c5;
   }
   @media (min-width: 992px) {
     img {
@@ -338,13 +369,6 @@ footer {
     left: 0.5rem;
   }
   .btn-fq {
-    padding: 2rem 2rem;
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 400;
-    font-family: $font-family-text;
-    text-align: left;
-    line-height: 1.25;
     img {
       width: 3.5rem;
       right: 1rem;
@@ -356,5 +380,33 @@ footer {
 .image-section {
   .btn {
     margin: 0 0 1rem 0;
+  }
+}
+
+.clap-box, .related-box {
+  margin-left: 4rem;
+  padding: 2.25rem;
+}
+
+.clap-box {
+  background-color: #f2f0f9;
+}
+
+.related-box {
+  background-color: #fef0c5;
+  margin-top: 3rem;
+  .border-box {
+    top: 0.375rem;
+    left: 0.375rem;
+  }
+  .btn-fq {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    img {
+      width: 3.5rem;
+      right: 1rem;
+      bottom: 1rem;
+    }
   }
 }
