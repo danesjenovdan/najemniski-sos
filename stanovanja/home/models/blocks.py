@@ -145,6 +145,17 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/image_section.html',
         icon='title',
     )
+    solutions_list = blocks.StructBlock(
+        [
+        ],
+        label=_('Seznam rešitev'),
+        template='home/blocks/solutions_list_section.html',
+        icon='title',
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        return context
 
     class Meta:
         label = _('Vsebina')

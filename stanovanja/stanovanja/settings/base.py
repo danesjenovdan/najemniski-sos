@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.table_block',
     'wagtail.contrib.settings',
     'wagtail.contrib.styleguide',
+    'wagtail.contrib.modeladmin',
 ]
 
 MIDDLEWARE = [

@@ -7,7 +7,7 @@
                 <div class="footer-col">
                     <div class="footer-navigation">
                         {% for footer_link in settings.home.MetaSettings.footer_links %}
-                        <div class="my-2 d-flex align-items-center hover-animation">
+                        <div class="mb-2 d-flex align-items-center hover-animation">
                             <a class=""
                                href="{% if footer_link.value.url %}{{ footer_link.value.url }}{% elif footer_link.value.page %}{% pageurl footer_link.value.page %}{% endif %}">
                                 {% if footer_link.value.name %}

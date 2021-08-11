@@ -1,4 +1,5 @@
-from .blocks import ExternalLinkBlock, PageLinkBlock, ContentBlock, ColorSectionBlock, SectionBlock
+# from .blocks import ExternalLinkBlock, PageLinkBlock, ContentBlock, ColorSectionBlock, SectionBlock
+from .solution import SolutionCategory
 from .pages import HomePage, ContentPage
-# from .solution import
+
 from .settings import MetaSettings

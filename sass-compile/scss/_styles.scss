@@ -12,7 +12,7 @@ body {
   flex-grow: 1;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
   font-family: $font-family-header;
   font-weight: 700;
   color: $primary;
@@ -21,6 +21,16 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3rem;
   font-weight: 900;
+}
+
+h6 {
+  font-family: $font-family-header;
+}
+
+input.form-control {
+  font-size: 0.75rem;
+  color: black;
+  border: 2px solid $primary;
 }
 
 .bg-section {
@@ -97,6 +107,7 @@ h1 {
   margin: 0;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
+  font-family: $font-family-text;
   img {
     width: 2rem;
   }
@@ -213,6 +224,9 @@ h1 {
 
 footer {
   background-color: #d8d4f2;
+  h6 {
+    font-weight: 700;
+  }
   a {
     font-family: $font-family-header;
     font-weight: 700;
@@ -271,11 +285,6 @@ footer {
   form {
     width: 50%;
   }
-  input {
-    font-size: 0.75rem;
-    color: black;
-    border: 2px solid $primary;
-  }
   .btn {
     margin: 0;
   }
@@ -293,8 +302,8 @@ footer {
 
 .checkbox-wrapper {
   position: relative;
-  cursor: pointer;
   margin-left: 2.5rem;
+  padding-left: 0;
 
   input {
     position: absolute;
@@ -304,12 +313,13 @@ footer {
     transform: translate(-20px, 20px);
   }
 
-  span {
+  label {
     line-height: 1rem;
     font-size: 0.75rem;
+    cursor: pointer;
   }
 
-  span:after {
+  label:after {
     content: "";
     position: absolute;
     left: -2.5rem;
@@ -318,9 +328,10 @@ footer {
     height: 1.5rem;
     width: 1.5rem;
     background-color: white;
+    cursor: pointer;
   }
 
-  input:checked + span:after {
+  input:checked + label:after {
     background-image: url("../icons/checkbox.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -380,6 +391,52 @@ footer {
 .image-section {
   .btn {
     margin: 0 0 1rem 0;
+  }
+}
+
+.solutions-list {
+  .solutions-category {
+    background-color: #fef0c5;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    .checkbox-wrapper {
+      margin-left: 2rem;
+      margin-right: 0.5rem;
+      label {
+        color: $primary;
+        &:after {
+          background-color: transparent;
+          height: 1rem;
+          width: 1rem;
+          left: -1.5rem;
+          top: 0.325rem;
+        }
+      }
+    }
+  }
+  .btn-background {
+    margin: 0;
+    padding: 0.5rem;
+    img {
+      width: 1rem;
+    }
+  }
+  .list-element {
+    border-bottom: 1px solid $primary;
+    &:first-child {
+      border-top: 1px solid $primary;
+    }
+    &:hover {
+      background-color: #f2f0f9;
+    }
+    div:first-child {
+      padding-left: 2rem;
+      span {
+        background-color: #fef0c5;
+        font-size: 0.75rem;
+        padding: 0.125rem;
+      }
+    }
   }
 }
 

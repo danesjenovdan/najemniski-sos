@@ -1,0 +1,56 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="solutions-list">
+    <div class="row m-4">
+        <div class="col-lg-6">
+            <h6>Filtriraj po kategorijah</h6>
+            <div class="d-flex">
+                <div class="solutions-category">
+                    <div class="form-check form-check-inline checkbox-wrapper">
+                        <input type="checkbox" class="form-check-input" id="cat1">
+                        <label class="form-check-label" for="cat1">Pred najemom</label>
+                    </div>
+                </div>
+                <div class="solutions-category">
+                    <div class="form-check form-check-inline checkbox-wrapper">
+                        <input type="checkbox" class="form-check-input" id="cat2">
+                        <label class="form-check-label" for="cat2">Med najemom</label>
+                    </div>
+                </div>
+                <div class="solutions-category">
+                    <div class="form-check form-check-inline checkbox-wrapper">
+                        <input type="checkbox" class="form-check-input" id="cat3">
+                        <label class="form-check-label" for="cat3">Ob odselitvi</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h6>Išči po ključnih besedah</h6>
+            <div class="input-group w-75">
+                <input type="text" class="form-control" name="search" required>
+                <button class="btn btn-background" type="submit">
+                    <img src="../static/icons/search.svg" />
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-4">
+        <div class="col-12">
+            {% for solution in solutions %}
+            <a href="{{ solution.url }}" class="d-flex justify-content-between align-items-center text-decoration-none list-element py-2">
+                <div>
+                    <span>{{ solution.category }}</span>
+                    <h4>{{ solution.title }}</h4>
+                </div>
+                <div>
+                    <button class="btn btn-clap py-1 px-2">
+                        <img src="../static/icons/clap.svg" />
+                        <span>{{ solution.claps_no }}</span>
+                    </button>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
