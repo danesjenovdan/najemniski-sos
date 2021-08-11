@@ -6,11 +6,17 @@ from wagtail.contrib.modeladmin.options import (
 )
 from wagtail.core import hooks
 
-from .models import SolutionCategory
+from .models import SolutionCategory, RentalStory
 
 
 class SolutionCategoryAdmin(ModelAdmin):
     model = SolutionCategory
+    menu_icon = "group"
+    list_display = ("name",)
+
+
+class RentalStoryAdmin(ModelAdmin):
+    model = RentalStory
     menu_icon = "group"
     list_display = ("name",)
 
@@ -21,6 +27,7 @@ class SolutionGroup(ModelAdminGroup):
     menu_order = 200
     items = (
         SolutionCategoryAdmin,
+        RentalStoryAdmin,
     )
 
 

@@ -5,24 +5,14 @@
         <div class="col-lg-6">
             <h6>{{ value.filter_categories_label }}</h6>
             <div class="d-flex">
-                <div class="solutions-category">
+                {% for category in categories %}
+                <div class="solutions-category" style="background-color: {{ category.color }}">
                     <div class="form-check form-check-inline checkbox-wrapper">
-                        <input type="checkbox" class="form-check-input" id="cat1">
-                        <label class="form-check-label" for="cat1">Pred najemom</label>
+                        <input type="checkbox" class="form-check-input" id="{{ category.slug }}">
+                        <label class="form-check-label" for="{{ category.slug }}">{{ category.name }}</label>
                     </div>
                 </div>
-                <div class="solutions-category">
-                    <div class="form-check form-check-inline checkbox-wrapper">
-                        <input type="checkbox" class="form-check-input" id="cat2">
-                        <label class="form-check-label" for="cat2">Med najemom</label>
-                    </div>
-                </div>
-                <div class="solutions-category">
-                    <div class="form-check form-check-inline checkbox-wrapper">
-                        <input type="checkbox" class="form-check-input" id="cat3">
-                        <label class="form-check-label" for="cat3">Ob odselitvi</label>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="col-lg-6">

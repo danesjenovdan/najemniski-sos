@@ -38,9 +38,11 @@ class ContentPage(Page):
         # context["promise_categories"] = PromiseCategory.objects.all().order_by('id') # TODO this is a hack
 
         context["solutions"] = (
-            SolutionPage.objects.all()
-            .live()
+            SolutionPage.objects.all().live()
         ) # TO DO: PAGINATION!
+        context["categories"] = (
+            SolutionCategory.objects.all()
+        )
         return context
 
 
