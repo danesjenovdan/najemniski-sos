@@ -1,0 +1,27 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="new-problem-form">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="h-100 d-flex flex-column justify-content-center">
+                <h2>{{ value.title }}</h2>
+                {{ value.description }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <form class="m-5">
+                <div class="my-3">
+                    <textarea class="form-control" id="problem-description" rows="5" placeholder="{{ value.problem_input_placeholder }}"></textarea>
+                </div>
+                <div class="my-3">
+                    <input type="email" class="form-control" id="email" placeholder="{{ value.email_input_placeholder }}">
+                </div>
+                <div class="checkbox-wrapper form-check">
+                    <input type="checkbox" class="form-check-input" id="checkbox">
+                    <label class="form-check-label" for="checkbox">{{ value.checkbox_text }}</label>
+                </div>
+                <button type="submit" class="btn btn-normal mx-0">{{ value.submit_button }}</button>
+            </form>
+        </div>
+    </div>
+</div>

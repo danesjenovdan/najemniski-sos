@@ -3,7 +3,7 @@
 <div class="solutions-list">
     <div class="row m-4">
         <div class="col-lg-6">
-            <h6>Filtriraj po kategorijah</h6>
+            <h6>{{ value.filter_categories_label }}</h6>
             <div class="d-flex">
                 <div class="solutions-category">
                     <div class="form-check form-check-inline checkbox-wrapper">
@@ -26,9 +26,9 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <h6>Išči po ključnih besedah</h6>
+            <h6>{{ value.search_input_label }}</h6>
             <div class="input-group w-75">
-                <input type="text" class="form-control" name="search" required>
+                <input type="text" class="form-control" name="search" placeholder="{{ value.search_input_placeholder }}" required>
                 <button class="btn btn-background" type="submit">
                     <img src="../static/icons/search.svg" />
                 </button>

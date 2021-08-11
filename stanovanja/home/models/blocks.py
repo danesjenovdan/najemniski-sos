@@ -63,7 +63,7 @@ class ContentBlock(blocks.StreamBlock):
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
             ('submit_button', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-            ('checkbox_text', blocks.CharBlock(label=_('Pogoji'))),
+            ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),
         ],
         label=_('Obvestilnik'),
         template='home/blocks/newsletter.html',
@@ -147,9 +147,25 @@ class ContentBlock(blocks.StreamBlock):
     )
     solutions_list = blocks.StructBlock(
         [
+            ('filter_categories_label', blocks.CharBlock(label=_('Navodilo za filtriranje po kategorijah'))),
+            ('search_input_label', blocks.CharBlock(label=_('Navodilo za iskanje'))),
+            ('search_input_placeholder', blocks.CharBlock(label=_('Placeholder za iskalno polje'))),
         ],
         label=_('Seznam rešitev'),
         template='home/blocks/solutions_list_section.html',
+        icon='title',
+    )
+    new_problem_form = blocks.StructBlock(
+        [
+            ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('problem_input_placeholder', blocks.CharBlock(label=_('Placeholder za opis problema'))),
+            ('email_input_placeholder', blocks.CharBlock(label=_('Placeholder za email'))),
+            ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),
+            ('submit_button', blocks.CharBlock(label=_('Tekst na gumbu'))),
+        ],
+        label=_('Forma za oddat nov problem'),
+        template='home/blocks/new_problem_section.html',
         icon='title',
     )
 

@@ -16,6 +16,7 @@ h1, h2, h3, h4, h5 {
   font-family: $font-family-header;
   font-weight: 700;
   color: $primary;
+  margin-bottom: 1rem;
 }
 
 h1 {
@@ -27,8 +28,8 @@ h6 {
   font-family: $font-family-header;
 }
 
-input.form-control {
-  font-size: 0.75rem;
+input.form-control, textarea.form-control {
+  font-size: 1rem;
   color: black;
   border: 2px solid $primary;
 }
@@ -68,7 +69,7 @@ input.form-control {
   font-weight: 700;
   font-size: 0.875rem;
   font-family: $font-family-header;
-  padding: 0.875rem 1.75rem;
+  padding: 0.75rem 1.75rem;
   margin: 1rem 1rem;
 }
 
@@ -302,7 +303,7 @@ footer {
 
 .checkbox-wrapper {
   position: relative;
-  margin-left: 2.5rem;
+  margin-left: 1.5rem;
   padding-left: 0;
 
   input {
@@ -322,11 +323,11 @@ footer {
   label:after {
     content: "";
     position: absolute;
-    left: -2.5rem;
-    top: 0;
+    left: -1.5rem;
+    top: 0.325rem;
     border: 2px solid $primary;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1rem;
+    width: 1rem;
     background-color: white;
     cursor: pointer;
   }
@@ -406,10 +407,6 @@ footer {
         color: $primary;
         &:after {
           background-color: transparent;
-          height: 1rem;
-          width: 1rem;
-          left: -1.5rem;
-          top: 0.325rem;
         }
       }
     }
@@ -437,6 +434,12 @@ footer {
         padding: 0.125rem;
       }
     }
+  }
+}
+
+.new-problem-form {
+  form {
+    max-width: 24rem;
   }
 }
 
