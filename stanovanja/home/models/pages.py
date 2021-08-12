@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import (StreamFieldPanel, FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from django.utils.translation import gettext_lazy as _
 from .blocks import (SectionBlock)
-from .solution import (SolutionCategory)
+from .solution import (SolutionCategory, RentalStory)
 
 
 class HomePage(Page):
@@ -35,13 +35,15 @@ class ContentPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        # context["promise_categories"] = PromiseCategory.objects.all().order_by('id') # TODO this is a hack
 
         context["solutions"] = (
             SolutionPage.objects.all().live()
         ) # TO DO: PAGINATION!
         context["categories"] = (
             SolutionCategory.objects.all()
+        )
+        context["rental_stories"] = (
+            RentalStory.objects.all()[:6]
         )
         return context
 

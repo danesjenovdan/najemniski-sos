@@ -155,6 +155,14 @@ class ContentBlock(blocks.StreamBlock):
         template='home/blocks/solutions_list_section.html',
         icon='title',
     )
+    rental_stories_list = blocks.StructBlock(
+        [
+            ('button_text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+        ],
+        label=_('Seznam uporabniških zgodb'),
+        template='home/blocks/stories_list_section.html',
+        icon='title',
+    )
     new_problem_form = blocks.StructBlock(
         [
             ('title', blocks.CharBlock(label=_('Naslov'))),
