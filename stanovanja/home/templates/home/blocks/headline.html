@@ -10,7 +10,7 @@
         <div class="col-12 col-xl-8">
             <h1 class="text-center my-4">{{ value.title }}</h1>
             <div class="text-center">{{ value.description }}</div>
-            <div class="text-center">
+            <div class="text-center button-group">
                 {% for button in value.buttons %}
                 <a class="btn btn-{{ button.value.style }}" href="{% pageurl button.value.page %}" style="{% if button.value.arrow %}padding-right:4rem;{% endif %}">
                     {{ button.value.text }}
