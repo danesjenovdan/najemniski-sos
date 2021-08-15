@@ -34,6 +34,7 @@ class ButtonsBlock(blocks.StreamBlock):
           ],
           label=_('Stil gumba'),
         )),
+        ('arrow', blocks.BooleanBlock(default=False, label=_('Gumb s puščico'), required=False)),
         ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
         ('page', blocks.PageChooserBlock(label=_('Stran'))),
     ],
@@ -53,8 +54,20 @@ class ContentBlock(blocks.StreamBlock):
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
             ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
         ],
-        label=_('Naslov'),
+        label=_('Naslov (večji)'),
         template='home/blocks/headline.html',
+        icon='title',
+    )
+    headline_small = blocks.StructBlock(
+        [
+            ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
+            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
+            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
+        ],
+        label=_('Naslov (manjši)'),
+        template='home/blocks/headline_small.html',
         icon='title',
     )
     newsletter = blocks.StructBlock(

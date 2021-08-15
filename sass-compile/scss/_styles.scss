@@ -35,8 +35,8 @@ input.form-control, textarea.form-control {
 }
 
 .bg-section {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   position: relative;
 
   hr {
@@ -71,6 +71,11 @@ input.form-control, textarea.form-control {
   font-family: $font-family-header;
   padding: 0.75rem 1.75rem;
   margin: 1rem 1rem;
+  img {
+    width: 2rem;
+    margin-left: 0.5rem;
+    margin-top: 0.25rem;
+  }
 }
 
 .btn-underlined {
@@ -81,9 +86,7 @@ input.form-control, textarea.form-control {
 
 .btn-background {
   border: 2px solid #105099;
-  //background-image: linear-gradient(-236deg, #d8d4f2 0%, #dcf0cf 100%);
   background-image: linear-gradient(-236deg, #d8d4f2, #dcf0cf, #dcf0cf , #d8d4f2);
-  padding-right: 2rem;
 }
 
 .btn-normal {
@@ -161,6 +164,14 @@ input.form-control, textarea.form-control {
 }
 
 .header {
+  .logo {
+    text-decoration: none;
+    font-family: $font-family-header;
+    font-weight: 700;
+  }
+  .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.125rem;
+  }
   .nav-item {
     width: 100%;
     height: 100%;
@@ -258,27 +269,44 @@ footer {
   }
 }
 
-.hero {
-  p {
-    font-size: 1.5rem;
-  }
+.hero, .hero-small {
   .supertitle {
     font-size: 0.75rem;
     background-color: #fef0c5;
   }
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     img {
       position: absolute;
     }
   }
-  .image-left img {
-    left: 2rem;
-    width: 240px;
+  .image-left {
+    left: -2rem;
+    width: 12rem;
+    @media (min-width: 1400px) {
+      left: -4rem;
+      width: 16rem;
+    }
   }
-  .image-right img {
-    right: 0;
+  .image-right {
+    right: -2rem;
     bottom: 2rem;
-    width: 240px;
+    width: 12rem;
+    @media (min-width: 1400px) {
+      right: -4rem;
+      width: 16rem;
+    }
+  }
+}
+
+.hero {
+  p {
+    font-size: 1.5rem;
+  }
+}
+
+.hero-small {
+  p {
+    font-size: 1rem;
   }
 }
 
@@ -289,15 +317,19 @@ footer {
   .btn {
     margin: 0;
   }
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     img {
       position: absolute;
     }
   }
-  .image-right img {
-    right: 0;
+  .image-right {
+    right: -2rem;
     bottom: 2rem;
-    width: 240px;
+    width: 12rem;
+    @media (min-width: 1400px) {
+      right: -4rem;
+      width: 16rem;
+    }
   }
 }
 
@@ -392,6 +424,10 @@ footer {
 .image-section {
   .btn {
     margin: 0 0 1rem 0;
+  }
+  img {
+    margin-top: -3rem;
+    margin-bottom: -3rem;
   }
 }
 
