@@ -6,7 +6,7 @@ from wagtail.contrib.modeladmin.options import (
 )
 from wagtail.core import hooks
 
-from .models import SolutionCategory, RentalStory
+from .models import SolutionCategory, RentalStory, UserProblem
 
 
 class SolutionCategoryAdmin(ModelAdmin):
@@ -21,6 +21,12 @@ class RentalStoryAdmin(ModelAdmin):
     list_display = ("displayed_name", "approved")
 
 
+class UserProblemAdmin(ModelAdmin):
+    model = UserProblem
+    menu_icon = "group"
+    list_display = ("email",)
+
+
 class SolutionGroup(ModelAdminGroup):
     menu_label = "Rešitve"
     menu_icon = "folder-open-inverse"
@@ -28,6 +34,7 @@ class SolutionGroup(ModelAdminGroup):
     items = (
         SolutionCategoryAdmin,
         RentalStoryAdmin,
+        UserProblemAdmin
     )
 
 

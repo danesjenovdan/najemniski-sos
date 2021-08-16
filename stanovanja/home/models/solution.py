@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from wagtail.admin.edit_handlers import (FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
+from modelcluster.fields import ParentalKey
 
 
 class SolutionCategory(models.Model):
@@ -40,6 +41,34 @@ class SolutionCategory(models.Model):
     class Meta:
         verbose_name = "Kategorija rešitev"
         verbose_name_plural = "Kategorije rešitev"
+
+
+class UserProblem(models.Model):
+    description = models.TextField(
+        verbose_name=_("Besedilo zgodbe"),
+    )
+    email = models.EmailField(
+        verbose_name=_("E-mail"),
+    )
+    contact_permission = models.BooleanField(
+        default=False,
+        verbose_name=_("Lahko me kontaktirate"),
+    )
+    approved = models.BooleanField(
+        default=False,
+        verbose_name=_("Pregledano s strani administratorja"),
+    )
+
+    panels = [
+        FieldPanel("description"),
+        FieldPanel("email"),
+        FieldPanel("contact_permission"),
+        FieldPanel("approved"),
+    ]
+
+    class Meta:
+        verbose_name = "Oddan problem"
+        verbose_name_plural = "Oddani problemi"
 
 
 class RentalStory(models.Model):
@@ -98,6 +127,6 @@ class RentalStory(models.Model):
     ]
 
     class Meta:
-        verbose_name = "Uporabniška zgodbaaaaa"
+        verbose_name = "Uporabniška zgodba"
         verbose_name_plural = "Uporabniške zgodbe"
 
