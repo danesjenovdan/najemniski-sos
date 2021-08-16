@@ -6,6 +6,7 @@ from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import (StreamFieldPanel, FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from django.utils.translation import gettext_lazy as _
+from wagtail.search import index
 from .blocks import (SectionBlock)
 from .solution import (SolutionCategory, RentalStory)
 from ..forms import RentalStoryForm
@@ -37,15 +38,28 @@ class ContentPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context["solutions"] = (
-            SolutionPage.objects.all().live()
-        ) # TO DO: PAGINATION!
+        all_solutions = SolutionPage.objects.all().live()
         context["categories"] = (
             SolutionCategory.objects.all()
         )
         context["rental_stories"] = (
             RentalStory.objects.filter(approved=True, private=False)
         )
+
+        if request.method == 'GET':
+            # filter promises by search query, if there is one in url params
+            search_query = request.GET.get("query", None)
+            if search_query:
+                all_solutions = all_solutions.search(
+                    search_query,
+                    operator="and",
+                ).get_queryset()
+            categories = request.GET.getlist("category", None)
+            print(categories)
+            if categories:
+                all_solutions = all_solutions.filter(category_id__in=categories)
+                context["chosen_categories"] = [int(i) for i in categories]
+
 
         if request.method == 'POST':
             rental_story_form = RentalStoryForm(request.POST)
@@ -55,6 +69,7 @@ class ContentPage(Page):
         else:
             rental_story_form = RentalStoryForm()
 
+        context["solutions"] = all_solutions
         context["rental_story_form"] = rental_story_form
 
         return context
@@ -83,4 +98,8 @@ class SolutionPage(Page):
         ImageChooserPanel("image"),
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
     ]
