@@ -65,9 +65,26 @@ class RentalStory(models.Model):
         max_length=255,
         verbose_name=_("Naslov uporabnika"),
     )
+    private = models.BooleanField(
+        default=False,
+        verbose_name=_("Zgodba ni za javno objavo"),
+    )
+    approved = models.BooleanField(
+        default=False,
+        verbose_name=_("Pregledano (samo pregledane zgodbe so prikazane na strani)"),
+    )
+    displayed_name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=255,
+        verbose_name=_("Prikazano ime in naslov uporabnika"),
+    )
 
     def __str__(self):
-        return self.name
+        if (self.approved == True):
+            return self.displayed_name
+        else:
+            return 'ČAKA PREGLED ADMINISTRATORJA'
 
     panels = [
         FieldPanel("description"),
@@ -75,8 +92,12 @@ class RentalStory(models.Model):
         FieldPanel("name"),
         FieldPanel("email"),
         FieldPanel("address"),
+        FieldPanel("private"),
+        FieldPanel("approved"),
+        FieldPanel("displayed_name"),
     ]
 
     class Meta:
-        verbose_name = "Uporabniška zgodba"
+        verbose_name = "Uporabniška zgodbaaaaa"
         verbose_name_plural = "Uporabniške zgodbe"
+

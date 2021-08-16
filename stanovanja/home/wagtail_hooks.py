@@ -18,7 +18,7 @@ class SolutionCategoryAdmin(ModelAdmin):
 class RentalStoryAdmin(ModelAdmin):
     model = RentalStory
     menu_icon = "group"
-    list_display = ("name",)
+    list_display = ("displayed_name", "approved")
 
 
 class SolutionGroup(ModelAdminGroup):

@@ -28,7 +28,9 @@ h6 {
   font-family: $font-family-header;
 }
 
-input.form-control, textarea.form-control {
+input[type=text].form-control,
+input[type=email].form-control,
+textarea.form-control {
   font-size: 1rem;
   color: black;
   border: 2px solid $primary;
@@ -129,6 +131,10 @@ input.form-control, textarea.form-control {
     -webkit-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
   }
+}
+
+.modal-dialog {
+  max-width: 80%;
 }
 
 .button-group {

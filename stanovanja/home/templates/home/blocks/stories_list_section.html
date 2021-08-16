@@ -10,7 +10,7 @@
                 </div>
                 <div class="user d-flex align-items-center">
                     {% image story.icon width-1100 class="" %}
-                    <span>{{ story.name }}, {{ story.address }}</span>
+                    <span>{{ story.displayed_name }}</span>
                 </div>
                 <div class="text-end">
                     <button class="btn">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button class="btn btn-background w-100 mx-0 my-4">
+            <button class="btn btn-background w-100 mx-0 my-4" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
                 {{ value.button_text }}
                 <img src="../static/icons/curved-arrow.svg" />
             </button>

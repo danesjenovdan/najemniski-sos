@@ -8,6 +8,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from django.utils.translation import gettext_lazy as _
 from .blocks import (SectionBlock)
 from .solution import (SolutionCategory, RentalStory)
+from ..forms import RentalStoryForm
 
 
 class HomePage(Page):
@@ -43,8 +44,19 @@ class ContentPage(Page):
             SolutionCategory.objects.all()
         )
         context["rental_stories"] = (
-            RentalStory.objects.all()[:6]
+            RentalStory.objects.filter(approved=True, private=False)
         )
+
+        if request.method == 'POST':
+            rental_story_form = RentalStoryForm(request.POST)
+            if rental_story_form.is_valid():
+                rental_story_form.save()
+                rental_story_form = RentalStoryForm()
+        else:
+            rental_story_form = RentalStoryForm()
+
+        context["rental_story_form"] = rental_story_form
+
         return context
 
 
