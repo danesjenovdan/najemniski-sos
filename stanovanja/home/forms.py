@@ -8,7 +8,7 @@ class RentalStoryForm(forms.ModelForm):
         fields = ['description', 'icon', 'name', 'email', 'address', 'private']
         widgets = {
             'description': forms.Textarea(attrs={'rows': 5, 'class': "form-control", 'placeholder': 'Tvoja izkušnja'}),
-            'icon': forms.Select(attrs={'class': "form-control"}),
+            'icon': forms.TextInput(),
             'name': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Ime'}),
             'email': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'E-naslov'}),
             'address': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Ulica , poštna številka in pošta'}),

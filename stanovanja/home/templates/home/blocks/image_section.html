@@ -14,7 +14,13 @@
             </div>
         </div>
         <div class="col-12 col-lg-6">
+            {% if value.display == 'image' %}
             <div class="">{% image value.image width-1100 class="img-fluid" %}</div>
+            {% else %}
+            <div id="mapid"></div>
+            {% endif %}
         </div>
     </div>
 </div>
+
+<div id="rental-stories" class="position-absolute" style="opacity: 0; z-index: -1000;">{{ rental_stories_stringified }}</div>

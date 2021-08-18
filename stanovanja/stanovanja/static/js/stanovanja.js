@@ -69,3 +69,69 @@
         });
     });
 })();
+
+(function () {
+    var map_el = document.getElementById('mapid');
+    var rental_stories_el = document.getElementById('rental-stories');
+
+    if (map_el) {
+        var map = L.map('mapid').setView([46.2, 15], 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var markerIcon = L.icon({
+            iconUrl: '../static/icons/arrow.svg',
+            iconSize: [44, 30],
+            iconAnchor: [22, 15],
+            popupAnchor: [0, -2],
+        });
+
+        const iconOptions = {
+            iconSize  : [40, 60],
+            iconAnchor: [20, 60],
+            className : 'mymarker',
+            popupAnchor: [0, -60],
+        }
+
+        if (rental_stories_el) {
+            var stories = JSON.parse(rental_stories_el.innerText);
+
+            stories.forEach((story) => {
+                console.log(story);
+                if (story.fields.lat && story.fields.lng && story.fields.icon) {
+
+                    iconOptions.html = story.fields.icon;
+
+                    const markerOptions = {
+                        icon: L.divIcon(iconOptions)
+                    };
+
+                    L.marker([story.fields.lat, story.fields.lng], markerOptions)
+                    .addTo(map)
+                    .bindPopup(`
+                    <div><p>${story.fields.description}</p></div>
+                    <div class="d-flex justify-content-between">
+                        <span>${story.fields.displayed_name}</span>
+                        <span>PREBERI VEČ</span>
+                    </div>
+                `);
+                }
+
+            });
+        } else {
+            console.log('no map')
+        }
+    }
+
+})();
+
+(function () {
+    const chosen_emoji = document.getElementById('chosen-emoji');
+    document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
+        console.log(event.detail)
+        chosen_emoji.innerHTML = event.detail.unicode;
+        document.getElementById('id_icon').value = event.detail.unicode;
+        chosen_emoji.click();
+    });
+})();

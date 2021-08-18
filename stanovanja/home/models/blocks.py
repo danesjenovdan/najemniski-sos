@@ -152,9 +152,16 @@ class ContentBlock(blocks.StreamBlock):
             ('title', blocks.CharBlock(label=_('Naslov'))),
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
+            ('display', blocks.ChoiceBlock(
+                choices=[
+                    ('image', 'Slika'),
+                    ('map', 'Zemljevid'),
+                ],
+                label=_('Slika ali zemljevid?'),
+            )),
             ('image', ImageChooserBlock(required=False, label=_('Slika'))),
         ],
-        label=_('Sekcija s sliko'),
+        label=_('Sekcija s sliko ali zemljevidom'),
         template='home/blocks/image_section.html',
         icon='title',
     )

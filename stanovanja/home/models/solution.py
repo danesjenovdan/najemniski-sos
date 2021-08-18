@@ -75,13 +75,11 @@ class RentalStory(models.Model):
     description = models.TextField(
         verbose_name=_("Besedilo zgodbe"),
     )
-    icon = models.ForeignKey(
-        "wagtailimages.Image",
-        verbose_name=_("Ikona"),
+    icon = models.CharField(
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
+        max_length=24,
+        verbose_name=_("Ikona"),
     )
     name = models.CharField(
         max_length=255,
@@ -108,6 +106,20 @@ class RentalStory(models.Model):
         max_length=255,
         verbose_name=_("Prikazano ime in naslov uporabnika"),
     )
+    lat = models.DecimalField(
+         null=True,
+         blank=True,
+         max_digits=10,
+         decimal_places=7,
+         verbose_name=_("Zemljepisna širina"),
+    )
+    lng = models.DecimalField(
+         null=True,
+         blank=True,
+         max_digits=10,
+         decimal_places=7,
+         verbose_name=_("Zemljepisna dolžina"),
+    )
 
     def __str__(self):
         if (self.approved == True):
@@ -117,13 +129,15 @@ class RentalStory(models.Model):
 
     panels = [
         FieldPanel("description"),
-        ImageChooserPanel("icon"),
+        FieldPanel("icon"),
         FieldPanel("name"),
         FieldPanel("email"),
         FieldPanel("address"),
         FieldPanel("private"),
         FieldPanel("approved"),
         FieldPanel("displayed_name"),
+        FieldPanel("lat"),
+        FieldPanel("lng"),
     ]
 
     class Meta:

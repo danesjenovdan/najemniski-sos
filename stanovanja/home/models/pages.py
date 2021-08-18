@@ -1,11 +1,13 @@
 from django.db import models
 from django import forms
+from django.utils.translation import gettext_lazy as _
+from django.core.mail import send_mail
+from django.core import serializers
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
-from django.utils.translation import gettext_lazy as _
 from wagtail.search import index
 from .blocks import (SectionBlock)
 from .solution import (SolutionCategory, RentalStory, UserProblem)
@@ -39,12 +41,16 @@ class ContentPage(Page):
         context = super().get_context(request)
 
         all_solutions = SolutionPage.objects.all().live()
+
         context["categories"] = (
             SolutionCategory.objects.all()
         )
-        context["rental_stories"] = (
-            RentalStory.objects.filter(approved=True, private=False)
-        )
+
+        rental_stories = RentalStory.objects.filter(approved=True, private=False)
+        context["rental_stories"] = rental_stories
+        rental_stories_stringified = serializers.serialize("json", rental_stories, fields=('lat', 'lng', 'description', 'icon', 'displayed_name'))
+        print(rental_stories_stringified)
+        context["rental_stories_stringified"] = rental_stories_stringified
 
         if request.method == 'GET':
             # filter promises by search query, if there is one in url params
@@ -67,11 +73,21 @@ class ContentPage(Page):
             rental_story_form = RentalStoryForm(request.POST)
             user_problem_form = UserProblemSubmissionForm(request.POST)
 
-            print(request)
 
             if rental_story_form.is_valid():
                 rental_story_form.save()
                 rental_story_form = RentalStoryForm()
+                """
+                send_mail(
+                    'Nova najemniška zgodba',
+                    'Forma tekst',
+                    None,
+                    ['patricija.brecko@gmail.com'],
+                    fail_silently=False,
+                )
+                """
+            else:
+                print(rental_story_form.errors)
 
             if user_problem_form.is_valid():
                 user_problem_form.save()
