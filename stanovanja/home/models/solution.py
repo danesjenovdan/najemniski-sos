@@ -66,6 +66,9 @@ class UserProblem(models.Model):
         FieldPanel("approved"),
     ]
 
+    def __str__(self):
+        return self.description
+
     class Meta:
         verbose_name = "Oddan problem"
         verbose_name_plural = "Oddani problemi"

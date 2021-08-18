@@ -128,10 +128,12 @@
 
 (function () {
     const chosen_emoji = document.getElementById('chosen-emoji');
-    document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
-        console.log(event.detail)
-        chosen_emoji.innerHTML = event.detail.unicode;
-        document.getElementById('id_icon').value = event.detail.unicode;
-        chosen_emoji.click();
-    });
+    if (chosen_emoji) {
+        document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
+            console.log(event.detail)
+            chosen_emoji.innerHTML = event.detail.unicode;
+            document.getElementById('id_icon').value = event.detail.unicode;
+            chosen_emoji.click();
+        });
+    }
 })();

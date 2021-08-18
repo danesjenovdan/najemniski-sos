@@ -1,21 +1,23 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="hero position-relative">
     <div class="row">
+        {% if value.title_position == 'center' %}
         <div class="d-none d-xl-flex align-items-center col-xl-2">
             {% if value.image_left %}
             {% image value.image_left width-1100 class="img-fluid image-left" %}
             {% endif %}
         </div>
-        <div class="col-12 col-xl-8">
-            <h1 class="text-center my-4">{{ value.title }}</h1>
-            <div class="text-center">{{ value.description }}</div>
-            <div class="text-center button-group">
+        {% endif %}
+        <div class="col-12 {% if value.title_position == 'center' %}col-xl-8 {% else %} col-xl-10 {% endif %}">
+            <h1 class="text-{{ value.title_position }} my-4">{{ value.title }}</h1>
+            <div class="{{ value.title_position }}">{{ value.description }}</div>
+            <div class="text-{{ value.title_position }} button-group">
                 {% for button in value.buttons %}
                 <a class="btn btn-{{ button.value.style }}" href="{% pageurl button.value.page %}" style="{% if button.value.arrow %}padding-right:4rem;{% endif %}">
                     {{ button.value.text }}
                     {% if button.value.arrow %}
-                    <img src="../static/icons/curved-arrow.svg" class="position-absolute" />
+                    <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     {% endif %}
                 </a>
                 {% endfor %}
