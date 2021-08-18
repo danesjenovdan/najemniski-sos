@@ -9,12 +9,11 @@
                     <p>{{ story.description }}</p>
                 </div>
                 <div class="user d-flex align-items-center">
-                    {% image story.icon width-1100 class="" %}
+                    <span>{{ story.icon }}</span>
                     <span>{{ story.displayed_name }}</span>
                 </div>
                 <div class="text-end">
                     <button class="btn">
-
                         <span>PREBERI VEČ</span>
                         <img src="../static/icons/arrow.svg" />
                     </button>
@@ -31,8 +30,8 @@
                     <p>{{ story.description }}</p>
                 </div>
                 <div class="user d-flex align-items-center">
-                    {% image story.icon width-1100 class="" %}
-                    <span>{{ story.name }}, {{ story.address }}</span>
+                    <span>{{ story.icon }}</span>
+                    <span>{{ story.displayed_name }}</span>
                 </div>
                 <div class="text-end">
                     <button class="btn">
@@ -44,7 +43,7 @@
             {% endfor %}
         </div>
         <div class="col-lg-4">
-            #map
+            <div id="mapid" style="left: 66%;"></div>
         </div>
     </div>
 </div>

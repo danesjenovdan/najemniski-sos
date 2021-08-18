@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row py-5">
             <div class="col-lg-9">
-                <span class="supertitle">Pred najemom</span>
+                <span class="supertitle" style="background-color: {{ page.category.color }}">{{ page.category }}</span>
                 <h1 class="">{{ page.title }}</h1>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="row py-5">
             <div class="col-lg-8 rich-text">
                 {% for block in page.body %}
-                {% include_block block %}
+                    {% include_block block %}
                 {% endfor %}
             </div>
             <div class="col-lg-4">
@@ -31,7 +31,7 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     <button class="btn btn-clap">
                         <img src="../static/icons/clap.svg" />
-                        <span>12</span>
+                        <span>{{ page.claps_no }}</span>
                     </button>
                 </div>
                 <div class="related-box">

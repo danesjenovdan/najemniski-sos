@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from wagtail.admin.edit_handlers import (FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
+from modelcluster.fields import ParentalKey
 
 
 class SolutionCategory(models.Model):
@@ -42,17 +43,43 @@ class SolutionCategory(models.Model):
         verbose_name_plural = "Kategorije rešitev"
 
 
+class UserProblem(models.Model):
+    description = models.TextField(
+        verbose_name=_("Besedilo zgodbe"),
+    )
+    email = models.EmailField(
+        verbose_name=_("E-mail"),
+    )
+    contact_permission = models.BooleanField(
+        default=False,
+        verbose_name=_("Lahko me kontaktirate"),
+    )
+    approved = models.BooleanField(
+        default=False,
+        verbose_name=_("Pregledano s strani administratorja"),
+    )
+
+    panels = [
+        FieldPanel("description"),
+        FieldPanel("email"),
+        FieldPanel("contact_permission"),
+        FieldPanel("approved"),
+    ]
+
+    class Meta:
+        verbose_name = "Oddan problem"
+        verbose_name_plural = "Oddani problemi"
+
+
 class RentalStory(models.Model):
     description = models.TextField(
         verbose_name=_("Besedilo zgodbe"),
     )
-    icon = models.ForeignKey(
-        "wagtailimages.Image",
-        verbose_name=_("Ikona"),
+    icon = models.CharField(
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
+        max_length=24,
+        verbose_name=_("Ikona"),
     )
     name = models.CharField(
         max_length=255,
@@ -79,6 +106,20 @@ class RentalStory(models.Model):
         max_length=255,
         verbose_name=_("Prikazano ime in naslov uporabnika"),
     )
+    lat = models.DecimalField(
+         null=True,
+         blank=True,
+         max_digits=10,
+         decimal_places=7,
+         verbose_name=_("Zemljepisna širina"),
+    )
+    lng = models.DecimalField(
+         null=True,
+         blank=True,
+         max_digits=10,
+         decimal_places=7,
+         verbose_name=_("Zemljepisna dolžina"),
+    )
 
     def __str__(self):
         if (self.approved == True):
@@ -88,16 +129,18 @@ class RentalStory(models.Model):
 
     panels = [
         FieldPanel("description"),
-        ImageChooserPanel("icon"),
+        FieldPanel("icon"),
         FieldPanel("name"),
         FieldPanel("email"),
         FieldPanel("address"),
         FieldPanel("private"),
         FieldPanel("approved"),
         FieldPanel("displayed_name"),
+        FieldPanel("lat"),
+        FieldPanel("lng"),
     ]
 
     class Meta:
-        verbose_name = "Uporabniška zgodbaaaaa"
+        verbose_name = "Uporabniška zgodba"
         verbose_name_plural = "Uporabniške zgodbe"
 

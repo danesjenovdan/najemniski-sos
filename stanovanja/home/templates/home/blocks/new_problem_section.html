@@ -9,16 +9,17 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <form class="m-5">
+            <form method="post" class="m-5">
+                {% csrf_token %}
                 <div class="my-3">
-                    <textarea class="form-control" id="problem-description" rows="5" placeholder="{{ value.problem_input_placeholder }}"></textarea>
+                    {{ user_problem_form.description }}
                 </div>
                 <div class="my-3">
-                    <input type="email" class="form-control" id="email" placeholder="{{ value.email_input_placeholder }}">
+                    {{ user_problem_form.email }}
                 </div>
                 <div class="checkbox-wrapper form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" for="checkbox">{{ value.checkbox_text }}</label>
+                    {{ user_problem_form.contact_permission }}
+                    <label class="form-check-label" for="{{ user_problem_form.contact_permission.auto_id }}">{{ value.checkbox_text }}</label>
                 </div>
                 <button type="submit" class="btn btn-normal mx-0">{{ value.submit_button }}</button>
             </form>

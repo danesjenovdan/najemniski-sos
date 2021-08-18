@@ -1,26 +1,17 @@
 from django.db import models
 from django import forms
+from django.utils.translation import gettext_lazy as _
+from django.core.mail import send_mail
+from django.core import serializers
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import (StreamFieldPanel, FieldPanel)
+from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
-from django.utils.translation import gettext_lazy as _
+from wagtail.search import index
 from .blocks import (SectionBlock)
-from .solution import (SolutionCategory, RentalStory)
-from ..forms import RentalStoryForm
-
-
-class HomePage(Page):
-    body = StreamField(
-        [('section', SectionBlock())],
-        verbose_name=_('Vsebina'),
-        default='',
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
+from .solution import (SolutionCategory, RentalStory, UserProblem)
+from ..forms import RentalStoryForm, UserProblemSubmissionForm
 
 
 class ContentPage(Page):
@@ -37,25 +28,61 @@ class ContentPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context["solutions"] = (
-            SolutionPage.objects.all().live()
-        ) # TO DO: PAGINATION!
+        all_solutions = SolutionPage.objects.all().live()
+
         context["categories"] = (
             SolutionCategory.objects.all()
         )
-        context["rental_stories"] = (
-            RentalStory.objects.filter(approved=True, private=False)
-        )
+
+        rental_stories = RentalStory.objects.filter(approved=True, private=False)
+        context["rental_stories"] = rental_stories
+        rental_stories_stringified = serializers.serialize("json", rental_stories, fields=('lat', 'lng', 'description', 'icon', 'displayed_name'))
+        context["rental_stories_stringified"] = rental_stories_stringified
+
+        if request.method == 'GET':
+            # filter promises by search query, if there is one in url params
+            search_query = request.GET.get("query", None)
+            if search_query:
+                all_solutions = all_solutions.search(
+                    search_query,
+                    operator="and",
+                ).get_queryset()
+            categories = request.GET.getlist("category", None)
+            print(categories)
+            if categories:
+                all_solutions = all_solutions.filter(category_id__in=categories)
+                context["chosen_categories"] = [int(i) for i in categories]
+
+            rental_story_form = RentalStoryForm()
+            user_problem_form = UserProblemSubmissionForm()
 
         if request.method == 'POST':
             rental_story_form = RentalStoryForm(request.POST)
+            user_problem_form = UserProblemSubmissionForm(request.POST)
+
+
             if rental_story_form.is_valid():
                 rental_story_form.save()
                 rental_story_form = RentalStoryForm()
-        else:
-            rental_story_form = RentalStoryForm()
+                """
+                send_mail(
+                    'Nova najemniška zgodba',
+                    'Forma tekst',
+                    None,
+                    ['patricija.brecko@gmail.com'],
+                    fail_silently=False,
+                )
+                """
+            else:
+                print(rental_story_form.errors)
 
+            if user_problem_form.is_valid():
+                user_problem_form.save()
+                user_problem_form = UserProblemSubmissionForm()
+
+        context["solutions"] = all_solutions
         context["rental_story_form"] = rental_story_form
+        context["user_problem_form"] = user_problem_form
 
         return context
 
@@ -77,10 +104,16 @@ class SolutionPage(Page):
     )
     claps_no = models.IntegerField(verbose_name=_("Število ploskov"), default=0)
     category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL)
+    user_problem = models.ForeignKey(UserProblem, null=True, on_delete=models.SET_NULL, limit_choices_to={'approved': False}, verbose_name=_("Uporabniški problem"))
 
     content_panels = Page.content_panels + [
         StreamFieldPanel("body"),
         ImageChooserPanel("image"),
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
+        FieldPanel("user_problem", widget=forms.Select), # widget=forms.SelectMultiple
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
     ]
