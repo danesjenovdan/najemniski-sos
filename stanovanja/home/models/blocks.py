@@ -49,6 +49,13 @@ class ContentBlock(blocks.StreamBlock):
     headline = blocks.StructBlock(
         [
             ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('title_position', blocks.ChoiceBlock(
+                choices = [
+                    ('center', 'Sredinska'),
+                    ('start', 'Leva')
+                ],
+                label=_('Poravnava naslova'),
+            )),
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
@@ -61,6 +68,13 @@ class ContentBlock(blocks.StreamBlock):
     headline_small = blocks.StructBlock(
         [
             ('title', blocks.CharBlock(label=_('Naslov'))),
+            ('title_position', blocks.ChoiceBlock(
+                choices = [
+                    ('center', 'Sredinska'),
+                    ('start', 'Leva')
+                ],
+                label=_('Poravnava naslova'),
+            )),
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
             ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),

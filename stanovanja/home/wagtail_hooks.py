@@ -24,7 +24,7 @@ class RentalStoryAdmin(ModelAdmin):
 class UserProblemAdmin(ModelAdmin):
     model = UserProblem
     menu_icon = "group"
-    list_display = ("email",)
+    list_display = ("email", "description",)
 
 
 class SolutionGroup(ModelAdminGroup):

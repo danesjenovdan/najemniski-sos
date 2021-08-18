@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="hero-small position-relative">
     <div class="row">
@@ -40,11 +40,13 @@
                         {{ value.modal_description }}
                     </div>
                     <div class="col-lg-6">
+                        {{ rental_story_form.non_field_errors }}
                         <form method="post" class="row">
                             {% csrf_token %}
                             <div class="col-12">
                                 <div class="form-group my-2">
                                     {{ rental_story_form.description }}
+                                    {{ rental_story_form.description.errors }}
                                 </div>
                             </div>
                             <div class="col-12">
@@ -71,16 +73,19 @@
                             <div class="col-6">
                                 <div class="form-group my-2">
                                     {{ rental_story_form.name }}
+                                    {{ rental_story_form.name.errors }}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group my-2">
                                     {{ rental_story_form.email }}
+                                    {{ rental_story_form.email.errors }}
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group my-2">
                                     {{ rental_story_form.address }}
+                                    {{ rental_story_form.address.errors }}
                                 </div>
                             </div>
                             <div class="col-12 my-2">
@@ -98,9 +103,9 @@
                                 </div>
                             </div>
                             <div class="col-12 button-group my-2">
-                                <button class="btn btn-background my-2 mx-0" type="submit" style="padding-right:4rem;">
+                                <button class="btn btn-background my-2 mx-0" name="new_story" type="submit" style="padding-right:4rem;">
                                     {{ value.modal_form_button }}
-                                    <img src="../static/icons/curved-arrow.svg" class="position-absolute" />
+                                    <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                                 </button>
                             </div>
                         </form>

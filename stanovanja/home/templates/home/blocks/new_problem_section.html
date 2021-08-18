@@ -9,19 +9,22 @@
             </div>
         </div>
         <div class="col-lg-6">
+            {{ user_problem_form.non_field_errors }}
             <form method="post" class="m-5">
                 {% csrf_token %}
                 <div class="my-3">
                     {{ user_problem_form.description }}
+                    {{ user_problem_form.description.errors }}
                 </div>
                 <div class="my-3">
                     {{ user_problem_form.email }}
+                    {{ user_problem_form.email.errors }}
                 </div>
                 <div class="checkbox-wrapper form-check">
                     {{ user_problem_form.contact_permission }}
                     <label class="form-check-label" for="{{ user_problem_form.contact_permission.auto_id }}">{{ value.checkbox_text }}</label>
                 </div>
-                <button type="submit" class="btn btn-normal mx-0">{{ value.submit_button }}</button>
+                <button type="submit" name="new_problem" class="btn btn-normal mx-0">{{ value.submit_button }}</button>
             </form>
         </div>
     </div>

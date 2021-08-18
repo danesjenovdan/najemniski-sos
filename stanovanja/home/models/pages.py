@@ -3,6 +3,9 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.core import serializers
+from django.template.response import TemplateResponse
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
@@ -25,10 +28,10 @@ class ContentPage(Page):
         StreamFieldPanel('body'),
     ]
 
-    def get_context(self, request):
+    def get_context(self, request, rental_story_form=None, user_problem_form=None):
         context = super().get_context(request)
 
-        all_solutions = SolutionPage.objects.all().live()
+        solutions = SolutionPage.objects.all().live()
 
         context["categories"] = (
             SolutionCategory.objects.all()
@@ -43,48 +46,72 @@ class ContentPage(Page):
             # filter promises by search query, if there is one in url params
             search_query = request.GET.get("query", None)
             if search_query:
-                all_solutions = all_solutions.search(
+                solutions = solutions.search(
                     search_query,
                     operator="and",
                 ).get_queryset()
             categories = request.GET.getlist("category", None)
             print(categories)
             if categories:
-                all_solutions = all_solutions.filter(category_id__in=categories)
+                solutions = solutions.filter(category_id__in=categories)
                 context["chosen_categories"] = [int(i) for i in categories]
 
             rental_story_form = RentalStoryForm()
             user_problem_form = UserProblemSubmissionForm()
 
-        if request.method == 'POST':
-            rental_story_form = RentalStoryForm(request.POST)
-            user_problem_form = UserProblemSubmissionForm(request.POST)
-
-
-            if rental_story_form.is_valid():
-                rental_story_form.save()
-                rental_story_form = RentalStoryForm()
-                """
-                send_mail(
-                    'Nova najemniška zgodba',
-                    'Forma tekst',
-                    None,
-                    ['patricija.brecko@gmail.com'],
-                    fail_silently=False,
-                )
-                """
-            else:
-                print(rental_story_form.errors)
-
-            if user_problem_form.is_valid():
-                user_problem_form.save()
-                user_problem_form = UserProblemSubmissionForm()
-
-        context["solutions"] = all_solutions
+        context["solutions"] = solutions
         context["rental_story_form"] = rental_story_form
         context["user_problem_form"] = user_problem_form
 
         return context
+
+    def serve(self, request):
+
+        if request.method == 'GET':
+            return TemplateResponse(
+                request,
+                self.get_template(request),
+                self.get_context(request)
+            )
+
+        if request.method == 'POST':
+            if 'new_story' in request.POST:
+                rental_story_form = RentalStoryForm(request.POST)
+
+                if rental_story_form.is_valid():
+                    rental_story_form.save()
+                    rental_story_form = RentalStoryForm()
+                    """
+                    send_mail(
+                        'Nova najemniška zgodba',
+                        'Forma tekst',
+                        None,
+                        ['patricija.brecko@gmail.com'],
+                        fail_silently=False,
+                    )
+                    """
+                    return HttpResponseRedirect(request.path)
+                else:
+                    return TemplateResponse(
+                        request,
+                        self.get_template(request),
+                        self.get_context(request, rental_story_form=rental_story_form, user_problem_form=UserProblemSubmissionForm())
+                    )
+
+            if 'new_problem' in request.POST:
+                user_problem_form = UserProblemSubmissionForm(request.POST)
+                if user_problem_form.is_valid():
+                    user_problem_form.save()
+                    user_problem_form = UserProblemSubmissionForm()
+                    return HttpResponseRedirect(request.path)
+                else:
+                    return TemplateResponse(
+                        request,
+                        self.get_template(request),
+                        self.get_context(request, rental_story_form=RentalStoryForm(), user_problem_form=user_problem_form)
+                    )
+
+            return HttpResponseRedirect(request.path)
 
 
 class SolutionPage(Page):

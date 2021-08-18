@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="solutions-list">
     <form method="get" class="row m-4">
@@ -20,7 +20,7 @@
             <div class="input-group w-75">
                 <input type="text" class="form-control" id="search-header" name="query" placeholder="{{ value.search_input_placeholder }}" value="{{ request.GET.query }}">
                 <button class="btn btn-background" type="submit">
-                    <img src="../static/icons/search.svg" />
+                    <img src="{% static 'icons/search.svg' %}" />
                 </button>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <button class="btn btn-clap py-1 px-2">
-                        <img src="../static/icons/clap.svg" />
+                        <img src="{% static 'icons/clap.svg' %}" />
                         <span>{{ solution.claps_no }}</span>
                     </button>
                 </div>

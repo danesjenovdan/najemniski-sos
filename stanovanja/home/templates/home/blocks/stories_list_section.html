@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="stories-list-section">
     <div class="row">
@@ -15,14 +15,14 @@
                 <div class="text-end">
                     <button class="btn">
                         <span>PREBERI VEČ</span>
-                        <img src="../static/icons/arrow.svg" />
+                        <img src="{% static 'icons/arrow.svg' %}" />
                     </button>
                 </div>
             </div>
             {% endfor %}
             <button class="btn btn-background w-100 mx-0 my-4" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
                 {{ value.button_text }}
-                <img src="../static/icons/curved-arrow.svg" />
+                <img src="{% static 'icons/curved-arrow.svg' %}" />
             </button>
             {% for story in rental_stories|slice:"3:6" %}
             <div class="list-element">
@@ -36,7 +36,7 @@
                 <div class="text-end">
                     <button class="btn">
                         <span>PREBERI VEČ</span>
-                        <img src="../static/icons/arrow.svg" />
+                        <img src="{% static 'icons/arrow.svg' %}" />
                     </button>
                 </div>
             </div>
