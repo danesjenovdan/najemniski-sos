@@ -14,18 +14,6 @@ from .solution import (SolutionCategory, RentalStory, UserProblem)
 from ..forms import RentalStoryForm, UserProblemSubmissionForm
 
 
-class HomePage(Page):
-    body = StreamField(
-        [('section', SectionBlock())],
-        verbose_name=_('Vsebina'),
-        default='',
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-
-
 class ContentPage(Page):
     body = StreamField(
         [('section', SectionBlock())],
@@ -49,7 +37,6 @@ class ContentPage(Page):
         rental_stories = RentalStory.objects.filter(approved=True, private=False)
         context["rental_stories"] = rental_stories
         rental_stories_stringified = serializers.serialize("json", rental_stories, fields=('lat', 'lng', 'description', 'icon', 'displayed_name'))
-        print(rental_stories_stringified)
         context["rental_stories_stringified"] = rental_stories_stringified
 
         if request.method == 'GET':
