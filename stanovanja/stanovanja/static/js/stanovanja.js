@@ -114,7 +114,6 @@ function getCookie(name) {
             var stories = JSON.parse(rental_stories_el.innerText);
 
             stories.forEach((story) => {
-                console.log(story);
                 if (story.fields.lat && story.fields.lng && story.fields.icon) {
 
                     iconOptions.html = story.fields.icon;
@@ -136,8 +135,10 @@ function getCookie(name) {
 
             });
         } else {
-            console.log('no map')
+            console.log('no rental stories');
         }
+    } else {
+        console.log('no map');
     }
 
 })();
@@ -160,7 +161,7 @@ function getCookie(name) {
 
     const counter = {}
     $(".btn-clap").each(function() {
-        counter[$( this ).val()] = {
+        counter[$(this).val()] = {
             debounce: null,
             clickCounter: 0
         }
@@ -180,7 +181,6 @@ function getCookie(name) {
 
         // Update and log the counts after 3 seconds
         counter[id].debounce = setTimeout(function () {
-
             fetch(window.location.origin + "/clap/" + id, {
                 method: "PUT",
                 headers: {
@@ -198,10 +198,31 @@ function getCookie(name) {
                 }
                 throw new Error("Response not ok");
             })
-
             counter[id].clickCounter = 0;
-
         }, 1000);
     });
+})();
 
+(function () {
+    $(".read-more").each(function() {
+        $(this).on('click', () => {
+            const full_text = $(this).parent().parent().find('.story-description p:first-child');
+            const shorter = $(this).parent().parent().find('.story-description p:last-child');
+
+            // $(this).parent().parent().find('.story-description p').text(full_description);
+            // console.log($(this).parent().parent().find('.story-description p').text());
+
+            if (shorter.css("display") === "none") {
+                shorter.css("display", "inline");
+                $(this).text = "PREBERI VEĆ";
+                $(this).find("img").css("transform", "rotate(0)");
+                full_text.css("display", "none");
+            } else {
+                shorter.css("display", "none");
+                $(this).text = "PREBERI MANJ";
+                $(this).find("img").css("transform", "rotate(180deg)");
+                full_text.css("display", "inline");
+            }
+        })
+    })
 })();
