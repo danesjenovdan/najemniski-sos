@@ -36,7 +36,7 @@
                     <h4>{{ solution.title }}</h4>
                 </div>
                 <div>
-                    <button class="btn btn-clap py-1 px-2">
+                    <button class="btn btn-clap py-1 px-2" value="{{ solution.id }}">
                         <img src="{% static 'icons/clap.svg' %}" />
                         <span>{{ solution.claps_no }}</span>
                     </button>
