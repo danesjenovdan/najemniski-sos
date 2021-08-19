@@ -1,3 +1,19 @@
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 (function () {
     var newsletterElems = document.querySelectorAll(".newsletter");
     newsletterElems.forEach(function (newsletterElem) {
@@ -136,4 +152,56 @@
             chosen_emoji.click();
         });
     }
+})();
+
+
+(function () {
+    const csrftoken = getCookie('csrftoken');
+
+    const counter = {}
+    $(".btn-clap").each(function() {
+        counter[$( this ).val()] = {
+            debounce: null,
+            clickCounter: 0
+        }
+    })
+
+    $(".btn-clap").click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const id = $(this).val();
+        const claps_no = parseInt($(this).children()[1].innerText);
+
+        counter[id].clickCounter++;
+        $(this).children()[1].innerText = claps_no + 1;
+
+        clearTimeout(counter[id].debounce);
+
+        // Update and log the counts after 3 seconds
+        counter[id].debounce = setTimeout(function () {
+
+            fetch(window.location.origin + "/clap/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                mode: 'same-origin',
+                body: JSON.stringify({
+                    claps_no: counter[id].clickCounter,
+                }),
+            })
+            .then((res) => {
+                if (res.ok) {
+                    return res.text();
+                }
+                throw new Error("Response not ok");
+            })
+
+            counter[id].clickCounter = 0;
+
+        }, 1000);
+    });
+
 })();
