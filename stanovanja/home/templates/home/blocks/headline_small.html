@@ -2,28 +2,40 @@
 
 <div class="hero-small position-relative">
     <div class="row">
+        {% if value.title_position == 'center' %}
         <div class="d-none d-xl-flex align-items-center col-xl-2">
             {% if value.image_left %}
             {% image value.image_left width-1100 class="img-fluid image-left" %}
             {% endif %}
         </div>
-        <div class="col-12 col-xl-8">
-            <h2 class="text-center mt-4 mb-2">{{ value.title }}</h2>
-            <div class="text-center">{{ value.description }}</div>
-            <div class="text-center button-group">
+        {% endif %}
+        <div class="col-12 {% if value.title_position == 'center' %}col-xl-8 {% else %} col-xl-10 {% endif %}">
+            <h2 class="text-{{ value.title_position }} my-4">{{ value.title }}</h2>
+            <div class="text-{{ value.title_position }}">{{ value.description }}</div>
+            <div class="text-{{ value.title_position }} button-group">
                 {% for button in value.buttons %}
+                {% if button.value.function == 'redirect' and button.value.page %}
                 <a class="btn btn-{{ button.value.style }}" href="{% pageurl button.value.page %}" style="{% if button.value.arrow %}padding-right:4rem;{% endif %}">
                     {{ button.value.text }}
                     {% if button.value.arrow %}
                     <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     {% endif %}
                 </a>
+                {% endif %}
+                {% if button.value.function == 'new_story_modal' %}
+                <button class="btn btn-{{ button.value.style }}" data-bs-toggle="modal" data-bs-target="#newStoryFormModal" style="{% if button.value.arrow %}padding-right:4rem;{% endif %}">
+                    {{ button.value.text }}
+                    {% if button.value.arrow %}
+                    <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
+                    {% endif %}
+                </button>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
-        <div class="col-12 col-xl-2 d-flex justify-content-center">
+        <div class="col-12 col-xl-2 d-flex align-items-center">
             {% if value.image_right %}
-            <div class="image-right my-2">{% image value.image_right width-1100 class="img-fluid image-right" %}</div>
+            {% image value.image_right width-1100 class="img-fluid image-right" %}
             {% endif %}
         </div>
     </div>

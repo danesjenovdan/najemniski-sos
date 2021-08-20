@@ -3,13 +3,13 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.core import serializers
+from django.contrib import messages
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core import blocks, fields
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel)
+from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel, MultiFieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from .blocks import (SectionBlock)
@@ -18,14 +18,30 @@ from ..forms import RentalStoryForm, UserProblemSubmissionForm
 
 
 class ContentPage(Page):
-    body = StreamField(
+    body = fields.StreamField(
         [('section', SectionBlock())],
         verbose_name=_('Vsebina'),
         default='',
     )
 
+    modal_title = models.CharField(max_length=255, verbose_name=_('Naslov v modalnem oknu'), blank=True)
+    modal_description = models.CharField(max_length=255, verbose_name=_('Opis v modalnem oknu'), blank=True)
+    modal_form_checkbox = models.CharField(max_length=255, verbose_name=_('Forma - prvi checkbox'), blank=True)
+    modal_form_checkbox2 = models.CharField(max_length=255, verbose_name=_('Forma - drugi checkbox'), blank=True)
+    modal_form_button = models.CharField(max_length=255, verbose_name=_('Forma - tekst na gumbu'), blank=True)
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('modal_title'),
+            FieldPanel('modal_description'),
+            FieldPanel('modal_form_checkbox'),
+            FieldPanel('modal_form_checkbox2'),
+            FieldPanel('modal_form_button'),
+        ],
+        heading="Modalno okno za novo najemniško zgodbo",
+        )
+
     ]
 
     def get_context(self, request, rental_story_form=None, user_problem_form=None):
@@ -81,6 +97,7 @@ class ContentPage(Page):
                 if rental_story_form.is_valid():
                     rental_story_form.save()
                     rental_story_form = RentalStoryForm()
+                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddano izkušnjo!', extra_tags='story')
                     """
                     send_mail(
                         'Nova najemniška zgodba',
@@ -92,6 +109,7 @@ class ContentPage(Page):
                     """
                     return HttpResponseRedirect(request.path)
                 else:
+                    messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='story')
                     return TemplateResponse(
                         request,
                         self.get_template(request),
@@ -103,8 +121,10 @@ class ContentPage(Page):
                 if user_problem_form.is_valid():
                     user_problem_form.save()
                     user_problem_form = UserProblemSubmissionForm()
+                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddan problem!', extra_tags='problem')
                     return HttpResponseRedirect(request.path)
                 else:
+                    messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='problem')
                     return TemplateResponse(
                         request,
                         self.get_template(request),
@@ -115,7 +135,7 @@ class ContentPage(Page):
 
 
 class SolutionPage(Page):
-    body = StreamField(
+    body = fields.StreamField(
         [("text", blocks.RichTextBlock(label=_("Obogateno besedilo"),),)],
         null=True,
         blank=True,
@@ -131,14 +151,19 @@ class SolutionPage(Page):
     )
     claps_no = models.IntegerField(verbose_name=_("Število ploskov"), default=0)
     category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL)
-    user_problem = models.ForeignKey(UserProblem, null=True, on_delete=models.SET_NULL, limit_choices_to={'approved': False}, verbose_name=_("Uporabniški problem"))
+    related_problems = fields.StreamField(
+        [('problem', blocks.PageChooserBlock(label=_("Povezava do problema"))),],
+        null=True,
+        min_num=0,
+        max_num=3,
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel("body"),
         ImageChooserPanel("image"),
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
-        FieldPanel("user_problem", widget=forms.Select), # widget=forms.SelectMultiple
+        StreamFieldPanel("related_problems"),
     ]
 
     search_fields = Page.search_fields + [

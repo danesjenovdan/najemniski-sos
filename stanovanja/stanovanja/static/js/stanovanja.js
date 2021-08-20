@@ -96,18 +96,11 @@ function getCookie(name) {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        var markerIcon = L.icon({
-            iconUrl: '../static/icons/arrow.svg',
-            iconSize: [44, 30],
-            iconAnchor: [22, 15],
-            popupAnchor: [0, -2],
-        });
-
         const iconOptions = {
-            iconSize  : [40, 60],
-            iconAnchor: [20, 60],
+            iconSize  : [24, 30],
+            iconAnchor: [12, 50],
             className : 'mymarker',
-            popupAnchor: [0, -60],
+            popupAnchor: [0, -30],
         }
 
         if (rental_stories_el) {
@@ -209,9 +202,6 @@ function getCookie(name) {
             const full_text = $(this).parent().parent().find('.story-description p:first-child');
             const shorter = $(this).parent().parent().find('.story-description p:last-child');
 
-            // $(this).parent().parent().find('.story-description p').text(full_description);
-            // console.log($(this).parent().parent().find('.story-description p').text());
-
             if (shorter.css("display") === "none") {
                 shorter.css("display", "inline");
                 $(this).text = "PREBERI VEĆ";
@@ -226,3 +216,10 @@ function getCookie(name) {
         })
     })
 })();
+
+$(window).on('load', function() {
+    const story_form_message = document.getElementById('modal-story-message');
+    if (story_form_message) {
+        $('#newStoryFormModal').modal('show');
+    }
+});

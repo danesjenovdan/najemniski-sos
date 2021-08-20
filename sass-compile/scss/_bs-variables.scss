@@ -10,3 +10,11 @@ $border-radius: 0;
 
 $hr-opacity: 1;
 $hr-height: 2px;
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1120px,
+    xxl: 1120px
+);

@@ -37,8 +37,8 @@ textarea.form-control {
 }
 
 .bg-section {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   position: relative;
 
   hr {
@@ -135,6 +135,9 @@ textarea.form-control {
 
 .modal-dialog {
   max-width: 80%;
+  .modal-content {
+    border-radius: 0;
+  }
 }
 
 .button-group {
@@ -176,6 +179,8 @@ textarea.form-control {
 
 .errorlist {
   color: red;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .header {
@@ -284,6 +289,28 @@ footer {
   }
 }
 
+.messages {
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: $font-family-header;
+
+
+  .success {
+    color: green;
+    background-color: #e9f5e0;
+    border: 2px solid green;
+    padding: 0.75rem 1.75rem;
+  }
+
+  .error {
+    color: $primary;
+    background-color: white;
+    border: 2px solid $primary;
+    padding: 0.75rem 1.75rem;
+  }
+
+}
+
 .hero, .hero-small {
   .supertitle {
     font-size: 0.75rem;
@@ -297,18 +324,21 @@ footer {
     left: -2rem;
     width: 12rem;
     @media (min-width: 1400px) {
-      left: -4rem;
+      left: -6rem;
       width: 16rem;
     }
   }
   .image-right {
     right: -2rem;
-    bottom: 2rem;
     width: 12rem;
     @media (min-width: 1400px) {
-      right: -4rem;
+      right: -6rem;
       width: 16rem;
     }
+  }
+  .text-start .btn {
+    margin-left: 0;
+    margin-right: 2rem;
   }
 }
 
@@ -320,7 +350,7 @@ footer {
 
 .hero-small {
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -383,7 +413,7 @@ footer {
   }
 
   input:checked + label:after {
-    background-image: url("../icons/checkbox.png");
+    background-image: url("../icons/check.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 80%;
@@ -471,11 +501,14 @@ footer {
   }
 }
 
-.mymarker { font-size: 40px; }
+.mymarker { font-size: 20px; }
 
 .image-section {
-  .btn {
-    margin: 0 0 1rem 0;
+  .left-panel {
+    padding: 4rem 3.125rem 3rem 0;
+    .btn {
+      margin: 0 0 1rem 0;
+    }
   }
   img {
     margin-top: -4rem;
@@ -520,6 +553,9 @@ footer {
         padding: 0.125rem;
       }
     }
+    div:last-child {
+      padding-right: 2rem;
+    }
   }
 }
 
@@ -529,7 +565,7 @@ footer {
     padding-top: 1rem;
     padding-bottom: 2rem;
     p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
     .user {
       span:first-child {

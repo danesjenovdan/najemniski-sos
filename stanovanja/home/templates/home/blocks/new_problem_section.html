@@ -25,6 +25,15 @@
                     <label class="form-check-label" for="{{ user_problem_form.contact_permission.auto_id }}">{{ value.checkbox_text }}</label>
                 </div>
                 <button type="submit" name="new_problem" class="btn btn-normal mx-0">{{ value.submit_button }}</button>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'problem' %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
             </form>
         </div>
     </div>

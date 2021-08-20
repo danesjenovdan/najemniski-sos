@@ -56,7 +56,7 @@ class UserProblem(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano s strani administratorja"),
+        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
     )
 
     panels = [
@@ -101,7 +101,7 @@ class RentalStory(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano (samo pregledane zgodbe so prikazane na strani)"),
+        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
     )
     displayed_name = models.CharField(
         null=True,
@@ -125,10 +125,7 @@ class RentalStory(models.Model):
     )
 
     def __str__(self):
-        if (self.approved == True):
-            return self.displayed_name
-        else:
-            return 'ČAKA PREGLED ADMINISTRATORJA'
+        return self.description
 
     panels = [
         FieldPanel("description"),
@@ -144,6 +141,6 @@ class RentalStory(models.Model):
     ]
 
     class Meta:
-        verbose_name = "Uporabniška zgodba"
-        verbose_name_plural = "Uporabniške zgodbe"
+        verbose_name = "Najemniška izkušnja"
+        verbose_name_plural = "Najemniške izkušnje"
 

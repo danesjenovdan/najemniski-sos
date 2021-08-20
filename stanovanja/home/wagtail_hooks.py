@@ -18,24 +18,33 @@ class SolutionCategoryAdmin(ModelAdmin):
 class RentalStoryAdmin(ModelAdmin):
     model = RentalStory
     menu_icon = "group"
-    list_display = ("displayed_name", "approved")
+    list_display = ("name", "email", "description", "approved")
 
 
 class UserProblemAdmin(ModelAdmin):
     model = UserProblem
     menu_icon = "group"
-    list_display = ("email", "description",)
+    list_display = ("email", "contact_permission", "description", "approved")
 
 
-class SolutionGroup(ModelAdminGroup):
-    menu_label = "Rešitve"
+class StoriesGroup(ModelAdminGroup):
+    menu_label = "Najemniške izkušnje"
     menu_icon = "folder-open-inverse"
     menu_order = 200
     items = (
-        SolutionCategoryAdmin,
         RentalStoryAdmin,
+    )
+
+
+class SolutionGroup(ModelAdminGroup):
+    menu_label = "Problemi in rešitve"
+    menu_icon = "folder-open-inverse"
+    menu_order = 300
+    items = (
+        SolutionCategoryAdmin,
         UserProblemAdmin
     )
 
 
+modeladmin_register(StoriesGroup)
 modeladmin_register(SolutionGroup)
