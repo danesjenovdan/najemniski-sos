@@ -208,8 +208,6 @@ class ContentBlock(blocks.StreamBlock):
         [
             ('title', blocks.CharBlock(label=_('Naslov'))),
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('problem_input_placeholder', blocks.CharBlock(label=_('Placeholder za opis problema'))),
-            ('email_input_placeholder', blocks.CharBlock(label=_('Placeholder za email'))),
             ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),
             ('submit_button', blocks.CharBlock(label=_('Tekst na gumbu'))),
         ],

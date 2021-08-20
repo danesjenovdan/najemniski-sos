@@ -29,29 +29,23 @@
                 <div class="clap-box">
                     <h4>Ti je rešitev pomagala? Pokaži nam.</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <button class="btn btn-clap">
+                    <button class="btn btn-clap" value="{{ page.id }}">
                         <img src="{% static 'icons/clap.svg' %}" />
                         <span>{{ page.claps_no }}</span>
                     </button>
                 </div>
+                {% if page.related_problems %}
                 <div class="related-box">
                     <h4>Povezani problemi</h4>
-                    <a href="" class="btn btn-fq position-relative h-100">
+                    {% for related in page.related_problems %}
+                    <a href="{{ related.value.url }}" class="btn btn-fq position-relative h-100">
                         <div class="border-box"></div>
-                        Kako mora izgledati moja pogodba?
+                        {{ related.value.title }}
                         <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     </a>
-                    <a href="" class="btn btn-fq position-relative h-100">
-                        <div class="border-box"></div>
-                        Kako popisati inventar in stanje pred najemom?
-                        <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
-                    </a>
-                    <a href="" class="btn btn-fq position-relative h-100">
-                        <div class="border-box"></div>
-                        Kaj narediti, če lastnik kar naprej vstopa v stanovanje?
-                        <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
-                    </a>
+                    {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

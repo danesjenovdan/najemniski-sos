@@ -56,7 +56,7 @@ class UserProblem(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano s strani administratorja"),
+        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
     )
 
     panels = [
@@ -101,7 +101,7 @@ class RentalStory(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano (samo pregledane zgodbe so prikazane na strani)"),
+        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
     )
     displayed_name = models.CharField(
         null=True,

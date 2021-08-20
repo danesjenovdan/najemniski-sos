@@ -146,14 +146,19 @@ class SolutionPage(Page):
     )
     claps_no = models.IntegerField(verbose_name=_("Število ploskov"), default=0)
     category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL)
-    user_problem = models.ForeignKey(UserProblem, null=True, on_delete=models.SET_NULL, limit_choices_to={'approved': False}, verbose_name=_("Uporabniški problem"))
+    related_problems = fields.StreamField(
+        [('problem', blocks.PageChooserBlock(label=_("Povezava do problema"))),],
+        null=True,
+        min_num=0,
+        max_num=3,
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel("body"),
         ImageChooserPanel("image"),
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
-        FieldPanel("user_problem", widget=forms.Select), # widget=forms.SelectMultiple
+        StreamFieldPanel("related_problems"),
     ]
 
     search_fields = Page.search_fields + [
