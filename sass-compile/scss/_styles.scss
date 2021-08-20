@@ -313,6 +313,10 @@ footer {
       width: 16rem;
     }
   }
+  .text-start .btn {
+    margin-left: 0;
+    margin-right: 2rem;
+  }
 }
 
 .hero {
@@ -323,7 +327,7 @@ footer {
 
 .hero-small {
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -532,7 +536,7 @@ footer {
     padding-top: 1rem;
     padding-bottom: 2rem;
     p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
     .user {
       span:first-child {
