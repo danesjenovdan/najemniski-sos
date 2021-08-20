@@ -134,7 +134,10 @@ textarea.form-control {
 }
 
 .modal-dialog {
-  max-width: 80%;
+  max-width: 100%;
+  .modal-content {
+    border-radius: 0;
+  }
 }
 
 .button-group {

@@ -6,10 +6,9 @@ from django.core import serializers
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core import blocks, fields
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel)
+from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel, MultiFieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from .blocks import (SectionBlock)
@@ -18,14 +17,30 @@ from ..forms import RentalStoryForm, UserProblemSubmissionForm
 
 
 class ContentPage(Page):
-    body = StreamField(
+    body = fields.StreamField(
         [('section', SectionBlock())],
         verbose_name=_('Vsebina'),
         default='',
     )
 
+    modal_title = models.CharField(max_length=255, verbose_name=_('Naslov v modalnem oknu'), blank=True)
+    modal_description = models.CharField(max_length=255, verbose_name=_('Opis v modalnem oknu'), blank=True)
+    modal_form_checkbox = models.CharField(max_length=255, verbose_name=_('Forma - prvi checkbox'), blank=True)
+    modal_form_checkbox2 = models.CharField(max_length=255, verbose_name=_('Forma - drugi checkbox'), blank=True)
+    modal_form_button = models.CharField(max_length=255, verbose_name=_('Forma - tekst na gumbu'), blank=True)
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('modal_title'),
+            FieldPanel('modal_description'),
+            FieldPanel('modal_form_checkbox'),
+            FieldPanel('modal_form_checkbox2'),
+            FieldPanel('modal_form_button'),
+        ],
+        heading="Modalno okno za novo najemniško zgodbo",
+        )
+
     ]
 
     def get_context(self, request, rental_story_form=None, user_problem_form=None):
@@ -115,7 +130,7 @@ class ContentPage(Page):
 
 
 class SolutionPage(Page):
-    body = StreamField(
+    body = fields.StreamField(
         [("text", blocks.RichTextBlock(label=_("Obogateno besedilo"),),)],
         null=True,
         blank=True,

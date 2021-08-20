@@ -209,9 +209,6 @@ function getCookie(name) {
             const full_text = $(this).parent().parent().find('.story-description p:first-child');
             const shorter = $(this).parent().parent().find('.story-description p:last-child');
 
-            // $(this).parent().parent().find('.story-description p').text(full_description);
-            // console.log($(this).parent().parent().find('.story-description p').text());
-
             if (shorter.css("display") === "none") {
                 shorter.css("display", "inline");
                 $(this).text = "PREBERI VEĆ";

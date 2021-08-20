@@ -19,6 +19,98 @@
     {% endblock %}
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="newStoryFormModal" tabindex="-1" aria-labelledby="newStoryFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" class="btn-close btn-background d-flex" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'></svg>
+                </button>
+            </div>
+            <div class="modal-body container my-5">
+                <div class="row">
+                    <div class="col-lg-6 px-lg-5 d-flex flex-column justify-content-center">
+                        <h2>{{ page.modal_title }}</h2>
+                        {{ page.modal_description }}
+                    </div>
+                    <div class="col-lg-6 px-lg-5">
+                        {{ rental_story_form.non_field_errors }}
+                        <form method="post" class="row">
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <div class="form-group my-2">
+                                    {{ rental_story_form.description }}
+                                    {{ rental_story_form.description.errors }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group my-2">
+                                    {{ rental_story_form.icon.as_hidden }}
+                                    <h6>Izberi ikono za tvojo zgodbo</h6>
+                                    <button
+                                            type="button"
+                                            id="chosen-emoji"
+                                            class="btn btn-normal m-0 px-3 py-2"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseEmojiPicker"
+                                            aria-expanded="false"
+                                            aria-controls="collapseEmojiPicker"
+                                            style="font-size: 1.5rem;"
+                                    >
+                                        😀
+                                    </button>
+                                    <div class="collapse position-absolute my-2" id="collapseEmojiPicker" style="z-index: 10">
+                                        <emoji-picker></emoji-picker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group my-2">
+                                    {{ rental_story_form.name }}
+                                    {{ rental_story_form.name.errors }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group my-2">
+                                    {{ rental_story_form.email }}
+                                    {{ rental_story_form.email.errors }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group my-2">
+                                    {{ rental_story_form.address }}
+                                    {{ rental_story_form.address.errors }}
+                                </div>
+                            </div>
+                            <div class="col-12 my-2">
+                                <div class="checkbox-wrapper form-check">
+                                    <input type="checkbox" id="confirm-email" name="confirm-email" class="form-check-input">
+                                    <label class="form-check-label" for="confirm-email">
+                                        {{ page.modal_form_checkbox1 }}
+                                    </label>
+                                </div>
+                                <div class="checkbox-wrapper form-check">
+                                    {{ rental_story_form.private }}
+                                    <label class="form-check-label" for="id_private">
+                                        {{ page.modal_form_checkbox2 }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 button-group my-2">
+                                <button class="btn btn-background my-2 mx-0" name="new_story" type="submit" style="padding-right:4rem;">
+                                    {{ page.modal_form_button }}
+                                    <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- places here (instead of base.html) because data comes from Page object -->
 <div id="rental-stories" class="position-absolute" style="opacity: 0; z-index: -1000;">{{ rental_stories_stringified }}</div>
 

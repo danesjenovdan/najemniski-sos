@@ -27,16 +27,23 @@ class ButtonsBlock(blocks.StreamBlock):
     button = blocks.StructBlock(
     [
         ('style', blocks.ChoiceBlock(
-          choices = [
-              ('underlined', 'Samo podčrtan'),
-              ('normal', 'Z obrobo'),
-              ('background', 'Z obrobo in ozadjem')
-          ],
-          label=_('Stil gumba'),
+            choices = [
+                ('underlined', 'Samo podčrtan'),
+                ('normal', 'Z obrobo'),
+                ('background', 'Z obrobo in ozadjem')
+            ],
+            label=_('Stil gumba'),
         )),
         ('arrow', blocks.BooleanBlock(default=False, label=_('Gumb s puščico'), required=False)),
         ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-        ('page', blocks.PageChooserBlock(label=_('Stran'))),
+        ('function', blocks.ChoiceBlock(
+            choices = [
+                ('redirect', 'Povezava na stran'),
+                ('new_story_modal', 'Odpre okno za oddajo nove zgodbe'),
+            ],
+            label=_('Funkcija gumba'),
+        )),
+        ('page', blocks.PageChooserBlock(required=False, label=_('Stran'))),
     ],
     label=_('Gumb'),)
 
@@ -208,24 +215,6 @@ class ContentBlock(blocks.StreamBlock):
         ],
         label=_('Forma za oddat nov problem'),
         template='home/blocks/new_problem_section.html',
-        icon='title',
-    )
-    new_story_form = blocks.StructBlock(
-        [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
-            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
-            ('submit_button', blocks.CharBlock(label=_('Tekst na gumbu za prikaz forme'))),
-            ('modal_title', blocks.CharBlock(label=_('Naslov v modalnem oknu'))),
-            ('modal_description', blocks.CharBlock(label=_('Opis v modalnem oknu'))),
-            ('modal_form_checkbox1', blocks.CharBlock(label=_('Forma - prvi checkbox'))),
-            ('modal_form_checkbox2', blocks.CharBlock(label=_('Forma - drugi checkbox'))),
-            ('modal_form_button', blocks.CharBlock(label=_('Forma - tekst na gumbu'))),
-
-        ],
-        label=_('Sekcija za oddat novo najemniško zgodbo'),
-        template='home/blocks/new_story_section.html',
         icon='title',
     )
 
