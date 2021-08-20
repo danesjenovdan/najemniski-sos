@@ -35,7 +35,6 @@
                         {{ page.modal_description }}
                     </div>
                     <div class="col-lg-6 px-lg-5">
-                        {{ rental_story_form.non_field_errors }}
                         <form method="post" class="row">
                             {% csrf_token %}
                             <div class="col-12">
@@ -103,6 +102,20 @@
                                     <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                                 </button>
                             </div>
+                            {% if rental_story_form.non_field_errors %}
+                            <div class="messages">
+                                <div id="modal-story-message" class="error">{{ rental_story_form.non_field_errors }}</div>
+                            </div>
+                            {% endif %}
+                            {% if messages %}
+                            <div class="messages">
+                                {% for message in messages %}
+                                {% if message.extra_tags == 'story' %}
+                                <div {% if message.tags %} class="{{ message.tags }}"{% endif %} id="modal-{{ message.extra_tags }}-message">{{ message }}</div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         </form>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.core import serializers
+from django.contrib import messages
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -96,6 +97,7 @@ class ContentPage(Page):
                 if rental_story_form.is_valid():
                     rental_story_form.save()
                     rental_story_form = RentalStoryForm()
+                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddano izkušnjo!', extra_tags='story')
                     """
                     send_mail(
                         'Nova najemniška zgodba',
@@ -107,6 +109,7 @@ class ContentPage(Page):
                     """
                     return HttpResponseRedirect(request.path)
                 else:
+                    messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='story')
                     return TemplateResponse(
                         request,
                         self.get_template(request),
@@ -118,8 +121,10 @@ class ContentPage(Page):
                 if user_problem_form.is_valid():
                     user_problem_form.save()
                     user_problem_form = UserProblemSubmissionForm()
+                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddan problem!', extra_tags='problem')
                     return HttpResponseRedirect(request.path)
                 else:
+                    messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='problem')
                     return TemplateResponse(
                         request,
                         self.get_template(request),

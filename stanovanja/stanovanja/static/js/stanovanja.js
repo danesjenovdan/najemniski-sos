@@ -216,3 +216,10 @@ function getCookie(name) {
         })
     })
 })();
+
+$(window).on('load', function() {
+    const story_form_message = document.getElementById('modal-story-message');
+    if (story_form_message) {
+        $('#newStoryFormModal').modal('show');
+    }
+});
