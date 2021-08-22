@@ -167,7 +167,9 @@ textarea.form-control {
 }
 
 .rich-text {
-  font-size: 1.25rem;
+  p, li {
+    font-size: 1.25rem;
+  }
 
   h2, h3, h4 {
     margin-bottom: 1rem;
@@ -480,6 +482,9 @@ footer {
 
 .leaflet-popup {
   border: 2px solid #105099;
+  .leaflet-popup-tip {
+    border: 2px solid #105099;
+  }
   .leaflet-popup-content-wrapper {
     border-radius: 0;
     p {
@@ -507,7 +512,7 @@ footer {
       margin: 0 0 1rem 0;
     }
   }
-  img {
+  .right-panel-image img {
     margin-top: -4rem;
     margin-bottom: -4rem;
   }
