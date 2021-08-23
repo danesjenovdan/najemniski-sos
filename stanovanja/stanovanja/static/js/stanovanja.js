@@ -98,9 +98,9 @@ function getCookie(name) {
 
         const iconOptions = {
             iconSize  : [24, 30],
-            iconAnchor: [12, 50],
+            iconAnchor: [12, 15],
             className : 'mymarker',
-            popupAnchor: [0, -30],
+            popupAnchor: [0, -15],
         }
 
         if (rental_stories_el) {

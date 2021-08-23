@@ -95,6 +95,7 @@ class ContentBlock(blocks.StreamBlock):
         [
             ('title', blocks.CharBlock(label=_('Naslov'))),
             ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
+            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
             ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
             ('submit_button', blocks.CharBlock(label=_('Besedilo na gumbu'))),
             ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),

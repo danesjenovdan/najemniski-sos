@@ -2,6 +2,13 @@
 
 <div class="newsletter position-relative">
   <div class="row">
+    {% if value.title_position == 'center' %}
+    <div class="d-none d-xl-flex align-items-center col-xl-2">
+      {% if value.image_left %}
+      {% image value.image_left width-1100 class="img-fluid image-left" %}
+      {% endif %}
+    </div>
+    {% endif %}
     <div class="col-12 col-lg-8 offset-lg-2">
       <h2 class="text-center my-4">{{ value.title }}</h2>
       <div class="text-center">{{ value.description }}</div>
@@ -21,9 +28,9 @@
         </form>
       </div>
     </div>
-    <div class="col-12 col-xl-2 d-flex justify-content-center">
+    <div class="col-12 col-xl-2 d-flex align-items-center">
       {% if value.image_right %}
-      <div class="my-2">{% image value.image_right width-1100 class="img-fluid image-right" %}</div>
+      {% image value.image_right width-1100 class="img-fluid image-right" %}
       {% endif %}
     </div>
   </div>
