@@ -153,6 +153,7 @@ class SolutionPage(Page):
     category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL)
     related_problems = fields.StreamField(
         [('problem', blocks.PageChooserBlock(label=_("Povezava do problema"))),],
+        blank=True,
         null=True,
         min_num=0,
         max_num=3,

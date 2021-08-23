@@ -217,6 +217,13 @@ function getCookie(name) {
     })
 })();
 
+function filterCategory() {
+    console.log("filter")
+    document.getElementById("search-header").value = '';
+    document.getElementById("query-form").submit();
+}
+
+
 $(window).on('load', function() {
     const story_form_message = document.getElementById('modal-story-message');
     if (story_form_message) {
