@@ -192,6 +192,7 @@ class ContentBlock(blocks.StreamBlock):
             ('filter_categories_label', blocks.CharBlock(label=_('Navodilo za filtriranje po kategorijah'))),
             ('search_input_label', blocks.CharBlock(label=_('Navodilo za iskanje'))),
             ('search_input_placeholder', blocks.CharBlock(label=_('Placeholder za iskalno polje'))),
+            ('no_results', blocks.CharBlock(required=False, label=_('Tekst če ni rezultatov'))),
         ],
         label=_('Seznam rešitev'),
         template='home/blocks/solutions_list_section.html',

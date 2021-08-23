@@ -11,7 +11,7 @@ class RentalStoryForm(forms.ModelForm):
             'icon': forms.TextInput(),
             'name': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Ime'}),
             'email': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'E-naslov'}),
-            'address': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Ulica , poštna številka in pošta'}),
+            'address': forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Ulica in hišna številka, poštna številka in pošta'}),
             'private': forms.CheckboxInput(attrs={'class': "form-check-input"})
         }
 

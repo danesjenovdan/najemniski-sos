@@ -25,7 +25,7 @@ class ContentPage(Page):
     )
 
     modal_title = models.CharField(max_length=255, verbose_name=_('Naslov v modalnem oknu'), blank=True)
-    modal_description = models.CharField(max_length=255, verbose_name=_('Opis v modalnem oknu'), blank=True)
+    modal_description = models.CharField(max_length=1024, verbose_name=_('Opis v modalnem oknu'), blank=True)
     modal_form_checkbox = models.CharField(max_length=255, verbose_name=_('Forma - prvi checkbox'), blank=True)
     modal_form_checkbox2 = models.CharField(max_length=255, verbose_name=_('Forma - drugi checkbox'), blank=True)
     modal_form_button = models.CharField(max_length=255, verbose_name=_('Forma - tekst na gumbu'), blank=True)
