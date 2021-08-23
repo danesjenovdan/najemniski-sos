@@ -1,14 +1,14 @@
 {% load static wagtailcore_tags wagtailimages_tags %}
 
 <div class="solutions-list">
-    <form method="get" class="row m-4">
+    <form id="query-form" method="get" class="row m-4">
         <div class="col-lg-6 mb-4 mb-lg-0">
             <h6>{{ value.filter_categories_label }}</h6>
             <div class="d-md-flex">
                 {% for category in categories %}
                 <div class="solutions-category mb-2 mb-md-0" style="background-color: {{ category.color }}">
                     <div class="form-check form-check-inline checkbox-wrapper">
-                        <input type="checkbox" class="form-check-input" id="{{ category.slug }}" value="{{ category.id }}" name="category" {% if category.id in chosen_categories %}checked{% endif %}>
+                        <input type="checkbox" class="form-check-input" id="{{ category.slug }}" value="{{ category.id }}" name="category" onchange="filterCategory()" {% if category.id in chosen_categories %}checked{% endif %}>
                         <label class="form-check-label" for="{{ category.slug }}">{{ category.name }}</label>
                     </div>
                 </div>
