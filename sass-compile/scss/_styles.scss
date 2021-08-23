@@ -139,7 +139,9 @@ textarea.form-control {
 }
 
 .modal-dialog {
-  max-width: 80%;
+  @media (min-width: 992px) {
+    max-width: 80%;
+  }
   .modal-content {
     border-radius: 0;
   }
@@ -368,9 +370,6 @@ footer {
 
 
 .newsletter {
-  form {
-    width: 50%;
-  }
   .btn {
     margin: 0;
   }
@@ -421,10 +420,12 @@ footer {
 
 .share-and-care {
   .box {
-    margin: 0 3rem;
     padding: 3rem;
     height: 100%;
     text-align: center;
+    @media (min-width: 992px) {
+      margin: 0 3rem;
+    }
     h2 {
       margin-top: 1rem;
     }
@@ -469,11 +470,16 @@ footer {
 }
 
 #mapid {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 50%;
+  height: 400px;
+  @media (min-width: 992px) {
+    height: unset;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 50%;
+  }
+
 }
 
 .leaflet-tile-pane {
@@ -507,7 +513,9 @@ footer {
 
 .image-section {
   .left-panel {
-    padding: 4rem 3.125rem 3rem 0;
+    @media (min-width: 992px) {
+      padding: 4rem 3.125rem 3rem 0;
+    }
     .btn {
       margin: 0 0 1rem 0;
     }
@@ -533,9 +541,13 @@ footer {
       }
     }
   }
+
   .btn-background {
     margin: 0;
     padding: 0.5rem;
+    @media (min-width: 992px) {
+      margin-right: 6rem;
+    }
     img {
       width: 1rem;
     }
@@ -604,6 +616,11 @@ footer {
   }
   .list-element, .btn.btn-background {
     margin-left: 0;
+  }
+  #mapid {
+    @media (min-width: 992px) {
+      left: 66%;
+    }
   }
 }
 

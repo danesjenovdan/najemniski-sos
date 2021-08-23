@@ -21,7 +21,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button class="btn btn-background w-100 my-4" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
+            <button class="btn btn-background w-100 my-4 mx-0" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
                 {{ value.button_text }}
                 <img src="{% static 'icons/curved-arrow.svg' %}" />
             </button>
@@ -45,7 +45,7 @@
             {% endfor %}
         </div>
         <div class="col-lg-4">
-            <div id="mapid" style="left: 66%;"></div>
+            <div id="mapid"></div>
         </div>
     </div>
 </div>

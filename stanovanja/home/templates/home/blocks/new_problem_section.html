@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-6">
             {{ user_problem_form.non_field_errors }}
-            <form method="post" class="m-5">
+            <form method="post" class="m-lg-5">
                 {% csrf_token %}
                 <div class="my-3">
                     {{ user_problem_form.description }}
