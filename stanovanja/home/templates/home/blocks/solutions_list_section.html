@@ -27,6 +27,9 @@
     </form>
     <div class="row mt-5 mb-4">
         <div class="col-12">
+            {% if not solutions %}
+            <h6 class="text-center">{{ value.no_results }}</h6>
+            {% endif %}
             {% for solution in solutions %}
             <a href="{{ solution.url }}" class="d-flex justify-content-between align-items-center text-decoration-none list-element py-2">
                 <div>
@@ -36,7 +39,7 @@
                     <h4>{{ solution.title }}</h4>
                 </div>
                 <div>
-                    <button title="S ploskom pokaži, da ti je odgovor pomagal" class="btn btn-clap py-1 px-2" value="{{ solution.id }}">
+                    <button title="Ti je odgovor pomagal? Pokaži nam s ploskom!" class="btn btn-clap py-1 px-2" value="{{ solution.id }}">
                         <img src="{% static 'icons/clap.svg' %}" />
                         <span>{{ solution.claps_no }}</span>
                     </button>

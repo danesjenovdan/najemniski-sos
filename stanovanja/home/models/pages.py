@@ -25,7 +25,7 @@ class ContentPage(Page):
     )
 
     modal_title = models.CharField(max_length=255, verbose_name=_('Naslov v modalnem oknu'), blank=True)
-    modal_description = models.CharField(max_length=255, verbose_name=_('Opis v modalnem oknu'), blank=True)
+    modal_description = models.CharField(max_length=1024, verbose_name=_('Opis v modalnem oknu'), blank=True)
     modal_form_checkbox = models.CharField(max_length=255, verbose_name=_('Forma - prvi checkbox'), blank=True)
     modal_form_checkbox2 = models.CharField(max_length=255, verbose_name=_('Forma - drugi checkbox'), blank=True)
     modal_form_button = models.CharField(max_length=255, verbose_name=_('Forma - tekst na gumbu'), blank=True)
@@ -103,7 +103,7 @@ class ContentPage(Page):
                         'Nova najemniška zgodba',
                         'Forma tekst',
                         None,
-                        ['patricija.brecko@gmail.com'],
+                        ['najemniski-sos@djnd.si'],
                         fail_silently=False,
                     )
                     """
@@ -170,3 +170,27 @@ class SolutionPage(Page):
     search_fields = Page.search_fields + [
         index.SearchField("body"),
     ]
+
+
+class NewsletterPage(Page):
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Opis"),
+    )
+    body = fields.StreamField(
+        [("rich_text", blocks.RichTextBlock())],
+        null=True,
+        blank=True,
+        verbose_name=_("Vsebina"),
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("description"),
+        StreamFieldPanel("body"),
+    ]
+
+    class Meta:
+        verbose_name = "Urejanje naročnine"
+        verbose_name_plural = "Urejanja naročnin"
+

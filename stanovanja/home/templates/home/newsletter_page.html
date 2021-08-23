@@ -1,0 +1,128 @@
+{% extends "home/base_page.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}page page--content{% endblock %}
+
+{% block page_body %}
+<div class="bg-section bg-section--gradient_green_yellow">
+  <section class="container">
+    <div class="hero position-relative">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="my-4">{{ page.title }}</h1>
+          <p>{{ page.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="bg-section">
+  <section class="container">
+    <div class="row newsletter-page">
+      <div class="col-12 col-lg-8">
+        {% for block in page.body %}
+        <div class="row mb-5">
+          {% include_block block %}
+        </div>
+        {% endfor %}
+
+        <div class="row mb-5">
+          <div class="col unsubscribe" style="text-align: center;">
+            <button disabled class="btn btn-background subscription">Nalagamo tvoje nastavitve ...</button>
+          </div>
+          <div class="col manage">
+            <div class="footer-col">
+              <h5>Nisi prijavljen_a na e-novičnik. Če želiš, se nanj lahko prijaviš spodaj.</h5>
+
+              <form class="my-4">
+                <div class="input-group text-center">
+                  <input type="email" class="form-control" id="managed-email" name="email" required>
+                  <button id="submit-managed-email" class="btn btn-background" type="submit">Prijavi se</button>
+                </div>
+                <div class="input-group mt-1">
+                  <div class="form-text" id="response"></div>
+                </div>
+                <div class="checkbox-wrapper form-check form-check-inline">
+                  <input type="checkbox" id="confirm-managed-email" name="confirm-managed-email" class="form-check-input" required>
+                  <label class="form-check-label" for="confirm-managed-email">
+                    Strinjam se, da mi občasno pošljete elektronsko sporočilo.
+                  </label>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  $(document).ready(function() {
+    // delete subscription
+    $('.subscription').on('click', function() {
+      const reqUrl = `https://podpri.djnd.si/api/segments/stanovanja-najemniski-sos/contact/?email=${urlParams.get('email')}&token=${urlParams.get('token')}`;
+      fetch(reqUrl, {
+        method: 'DELETE',
+      }).then((response) => {
+        return response.json();
+      }).then((json) => {
+        console.log(json);
+      });
+    });
+
+    // submit email and subscribe
+    $('#submit-managed-email').on('click', function() {
+      if ($('#confirm-managed-email').is(':checked')) {
+        fetch("https://podpri.djnd.si/api/subscribe/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: $('#managed-email').val(),
+            segment: 20,
+          }),
+        })
+        .then((res) => {
+          if (res.ok) {
+            return res.text();
+          }
+          throw new Error("Response not ok");
+        })
+        .then((res) => {
+          alert("Na mailu te čakajo navodila za urejanje!");
+        })
+        .catch((error) => {
+          alert('Ups, nekaj je šlo narobe. Poskusi ponovno.');
+        });
+      } else {
+        $('.confirm-label').css({'color': 'red'});
+      }
+    });
+    const urlParams = new URLSearchParams(document.location.search);
+    if (urlParams.has('token') && urlParams.has('email')) {
+      $('.manage').hide();
+      const endpoint = `https://podpri.djnd.si/api/segments/my?token=${urlParams.get('token')}&email=${urlParams.get('email')}`;
+      fetch(endpoint).then((response) => {
+        return response.json();
+      }).then((json) => {
+        if (json.segments.filter((segment) => segment.id === 20).length > 0) {
+          $('.subscription').text('Odjavi se od prejemanja e-novičnika');
+          $('.subscription').removeAttr('disabled');
+        } else {
+          $('.unsubscribe').hide();
+          $('.manage').show();
+          $('#managed-email').focus();
+        }
+      });
+    } else {
+      $('.unsubscribe').hide();
+    }
+  });
+</script>
+{% endblock %}
