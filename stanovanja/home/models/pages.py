@@ -29,8 +29,9 @@ class ContentPage(Page):
 
     modal_title = models.CharField(max_length=255, verbose_name=_('Naslov v modalnem oknu'), blank=True)
     modal_description = models.CharField(max_length=1024, verbose_name=_('Opis v modalnem oknu'), blank=True)
-    modal_form_checkbox = models.CharField(max_length=255, verbose_name=_('Forma - prvi checkbox'), blank=True)
-    modal_form_checkbox2 = models.CharField(max_length=255, verbose_name=_('Forma - drugi checkbox'), blank=True)
+    modal_form_checkbox_newsletter = models.CharField(max_length=255, verbose_name=_('Forma - checkbox za občasno elektronsko sporočilo'), blank=True)
+    modal_form_checkbox_private = models.CharField(max_length=255, verbose_name=_('Forma - checkbox za nejavno zgodbo'), blank=True)
+    modal_form_checkbox_hide_location = models.CharField(max_length=255, verbose_name=_('Forma - checkbox za skrito lokacijo'), blank=True)
     modal_form_button = models.CharField(max_length=255, verbose_name=_('Forma - tekst na gumbu'), blank=True)
 
     content_panels = Page.content_panels + [
@@ -38,8 +39,9 @@ class ContentPage(Page):
         MultiFieldPanel([
             FieldPanel('modal_title'),
             FieldPanel('modal_description'),
-            FieldPanel('modal_form_checkbox'),
-            FieldPanel('modal_form_checkbox2'),
+            FieldPanel('modal_form_checkbox_newsletter'),
+            FieldPanel('modal_form_checkbox_private'),
+            FieldPanel('modal_form_checkbox_hide_location'),
             FieldPanel('modal_form_button'),
         ],
         heading="Modalno okno za novo najemniško zgodbo",

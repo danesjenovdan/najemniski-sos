@@ -84,15 +84,21 @@
                             </div>
                             <div class="col-12 my-2">
                                 <div class="checkbox-wrapper form-check">
-                                    <input type="checkbox" id="confirm-email" name="confirm-email" class="form-check-input">
-                                    <label class="form-check-label" for="confirm-email">
-                                        {{ page.modal_form_checkbox }}
+                                    <input type="checkbox" id="confirm-email-story" name="confirm-email" class="form-check-input">
+                                    <label class="form-check-label" for="confirm-email-story">
+                                        {{ page.modal_form_checkbox_newsletter }}
                                     </label>
                                 </div>
                                 <div class="checkbox-wrapper form-check">
                                     {{ rental_story_form.private }}
                                     <label class="form-check-label" for="id_private">
-                                        {{ page.modal_form_checkbox2 }}
+                                        {{ page.modal_form_checkbox_private }}
+                                    </label>
+                                </div>
+                                <div class="checkbox-wrapper form-check">
+                                    {{ rental_story_form.hide_location }}
+                                    <label class="form-check-label" for="id_hide_location">
+                                        {{ page.modal_form_checkbox_hide_location }}
                                     </label>
                                 </div>
                             </div>

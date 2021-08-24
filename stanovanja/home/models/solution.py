@@ -85,6 +85,7 @@ class RentalStory(models.Model):
         verbose_name=_("Ikona"),
     )
     name = models.CharField(
+        blank=True,
         max_length=255,
         verbose_name=_("Ime uporabnika"),
     )
@@ -98,6 +99,10 @@ class RentalStory(models.Model):
     private = models.BooleanField(
         default=False,
         verbose_name=_("Zgodba ni za javno objavo"),
+    )
+    hide_location = models.BooleanField(
+        default=False,
+        verbose_name=_("Zgodba naj se objavi brez lokacije"),
     )
     approved = models.BooleanField(
         default=False,
@@ -134,6 +139,7 @@ class RentalStory(models.Model):
         FieldPanel("email"),
         FieldPanel("address"),
         FieldPanel("private"),
+        FieldPanel("hide_location"),
         FieldPanel("approved"),
         FieldPanel("displayed_name"),
         FieldPanel("lat"),
