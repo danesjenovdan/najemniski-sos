@@ -2,14 +2,12 @@
 
 <div class="newsletter position-relative">
   <div class="row">
-    {% if value.title_position == 'center' %}
     <div class="d-none d-xl-flex align-items-center col-xl-2">
       {% if value.image_left %}
       {% image value.image_left width-1100 class="img-fluid image-left" %}
       {% endif %}
     </div>
-    {% endif %}
-    <div class="col-12 col-lg-8 offset-lg-2">
+    <div class="col-12 col-xl-8">
       <h2 class="text-center my-4">{{ value.title }}</h2>
       <div class="text-center">{{ value.description }}</div>
       <div class="d-flex justify-content-center">

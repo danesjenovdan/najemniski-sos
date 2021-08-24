@@ -5,7 +5,7 @@
 
 {% block page_body %}
 
-<div class="hero bg-section bg-section--gradient_purple_green">
+<div class="hero bg-section bg-section--gradient_purple_green px-4 px-md-0">
     <div class="container">
         <div class="row py-5">
             <div class="col-lg-9">
@@ -17,10 +17,10 @@
     <hr />
 </div>
 
-<div class="bg-section">
+<div class="bg-section px-4 px-md-0">
     <div class="container">
         <div class="row py-5">
-            <div class="col-lg-8 rich-text">
+            <div class="col-lg-8 rich-text mb-5">
                 {% for block in page.body %}
                     {% include_block block %}
                 {% endfor %}
