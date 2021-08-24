@@ -504,7 +504,6 @@ footer {
     right: 0;
     left: 50%;
   }
-
 }
 
 .leaflet-tile-pane {
@@ -534,6 +533,10 @@ footer {
       font-weight: 700;
       font-size: 0.875rem;
       color: $primary;
+      &:hover {
+        color: black;
+        cursor: pointer;
+      }
     }
   }
 }

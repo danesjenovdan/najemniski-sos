@@ -124,7 +124,7 @@ function getCookie(name) {
                     </div>
                     <div class="d-flex justify-content-between">
                         <span>${story.fields.displayed_name}</span>
-                        <span onclick="readMoreMap(e)">PREBERI VEČ</span>
+                        <span class="read-more-map" onclick="readMoreMap(event)">PREBERI VEČ</span>
                     </div>
                 `);
                 }
@@ -139,8 +139,10 @@ function getCookie(name) {
 
 })();
 
-function readMoreMap() {
-    console.log("")
+function readMoreMap(e) {
+    const parent = $(e.target).parent().parent().children().first();
+    parent.children().first().removeClass('d-none');
+    parent.children().last().addClass('d-none');
 }
 
 (function () {
@@ -225,7 +227,6 @@ function readMoreMap() {
 })();
 
 function filterCategory() {
-    console.log("filter")
     document.getElementById("search-header").value = '';
     document.getElementById("query-form").submit();
 }
