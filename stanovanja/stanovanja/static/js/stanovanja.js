@@ -39,25 +39,25 @@ function getCookie(name) {
                         segment: 20,
                     }),
                 })
-                    .then((res) => {
-                        if (res.ok) {
-                            return res.text();
-                        }
-                        throw new Error("Response not ok");
-                    })
-                    .then((res) => {
-                        response.className = "form-text text-start";
-                        response.textContent = "Hvala za prijavo!";
-                    })
-                    .catch((error) => {
-                        response.className = "form-text text-start text-error";
-                        response.textContent = "Napaka pri prijavi :(";
-                    })
-                    .then(() => {
-                        submitButton.removeAttribute("disabled");
-                        emailElem.removeAttribute("disabled");
-                        checkbox.removeAttribute("disabled");
-                    });
+                .then((res) => {
+                    if (res.ok) {
+                        return res.text();
+                    }
+                    throw new Error("Response not ok");
+                })
+                .then((res) => {
+                    response.className = "form-text text-start";
+                    response.textContent = "Hvala za prijavo!";
+                })
+                .catch((error) => {
+                    response.className = "form-text text-start text-error";
+                    response.textContent = "Napaka pri prijavi :(";
+                })
+                .then(() => {
+                    submitButton.removeAttribute("disabled");
+                    emailElem.removeAttribute("disabled");
+                    checkbox.removeAttribute("disabled");
+                });
             } else {
                 form.classList.add("error");
             }
