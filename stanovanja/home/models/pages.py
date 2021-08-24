@@ -124,7 +124,14 @@ class ContentPage(Page):
                     }
 
                     r = requests.post('https://podpri.djnd.si/api/create-and-send-custom-email/', data = json.dumps(payload), headers=headers)
-                    print(r.json())
+
+                    # send an email to user
+                    payload = {
+                        "email": new_rental_story.email,
+                        "email_template_id": 648
+                    }
+
+                    r = requests.post('https://podpri.djnd.si/api/send-email/', data = json.dumps(payload), headers=headers)
 
                     return HttpResponseRedirect(request.path)
                 else:
@@ -156,7 +163,14 @@ class ContentPage(Page):
                     }
 
                     r = requests.post('https://podpri.djnd.si/api/create-and-send-custom-email/', data = json.dumps(payload), headers=headers)
-                    print(r.json())
+
+                    # send an email to user
+                    payload = {
+                        "email": new_user_problem.email,
+                        "email_template_id": 644
+                    }
+
+                    r = requests.post('https://podpri.djnd.si/api/send-email/', data = json.dumps(payload), headers=headers)
 
                     return HttpResponseRedirect(request.path)
                 else:
