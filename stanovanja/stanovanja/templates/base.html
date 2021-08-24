@@ -16,21 +16,15 @@
             {% endblock %}
         </title>
 
-        {% with self.get_site.site_name as site_name %}
-        <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ settings.home.MetaSettings.meta_title }}{% endif %}">
-        <meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ settings.home.MetaSettings.meta_title }}{% endif %}">
+        <meta property="og:title" content="{{ settings.home.MetaSettings.meta_title }}">
+        <meta name="twitter:title" content="{{ settings.home.MetaSettings.meta_title }}">
         <meta property="og:site_name" content="{% if site_name %}{{ site_name }}{% endif %}">
-        {% endwith %}
 
-        <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% else %}{{ settings.home.MetaSettings.meta_description }}{% endif %}">
-        <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% else %}{{ settings.home.MetaSettings.meta_description }}{% endif %}">
-        <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% else %}{{ settings.home.MetaSettings.meta_description }}{% endif %}">
+        <meta name="description" content="{{ settings.home.MetaSettings.meta_description }}">
+        <meta property="og:description" content="{{ settings.home.MetaSettings.meta_description }}">
+        <meta name="twitter:description" content="{{ settings.home.MetaSettings.meta_description }}">
 
-        {% if self.meta_image %}
-            {% image self.meta_image max-1200x630 as og_image %}
-            <meta property="og:image" content="{{ og_image.url }}">
-            <meta name="twitter:image" content="{{ og_image.url }}">
-        {% else %}
+        {% if settings.home.MetaSettings.meta_image %}
             {% image settings.home.MetaSettings.meta_image max-1200x630 as og_image %}
             <meta property="og:image" content="{{ og_image.url }}">
             <meta name="twitter:image" content="{{ og_image.url }}">
