@@ -16,9 +16,11 @@
             {% endblock %}
         </title>
 
+        {% with self.get_site.site_name as site_name %}
         <meta property="og:title" content="{{ settings.home.MetaSettings.meta_title }}">
         <meta name="twitter:title" content="{{ settings.home.MetaSettings.meta_title }}">
         <meta property="og:site_name" content="{% if site_name %}{{ site_name }}{% endif %}">
+        {% endwith %}
 
         <meta name="description" content="{{ settings.home.MetaSettings.meta_description }}">
         <meta property="og:description" content="{{ settings.home.MetaSettings.meta_description }}">
