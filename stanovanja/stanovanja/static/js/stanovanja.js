@@ -213,13 +213,13 @@ function readMoreMap(e) {
 
             if (shorter.css("display") === "none") {
                 shorter.css("display", "inline");
-                $(this).text = "PREBERI VEĆ";
-                $(this).find("img").css("transform", "rotate(0)");
+                $(this).find("span").text("PREBERI VEĆ");
+                $(this).find("img").css("transform", "rotate(180deg)");
                 full_text.css("display", "none");
             } else {
                 shorter.css("display", "none");
-                $(this).text = "PREBERI MANJ";
-                $(this).find("img").css("transform", "rotate(180deg)");
+                $(this).find("span").text("PREBERI MANJ");
+                $(this).find("img").css("transform", "rotate(0)");
                 full_text.css("display", "inline");
             }
         })
