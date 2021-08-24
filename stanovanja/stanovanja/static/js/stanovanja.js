@@ -118,10 +118,13 @@ function getCookie(name) {
                     L.marker([story.fields.lat, story.fields.lng], markerOptions)
                     .addTo(map)
                     .bindPopup(`
-                    <div><p>${story.fields.description}</p></div>
+                    <div>
+                        <p class="d-none">${story.fields.description}</p>
+                        <p>${story.fields.description.substring(0, 200) + '...'}</p>
+                    </div>
                     <div class="d-flex justify-content-between">
                         <span>${story.fields.displayed_name}</span>
-                        <span>PREBERI VEČ</span>
+                        <span onclick="readMoreMap(e)">PREBERI VEČ</span>
                     </div>
                 `);
                 }
@@ -135,6 +138,10 @@ function getCookie(name) {
     }
 
 })();
+
+function readMoreMap() {
+    console.log("")
+}
 
 (function () {
     const chosen_emoji = document.getElementById('chosen-emoji');
@@ -222,7 +229,6 @@ function filterCategory() {
     document.getElementById("search-header").value = '';
     document.getElementById("query-form").submit();
 }
-
 
 $(window).on('load', function() {
     const story_form_message = document.getElementById('modal-story-message');

@@ -187,7 +187,6 @@ textarea.form-control {
 
   ul {
     padding-left: 0;
-
     li {
       margin: 0;
       padding: 0 0 0 2rem;
@@ -196,6 +195,32 @@ textarea.form-control {
       background-repeat: no-repeat;
       background-position: left center;
       background-size: 1.5rem;
+    }
+  }
+
+  ol {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: item;
+    li {
+      position: relative;
+      padding-left: 2.5rem;
+      counter-increment: item;
+      margin-bottom: 5px;
+    }
+    li:before {
+      position: absolute;
+      left: 0;
+      padding-left: 0.25rem;
+      content: counter(item) '.';
+      background-color: #e9f5e0;
+      border-radius: 100%;
+      color: black;
+      font-family: $font-family-text;
+      font-weight: 700;
+      width: 2rem;
+      text-align: center;
+      display: inline-block;
     }
   }
 }
@@ -495,6 +520,10 @@ footer {
     border-radius: 0;
     p {
       font-size: 0.875rem;
+      font-family: $font-family-text;
+    }
+    span {
+      font-family: $font-family-header;
     }
     span:first-child {
       font-weight: 700;
