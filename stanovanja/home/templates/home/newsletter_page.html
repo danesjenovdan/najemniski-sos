@@ -27,21 +27,17 @@
         </div>
         {% endfor %}
 
-        <div class="row mb-5">
+        <form id="newsletter-page-form" class="row mb-5">
           <div class="col unsubscribe" style="text-align: center;">
             <button disabled class="btn btn-background subscription">Nalagamo tvoje nastavitve ...</button>
           </div>
           <div class="col manage">
             <div class="footer-col">
               <h5>Nisi prijavljen_a na e-novičnik. Če želiš, se nanj lahko prijaviš spodaj.</h5>
-
-              <form class="my-4">
+              <div class="my-4">
                 <div class="input-group text-center">
                   <input type="email" class="form-control" id="managed-email" name="email" required>
-                  <button id="submit-managed-email" class="btn btn-background" type="submit">Prijavi se</button>
-                </div>
-                <div class="input-group mt-1">
-                  <div class="form-text" id="response"></div>
+                  <button id="submit-managed-email" class="btn btn-background" type="button">Prijavi se</button>
                 </div>
                 <div class="checkbox-wrapper form-check form-check-inline">
                   <input type="checkbox" id="confirm-managed-email" name="confirm-managed-email" class="form-check-input" required>
@@ -49,10 +45,13 @@
                     Strinjam se, da mi občasno pošljete elektronsko sporočilo.
                   </label>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="mt-1">
+            <div class="form-text" id="response"></div>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -63,6 +62,12 @@
 {% block extra_js %}
 <script>
   $(document).ready(function() {
+    const form = $("#newsletter-page-form");
+    const emailElem = $("#managed-email");
+    const submitButton = $('#submit-managed-email');
+    const checkbox = $("#confirm-managed-email");
+    const response = $("#response");
+
     // delete subscription
     $('.subscription').on('click', function() {
       const reqUrl = `https://podpri.djnd.si/api/segments/stanovanja-najemniski-sos/contact/?email=${urlParams.get('email')}&token=${urlParams.get('token')}`;
@@ -72,11 +77,12 @@
         return response.json();
       }).then((json) => {
         console.log(json);
+        response.text("Odjava je bila uspešna.");
       });
     });
 
     // submit email and subscribe
-    $('#submit-managed-email').on('click', function() {
+    submitButton.on('click', function() {
       if ($('#confirm-managed-email').is(':checked')) {
         fetch("https://podpri.djnd.si/api/subscribe/", {
           method: "POST",
@@ -95,13 +101,20 @@
           throw new Error("Response not ok");
         })
         .then((res) => {
-          alert("Na mailu te čakajo navodila za urejanje!");
+          response.attr('class', 'form-text text-start');
+          response.text("Hvala za prijavo!");
         })
         .catch((error) => {
-          alert('Ups, nekaj je šlo narobe. Poskusi ponovno.');
+          response.attr('class', 'form-text text-start text-error');
+          response.text("Napaka pri prijavi :(");
+        })
+        .then(() => {
+          submitButton.prop("disabled", false);
+          emailElem.prop("disabled", false);
+          checkbox.prop("disabled", false);
         });
       } else {
-        $('.confirm-label').css({'color': 'red'});
+        form.classList.add("error");
       }
     });
     const urlParams = new URLSearchParams(document.location.search);
@@ -113,7 +126,7 @@
       }).then((json) => {
         if (json.segments.filter((segment) => segment.id === 20).length > 0) {
           $('.subscription').text('Odjavi se od prejemanja e-novičnika');
-          $('.subscription').removeAttr('disabled');
+          $('.subscription').prop("disabled", false);
         } else {
           $('.unsubscribe').hide();
           $('.manage').show();
