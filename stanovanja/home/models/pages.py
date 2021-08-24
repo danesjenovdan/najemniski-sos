@@ -7,11 +7,14 @@ from django.contrib import messages
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 from wagtail.core import blocks, fields
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import (StreamFieldPanel, InlinePanel, FieldPanel, MultiFieldPanel)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+import requests
+import json
 from .blocks import (SectionBlock)
 from .solution import (SolutionCategory, RentalStory, UserProblem)
 from ..forms import RentalStoryForm, UserProblemSubmissionForm
@@ -45,6 +48,7 @@ class ContentPage(Page):
     ]
 
     def get_context(self, request, rental_story_form=None, user_problem_form=None):
+
         context = super().get_context(request)
 
         solutions = SolutionPage.objects.all().live()
@@ -91,22 +95,37 @@ class ContentPage(Page):
             )
 
         if request.method == 'POST':
+            headers = {
+                "Authorization": settings.PODPRI_SEND_EMAIL_TOKEN,
+                "content-type": "application/json"
+            }
+
             if 'new_story' in request.POST:
                 rental_story_form = RentalStoryForm(request.POST)
 
                 if rental_story_form.is_valid():
-                    rental_story_form.save()
+                    new_rental_story = rental_story_form.save()
                     rental_story_form = RentalStoryForm()
-                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddano izkušnjo!', extra_tags='story')
-                    """
-                    send_mail(
-                        'Nova najemniška zgodba',
-                        'Forma tekst',
-                        None,
-                        ['najemniski-sos@djnd.si'],
-                        fail_silently=False,
-                    )
-                    """
+                    messages.add_message(request, messages.SUCCESS, 'Hvala za oddano izkušnjo', extra_tags='story')
+
+                    # send an email to admin
+                    payload = {
+                        "title": "Nova uporabniška zgodba",
+                        "content": f"<html>" \
+                            f"<body>" \
+                                f"<p><strong>Ime:</strong> {new_rental_story.name}</p>" \
+                                f"<p><strong>Naslov:</strong> {new_rental_story.address}</p>" \
+                                f"<p><strong>E-naslov:</strong> {new_rental_story.email}</p>" \
+                                f"<p><strong>Opis:</strong> {new_rental_story.description}</p>" \
+                            f"</body>" \
+                        f"</html>",
+                        "description": "Najemniški SOS - nova uporabniška zgodba",
+                        "segments": [22]
+                    }
+
+                    r = requests.post('https://podpri.djnd.si/api/create-and-send-custom-email/', data = json.dumps(payload), headers=headers)
+                    print(r.json())
+
                     return HttpResponseRedirect(request.path)
                 else:
                     messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='story')
@@ -119,9 +138,26 @@ class ContentPage(Page):
             if 'new_problem' in request.POST:
                 user_problem_form = UserProblemSubmissionForm(request.POST)
                 if user_problem_form.is_valid():
-                    user_problem_form.save()
+                    new_user_problem = user_problem_form.save()
                     user_problem_form = UserProblemSubmissionForm()
                     messages.add_message(request, messages.SUCCESS, 'Hvala za oddan problem!', extra_tags='problem')
+
+                    # send an email to admin
+                    payload = {
+                        "title": "Nov uporabniški problem",
+                        "content": f"<html>" \
+                            f"<body>" \
+                                f"<p><strong>E-naslov:</strong> {new_user_problem.email}</p>" \
+                                f"<p><strong>Opis:</strong> {new_user_problem.description}</p>" \
+                            f"</body>" \
+                        f"</html>",
+                        "description": "Najemniški SOS - nov uporabniški problem",
+                        "segments": [22]
+                    }
+
+                    r = requests.post('https://podpri.djnd.si/api/create-and-send-custom-email/', data = json.dumps(payload), headers=headers)
+                    print(r.json())
+
                     return HttpResponseRedirect(request.path)
                 else:
                     messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='problem')
