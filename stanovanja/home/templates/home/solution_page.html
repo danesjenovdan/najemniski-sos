@@ -51,4 +51,13 @@
     <hr />
 </div>
 
+{% for block in page.new_problem_section %}
+<div class="bg-section bg-section--{{ block.value.background_color }} px-4 px-md-0">
+    <div class="container">
+        {% include_block block.value.new_problem %}
+    </div>
+</div>
+{% endfor %}
+
 {% endblock %}
+
