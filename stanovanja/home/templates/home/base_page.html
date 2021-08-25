@@ -19,7 +19,7 @@
     {% endblock %}
 </div>
 
-<!-- Modal -->
+<!-- Modal with form to submit a new story -->
 <div class="modal fade" id="newStoryFormModal" tabindex="-1" aria-labelledby="newStoryFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -84,8 +84,8 @@
                             </div>
                             <div class="col-12 my-2">
                                 <div class="checkbox-wrapper form-check">
-                                    <input type="checkbox" id="confirm-email-story" name="confirm-email" class="form-check-input">
-                                    <label class="form-check-label" for="confirm-email-story">
+                                    {{ rental_story_form.newsletter }}
+                                    <label class="form-check-label" for="id_newsletter">
                                         {{ page.modal_form_checkbox_newsletter }}
                                     </label>
                                 </div>
@@ -130,7 +130,7 @@
     </div>
 </div>
 
-<!-- places here (instead of base.html) because data comes from Page object -->
+<!-- placed here (instead of base.html) because data comes from Page object -->
 <div id="rental-stories" class="position-absolute" style="opacity: 0; z-index: -1000;">{{ rental_stories_stringified }}</div>
 
 {% include "home/includes/footer.html" %}
