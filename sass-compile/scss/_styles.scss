@@ -290,7 +290,7 @@ textarea.form-control {
       transition: clip-path 0.3s, transform 0.3s cubic-bezier(0.2, 1, 0.8, 1);
       clip-path: polygon(0% 0%, 0% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 0%);
     }
-    &.link--elara:hover::before {
+    &.link--elara:hover::before, &.link--elara.active::before {
       transform: translate3d(0, 2px, 0) scale3d(1.08, 3, 1);
       clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 50% 0, 50% 0, 50% 100%, 50% 100%, 0 100%, 100% 100%, 100% 0%);
     }
@@ -298,7 +298,7 @@ textarea.form-control {
       display: inline-block;
       transition: transform 0.3s cubic-bezier(0.2, 1, 0.8, 1);
     }
-    &.link--elara:hover span {
+    &.link--elara:hover span, &.link--elara.active span {
       transform: translate3d(0, -2px, 0);
     }
   }

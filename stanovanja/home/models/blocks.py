@@ -255,3 +255,13 @@ class SectionBlock(blocks.StreamBlock):
         icon = 'snippet'
 
 
+class NewProblemSection(blocks.StructBlock):
+    title = blocks.CharBlock(label=_('Naslov'))
+    description = blocks.RichTextBlock(required=False, label=_('Opis'))
+    submit_button = blocks.CharBlock(label=_('Tekst na gumbu'))
+    checkbox_text = blocks.CharBlock(label=_('Tekst ob checkboxu'))
+
+    class Meta:
+        label = _('Sekcija za oddat nov problem')
+        template='home/blocks/new_problem_section.html',
+        icon='title'

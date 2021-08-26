@@ -15,7 +15,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 import requests
 import json
-from .blocks import (SectionBlock)
+from .blocks import (SectionBlock, NewProblemSection)
 from .solution import (SolutionCategory, RentalStory, UserProblem)
 from ..forms import RentalStoryForm, UserProblemSubmissionForm
 
@@ -145,6 +145,7 @@ class ContentPage(Page):
 
             if 'new_problem' in request.POST:
                 user_problem_form = UserProblemSubmissionForm(request.POST)
+
                 if user_problem_form.is_valid():
                     new_user_problem = user_problem_form.save()
                     user_problem_form = UserProblemSubmissionForm()
@@ -201,13 +202,37 @@ class SolutionPage(Page):
         related_name='+',
     )
     claps_no = models.IntegerField(verbose_name=_("Število ploskov"), default=0)
-    category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(SolutionCategory, null=True, on_delete=models.SET_NULL, verbose_name=_("Kategorija"))
     related_problems = fields.StreamField(
         [('problem', blocks.PageChooserBlock(label=_("Povezava do problema"))),],
         blank=True,
         null=True,
         min_num=0,
         max_num=3,
+        verbose_name=_("Povezani problemi")
+    )
+    new_problem_section = fields.StreamField(
+        [
+            ('section', blocks.StructBlock([
+                ('new_problem', NewProblemSection()),
+                ('background_color', blocks.ChoiceBlock(
+                    choices=[
+                        ('white', 'Bela'),
+                        ('yellow', 'Rumena'),
+                        ('purple', 'Vijolična'),
+                        ('gradient_green_yellow', 'Zeleno-rumena'),
+                        ('gradient_purple_green', 'Vijolično-zelena'),
+                    ],
+                    label=_('Barva'),
+                )),
+            ],
+            label=_("Sekcija")
+            )),
+        ],
+        null=True,
+        blank=True,
+        max_num=1,
+        verbose_name=_("Sekcija za oddat nov problem")
     )
 
     content_panels = Page.content_panels + [
@@ -216,11 +241,72 @@ class SolutionPage(Page):
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
         StreamFieldPanel("related_problems"),
+        StreamFieldPanel("new_problem_section"),
     ]
 
     search_fields = Page.search_fields + [
         index.SearchField("body"),
     ]
+
+    def get_context(self, request, user_problem_form=None):
+        context = super().get_context(request)
+
+        if request.method == 'GET':
+            user_problem_form = UserProblemSubmissionForm()
+
+        context["user_problem_form"] = user_problem_form
+        return context
+
+    def serve(self, request):
+        if request.method == 'GET':
+            return TemplateResponse(
+                request,
+                self.get_template(request),
+                self.get_context(request)
+            )
+
+        if request.method == 'POST':
+            headers = {
+                "Authorization": settings.PODPRI_SEND_EMAIL_TOKEN,
+                "content-type": "application/json"
+            }
+            user_problem_form = UserProblemSubmissionForm(request.POST)
+            if user_problem_form.is_valid():
+                new_user_problem = user_problem_form.save()
+                user_problem_form = UserProblemSubmissionForm()
+                messages.add_message(request, messages.SUCCESS, 'Hvala za oddan problem!', extra_tags='problem')
+
+                # send an email to admin
+                payload = {
+                    "title": "Nov uporabniški problem",
+                    "content": f"<html>" \
+                        f"<body>" \
+                            f"<p><strong>E-naslov:</strong> {new_user_problem.email}</p>" \
+                            f"<p><strong>Opis:</strong> {new_user_problem.description}</p>" \
+                        f"</body>" \
+                    f"</html>",
+                    "description": "Najemniški SOS - nov uporabniški problem",
+                    "segments": [22]
+                }
+                r = requests.post('https://podpri.djnd.si/api/create-and-send-custom-email/', data = json.dumps(payload), headers=headers)
+
+                # send an email to user
+                payload = {
+                    "email": new_user_problem.email,
+                    "email_template_id": 644
+                }
+                r = requests.post('https://podpri.djnd.si/api/send-email/', data = json.dumps(payload), headers=headers)
+
+                return HttpResponseRedirect(request.path)
+            else:
+                messages.add_message(request, messages.ERROR, 'Nekaj je šlo narobe :(', extra_tags='problem')
+                return TemplateResponse(
+                    request,
+                    self.get_template(request),
+                    self.get_context(request, user_problem_form=user_problem_form)
+                )
+
+        return HttpResponseRedirect(request.path)
 
 
 class NewsletterPage(Page):

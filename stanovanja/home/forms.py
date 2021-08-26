@@ -1,8 +1,12 @@
 from django import forms
+import requests
+import json
 from .models.solution import RentalStory, UserProblem
 
 
 class RentalStoryForm(forms.ModelForm):
+    newsletter = forms.BooleanField(required=False)
+
     class Meta:
         model = RentalStory
         fields = ['description', 'icon', 'name', 'email', 'address', 'private', 'hide_location']
@@ -15,7 +19,21 @@ class RentalStoryForm(forms.ModelForm):
             'private': forms.CheckboxInput(attrs={'class': "form-check-input"}),
             'hide_location': forms.CheckboxInput(attrs={'class': "form-check-input"})
         }
+    def save(self, commit=True):
+        # subscribe user to newsletter, if they said so in the form
+        send_emails = self.cleaned_data['newsletter']
+        if send_emails:
+            user_email = self.cleaned_data['email']
+            headers = {
+                "Content-Type": "application/json",
+            }
+            payload = {
+                "email": user_email,
+                "segment": 20,
+            }
 
+            r = requests.post('https://podpri.djnd.si/api/subscribe/', data = json.dumps(payload), headers=headers)
+        return super(RentalStoryForm, self).save(commit=commit)
 
 class UserProblemSubmissionForm(forms.ModelForm):
     class Meta:
