@@ -37,21 +37,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - najemniski-sos.lb.djnd.si
         - www.najemniski-sos.si
         - najemniski-sos.si
       secretName: najemniski-sos-tls
   rules:
-    - host: najemniski-sos.lb.djnd.si
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: najemniski-sos
-                port:
-                  number: 8000
     - host: najemniski-sos.si
       http:
         paths:
