@@ -251,7 +251,7 @@ function readMoreMap(e) {
 
             if (shorter.css("display") === "none") {
                 shorter.css("display", "block");
-                $(this).find("span").text("PREBERI VEĆ");
+                $(this).find("span").text("PREBERI VEČ");
                 $(this).find("img").css("transform", "rotate(180deg)");
                 full_text.css("display", "none");
             } else {
