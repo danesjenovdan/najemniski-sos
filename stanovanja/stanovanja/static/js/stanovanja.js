@@ -212,7 +212,7 @@ function readMoreMap(e) {
             const shorter = $(this).parent().parent().find('.story-description p:last-child');
 
             if (shorter.css("display") === "none") {
-                shorter.css("display", "inline");
+                shorter.css("display", "block");
                 $(this).find("span").text("PREBERI VEĆ");
                 $(this).find("img").css("transform", "rotate(180deg)");
                 full_text.css("display", "none");
@@ -220,7 +220,7 @@ function readMoreMap(e) {
                 shorter.css("display", "none");
                 $(this).find("span").text("PREBERI MANJ");
                 $(this).find("img").css("transform", "rotate(0)");
-                full_text.css("display", "inline");
+                full_text.css("display", "block");
             }
         })
     })

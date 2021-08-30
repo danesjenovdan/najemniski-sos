@@ -6,19 +6,25 @@
             {% for story in rental_stories|slice:":3" %}
             <div class="list-element">
                 <div class="story-description">
+                    {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
-                    <p>{{ story.description|truncatewords:30 }}</p>
+                    <p>{{ story.description|truncatechars:200 }}</p>
+                    {% else %}
+                    <p>{{ story.description }}</p>
+                    {% endif %}
                 </div>
                 <div class="user d-flex align-items-center">
                     <span>{{ story.icon }}</span>
                     <span>{{ story.displayed_name }}</span>
                 </div>
+                {% if story.description|length > 200 %}
                 <div class="text-end">
                     <button class="btn read-more">
                         <span>PREBERI VEČ</span>
                         <img src="{% static 'icons/arrow.svg' %}" />
                     </button>
                 </div>
+                {% endif %}
             </div>
             {% endfor %}
             <button class="btn btn-background w-100 my-4 mx-0" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
@@ -28,19 +34,25 @@
             {% for story in rental_stories|slice:"3:" %}
             <div class="list-element">
                 <div class="story-description">
+                    {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
-                    <p>{{ story.description|truncatewords:30 }}</p>
+                    <p>{{ story.description|truncatechars:200 }}</p>
+                    {% else %}
+                    <p>{{ story.description }}</p>
+                    {% endif %}
                 </div>
                 <div class="user d-flex align-items-center">
                     <span>{{ story.icon }}</span>
                     <span>{{ story.displayed_name }}</span>
                 </div>
+                {% if story.description|length > 200 %}
                 <div class="text-end">
                     <button class="btn read-more">
                         <span>PREBERI VEČ</span>
                         <img src="{% static 'icons/arrow.svg' %}" />
                     </button>
                 </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

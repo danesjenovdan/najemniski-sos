@@ -52,7 +52,7 @@ class ContentPage(Page):
     def get_context(self, request, rental_story_form=None, user_problem_form=None):
         context = super().get_context(request)
 
-        solutions = SolutionPage.objects.all().live()
+        solutions = SolutionPage.objects.all().live().order_by('-first_published_at')
 
         context["categories"] = (
             SolutionCategory.objects.all()
@@ -223,6 +223,7 @@ class SolutionPage(Page):
                         ('gradient_green_yellow', 'Zeleno-rumena'),
                         ('gradient_purple_green', 'Vijolično-zelena'),
                     ],
+                    default='white',
                     label=_('Barva'),
                 )),
             ],
