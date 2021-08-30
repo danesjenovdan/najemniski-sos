@@ -5,8 +5,23 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 from wagtail.core import hooks
-
+from wagtail.core.rich_text import LinkHandler
 from .models import SolutionCategory, RentalStory, UserProblem
+
+
+class NewTabExternalLinkHandler(LinkHandler):
+    identifier = "external"
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
+        href = attrs["href"]
+        return '<a href="%s" target="_blank">' % escape(href)
+
+
+# Run hook with order=1 so it runs after admin is loaded (default order=0) and overrides rules
+@hooks.register("register_rich_text_features", order=1)
+def register_extra_rich_text_features(features):
+    features.register_link_type(NewTabExternalLinkHandler)
 
 
 class SolutionCategoryAdmin(ModelAdmin):
