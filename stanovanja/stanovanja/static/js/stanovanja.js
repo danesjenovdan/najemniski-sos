@@ -66,6 +66,22 @@ function getCookie(name) {
 })();
 
 (function () {
+    const story_form = $('#newStoryFormModal form');
+    const submit_button = story_form.find('button[type="submit"]');
+    story_form.submit(() => {
+        submit_button.text('Pošiljamo...');
+        submit_button.addClass('disabled');
+    });
+
+    const problem_forms = $('.new-problem-form form');
+    problem_forms.submit((e) => {
+        const submit_button = $(e.target).find('button[type="submit"]');
+        submit_button.text('Pošiljamo...');
+        submit_button.addClass('disabled');
+    });
+})();
+
+(function () {
     var shareLinks = document.querySelectorAll(".social");
     shareLinks.forEach((shareLink) => {
         shareLink.addEventListener("click", function (event) {
