@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-8">
             {% for story in rental_stories|slice:":3" %}
-            <div class="list-element">
+            <div class="list-element" onclick="openStoryOnMap({{ story.id }})">
                 <div class="story-description">
                     {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
