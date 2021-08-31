@@ -383,7 +383,7 @@ footer {
 
 .hero, .hero-small {
   .supertitle {
-    font-size: 0.75rem;
+    padding: 0 0.25rem;
   }
   .text-start .btn {
     margin-left: 0;
@@ -624,6 +624,9 @@ footer {
     border-bottom: 2px solid #d8d4f2;
     padding-top: 1rem;
     padding-bottom: 2rem;
+    &:hover {
+      cursor: pointer;
+    }
     p {
       margin-bottom: 0.75rem;
     }

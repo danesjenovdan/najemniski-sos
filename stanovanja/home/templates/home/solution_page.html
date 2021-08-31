@@ -22,7 +22,7 @@
         <div class="row py-5">
             <div class="col-lg-8 rich-text mb-5">
                 {% for block in page.body %}
-                    {% include_block block %}
+                    {{ block.value|richtext  }}
                 {% endfor %}
             </div>
             <div class="col-lg-4">

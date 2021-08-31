@@ -66,6 +66,22 @@ function getCookie(name) {
 })();
 
 (function () {
+    const story_form = $('#newStoryFormModal form');
+    const submit_button = story_form.find('button[type="submit"]');
+    story_form.submit(() => {
+        submit_button.text('Pošiljamo...');
+        submit_button.addClass('disabled');
+    });
+
+    const problem_forms = $('.new-problem-form form');
+    problem_forms.submit((e) => {
+        const submit_button = $(e.target).find('button[type="submit"]');
+        submit_button.text('Pošiljamo...');
+        submit_button.addClass('disabled');
+    });
+})();
+
+(function () {
     var shareLinks = document.querySelectorAll(".social");
     shareLinks.forEach((shareLink) => {
         shareLink.addEventListener("click", function (event) {
@@ -86,9 +102,11 @@ function getCookie(name) {
     });
 })();
 
+const markers = {};
+
 (function () {
-    var map_el = document.getElementById('mapid');
-    var rental_stories_el = document.getElementById('rental-stories');
+    const map_el = document.getElementById('mapid');
+    const rental_stories_el = document.getElementById('rental-stories');
 
     if (map_el) {
         var map = L.map('mapid').setView([46.2, 15], 8);
@@ -100,7 +118,7 @@ function getCookie(name) {
             iconSize  : [24, 30],
             iconAnchor: [12, 15],
             className : 'mymarker',
-            popupAnchor: [0, -15],
+            popupAnchor: [0, -15]
         }
 
         if (rental_stories_el) {
@@ -112,23 +130,35 @@ function getCookie(name) {
                     iconOptions.html = story.fields.icon;
 
                     const markerOptions = {
-                        icon: L.divIcon(iconOptions)
+                        icon: L.divIcon(iconOptions),
                     };
 
-                    L.marker([story.fields.lat, story.fields.lng], markerOptions)
-                    .addTo(map)
-                    .bindPopup(`
-                    <div>
-                        <p class="d-none">${story.fields.description}</p>
-                        <p>${story.fields.description.substring(0, 200) + '...'}</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>${story.fields.displayed_name}</span>
-                        <span class="read-more-map" onclick="readMoreMap(event)">PREBERI VEČ</span>
-                    </div>
-                `);
+                    const newMarker = L.marker([story.fields.lat, story.fields.lng], markerOptions);
+                    newMarker.addTo(map);
+                    if (story.fields.description.length > 200) {
+                        newMarker.bindPopup(`
+                            <div>
+                                <p class="d-none">${story.fields.description}</p>
+                                <p>${story.fields.description.substring(0, 200) + '...'}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>${story.fields.displayed_name}</span>
+                                <span class="read-more-map" onclick="readMoreMap(event)">PREBERI VEČ</span>
+                            </div>
+                    `   );
+                    } else {
+                        newMarker.bindPopup(`
+                            <div>
+                                <p>${story.fields.description}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>${story.fields.displayed_name}</span>
+                                <span></span>
+                            </div>
+                    `   );
+                    }
+                    markers[story.pk] = newMarker;
                 }
-
             });
         } else {
             console.log('no rental stories');
@@ -139,10 +169,17 @@ function getCookie(name) {
 
 })();
 
+function openStoryOnMap(id) {
+    if (markers) {
+        markers[id].openPopup();
+    }
+}
+
 function readMoreMap(e) {
     const parent = $(e.target).parent().parent().children().first();
     parent.children().first().removeClass('d-none');
     parent.children().last().addClass('d-none');
+    $(e.target).text('');
 }
 
 (function () {
@@ -207,20 +244,21 @@ function readMoreMap(e) {
 
 (function () {
     $(".read-more").each(function() {
-        $(this).on('click', () => {
+        $(this).on('click', (e) => {
+            e.stopPropagation();
             const full_text = $(this).parent().parent().find('.story-description p:first-child');
             const shorter = $(this).parent().parent().find('.story-description p:last-child');
 
             if (shorter.css("display") === "none") {
-                shorter.css("display", "inline");
-                $(this).find("span").text("PREBERI VEĆ");
+                shorter.css("display", "block");
+                $(this).find("span").text("PREBERI VEČ");
                 $(this).find("img").css("transform", "rotate(180deg)");
                 full_text.css("display", "none");
             } else {
                 shorter.css("display", "none");
                 $(this).find("span").text("PREBERI MANJ");
                 $(this).find("img").css("transform", "rotate(0)");
-                full_text.css("display", "inline");
+                full_text.css("display", "block");
             }
         })
     })
