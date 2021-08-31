@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-8">
             {% for story in rental_stories|slice:":3" %}
-            <div class="list-element" onclick="openStoryOnMap({{ story.id }})">
+            <div class="list-element {% if not story.hide_location %}is-clickable{% endif %}" {% if not story.hide_location %} onclick="openStoryOnMap({{ story.id }})" {% endif %}>
                 <div class="story-description">
                     {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
@@ -32,7 +32,7 @@
                 <img src="{% static 'icons/curved-arrow.svg' %}" />
             </button>
             {% for story in rental_stories|slice:"3:" %}
-            <div class="list-element">
+            <div class="list-element {% if not story.hide_location %}is-clickable{% endif %}" {% if not story.hide_location %} onclick="openStoryOnMap({{ story.id }})" {% endif %}>
                 <div class="story-description">
                     {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
