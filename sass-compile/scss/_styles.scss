@@ -440,10 +440,10 @@ footer {
   }
 
   input:checked + label:after {
-    background-image: url("../icons/check.svg");
+    background-image: url("../icons/check.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100% 100%;
   }
 }
 
