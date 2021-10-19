@@ -20,7 +20,11 @@
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% else %}{{ settings.home.MetaSettings.meta_description }}{% endif %}">
         <meta name="twitter:description" content="{% if self.search_description %}{{ self.search_description }}{% else %}{{ settings.home.MetaSettings.meta_description }}{% endif %}">
 
-        {% if settings.home.MetaSettings.meta_image %}
+        {% if self.meta_image %}
+            {% image self.meta_image max-1200x630 as og_image %}
+            <meta property="og:image" content="{{ og_image.url }}">
+            <meta name="twitter:image" content="{{ og_image.url }}">
+        {% elif settings.home.MetaSettings.meta_image %}
             {% image settings.home.MetaSettings.meta_image max-1200x630 as og_image %}
             <meta property="og:image" content="{{ og_image.url }}">
             <meta name="twitter:image" content="{{ og_image.url }}">

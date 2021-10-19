@@ -235,6 +235,13 @@ class SolutionPage(Page):
         max_num=1,
         verbose_name=_("Sekcija za oddat nov problem")
     )
+    meta_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel("body"),
@@ -243,6 +250,7 @@ class SolutionPage(Page):
         FieldPanel("category", widget=forms.Select),
         StreamFieldPanel("related_problems"),
         StreamFieldPanel("new_problem_section"),
+        ImageChooserPanel("meta_image"),
     ]
 
     search_fields = Page.search_fields + [
