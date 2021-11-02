@@ -513,10 +513,10 @@ footer {
 #mapid {
   height: 400px;
   @media (min-width: 992px) {
-    height: unset;
+    height: 100vh;
     position: absolute;
     top: 0;
-    bottom: 0;
+    //bottom: 0;
     right: 0;
     left: 50%;
   }
