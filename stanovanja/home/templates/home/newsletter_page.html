@@ -114,7 +114,8 @@
           checkbox.prop("disabled", false);
         });
       } else {
-        form.classList.add("error");
+        response.attr('class', 'form-text text-start text-error');
+        response.text("Prosimo označite, da se strinjate z občasnimi elektronskimi sporočili.");
       }
     });
     const urlParams = new URLSearchParams(document.location.search);
