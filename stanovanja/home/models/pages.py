@@ -58,7 +58,7 @@ class ContentPage(Page):
             SolutionCategory.objects.all()
         )
 
-        rental_stories = RentalStory.objects.filter(approved=True, private=False).order_by('?')[:10]
+        rental_stories = RentalStory.objects.filter(approved=True, private=False).order_by('?')
         context["rental_stories"] = rental_stories
         rental_stories_stringified = serializers.serialize("json", rental_stories, fields=('lat', 'lng', 'description', 'icon', 'displayed_name'))
         context["rental_stories_stringified"] = rental_stories_stringified
