@@ -676,9 +676,20 @@ footer {
   .list-element, .btn.btn-background {
     margin-left: 0;
   }
-  #mapid {
+  .map-wrapper {
     @media (min-width: 992px) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
       left: 66%;
+
+      #mapid {
+        position: sticky !important;
+        top: 3.75rem;
+        left: 0;
+        height: calc(100vh - 3.75rem);
+      }
     }
   }
 }
