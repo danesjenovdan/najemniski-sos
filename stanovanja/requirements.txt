@@ -3,3 +3,5 @@ wagtail>=2.14,<2.15
 psycopg2==2.8.6
 requests==2.25.1
 djangorestframework
+django-storages
+boto3
