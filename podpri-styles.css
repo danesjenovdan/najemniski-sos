@@ -1,0 +1,122 @@
+/* red color
+#dd786b
+221, 120, 107
+*/
+
+/* focus borders */
+button:focus {
+  outline: 5px auto #dd786b;
+  border: 1px solid #dd786b;
+  box-shadow: 0 0 0 0.2rem rgba(221, 120, 107, 0.25);
+}
+
+.page.custom .form-control:focus,
+.page.custom .card-payment .focus {
+  /* payment fields */
+  border: 1px solid #dd786b;
+  box-shadow: 0 0 0 0.2rem rgba(221, 120, 107, 0.25);
+}
+
+/* donation option button background, border and box shadow */
+.page.custom .donation-option .donation-option__content-wrapper {
+  border: 2px solid rgba(221, 120, 107, 0.2);
+  background-color: white;
+  background-image: linear-gradient(
+    to right,
+    rgba(205, 172, 84, 0.2) 0%,
+    rgba(221, 120, 107, 0.2) 100%
+  );
+}
+
+/* on focus */
+.page.custom .donation-option:focus .donation-option__content-wrapper {
+  border: 2px solid #dd786b;
+  box-shadow: 0 0 0 0.2rem rgba(221, 120, 107, 0.25);
+}
+
+.page.custom
+  .donation-option
+  .donation-option__content-wrapper
+  .donation-option__icon
+  .icon {
+  color: #e7a197;
+}
+
+/* donation option selected styles */
+.page.custom
+  .donation-option.donation-option--selected
+  .donation-option__content-wrapper {
+  border: 2px solid #dd786b;
+  background-image: linear-gradient(to right, #cdac54 0%, #dd786b 100%);
+}
+
+.page.custom
+  .donation-option.donation-option--selected
+  .donation-option__content-wrapper
+  path.circle {
+  fill: #ffffff;
+}
+
+.page.custom
+  .donation-option.donation-option--selected
+  .donation-option__content-wrapper
+  path.checkmark {
+  fill: #e7a197;
+}
+
+/**/
+
+/* confirm button (go to next step) */
+.page.custom .confirm-button-container .confirm-button {
+  background-color: #dd786b;
+}
+
+@media (min-width: 768px) {
+  .page.custom .confirm-button-container .confirm-button {
+    font-size: 2.4rem;
+  }
+}
+
+.page.custom .cart-total {
+  background-color: rgba(221, 120, 107, 0.15);
+}
+
+/* custom checkbox */
+.page.custom
+  .custom-control.custom-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label::before {
+  border-color: #dd786b;
+  background-color: #dd786b;
+}
+
+.page.custom
+  .custom-control.custom-checkbox
+  .custom-control-input:focus
+  ~ .custom-control-label::before {
+  border-color: #dd786b;
+  box-shadow: 0 0 0 0.2rem rgba(221, 120, 107, 0.25);
+}
+
+.page.custom
+  .custom-control.custom-checkbox
+  .custom-control-input:active
+  ~ .custom-control-label::before {
+  background-color: rgba(221, 120, 107, 0.25);
+  border-color: rgba(221, 120, 107, 0.25);
+}
+
+/**/
+
+/* donation switcher */
+.page.custom .payment-switcher .nav .nav-item .nav-link {
+  /* font-family: 'Alegreya', sans-serif;
+  font-weight: 700;
+  font-style: italic; */
+}
+
+.page.custom .payment-switcher .nav .nav-item .nav-link.active {
+  background-color: rgba(221, 120, 107, 0.3);
+}
+
+/**/
