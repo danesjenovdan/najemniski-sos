@@ -29,35 +29,35 @@ function getCookie(name) {
                 submitButton.setAttribute("disabled", "disabled");
                 emailElem.setAttribute("disabled", "disabled");
                 checkbox.setAttribute("disabled", "disabled");
-                fetch("https://podpri.djnd.si/api/subscribe/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: emailElem.value,
-                        segment: 20,
-                    }),
+                fetch('https://podpri.lb.djnd.si/api/subscribe/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: emailElem.value,
+                    segment_id: 18,
+                  }),
                 })
-                .then((res) => {
+                  .then((res) => {
                     if (res.ok) {
-                        return res.text();
+                      return res.text();
                     }
-                    throw new Error("Response not ok");
-                })
-                .then((res) => {
-                    response.className = "form-text text-start";
-                    response.textContent = "Hvala za prijavo!";
-                })
-                .catch((error) => {
-                    response.className = "form-text text-start text-error";
-                    response.textContent = "Napaka pri prijavi :(";
-                })
-                .then(() => {
-                    submitButton.removeAttribute("disabled");
-                    emailElem.removeAttribute("disabled");
-                    checkbox.removeAttribute("disabled");
-                });
+                    throw new Error('Response not ok');
+                  })
+                  .then((res) => {
+                    response.className = 'form-text text-start';
+                    response.textContent = 'Hvala za prijavo!';
+                  })
+                  .catch((error) => {
+                    response.className = 'form-text text-start text-error';
+                    response.textContent = 'Napaka pri prijavi :(';
+                  })
+                  .then(() => {
+                    submitButton.removeAttribute('disabled');
+                    emailElem.removeAttribute('disabled');
+                    checkbox.removeAttribute('disabled');
+                  });
             } else {
                 form.classList.add("error");
             }
