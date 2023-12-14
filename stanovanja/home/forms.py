@@ -5,7 +5,7 @@ from .models.solution import RentalStory, UserProblem
 
 
 class RentalStoryForm(forms.ModelForm):
-    # newsletter = forms.BooleanField(required=False)
+    newsletter = forms.BooleanField(required=False)
 
     class Meta:
         model = RentalStory
@@ -14,7 +14,7 @@ class RentalStoryForm(forms.ModelForm):
             "description",
             "icon",
             "name",
-            # "email",
+            "email",
             "address",
             "private",
             "hide_location",
@@ -32,9 +32,13 @@ class RentalStoryForm(forms.ModelForm):
             "name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Ime"}
             ),
-            # "email": forms.TextInput(
-            #     attrs={"class": "form-control", "placeholder": "E-naslov*"}
-            # ),
+            "email": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "E-naslov*",
+                    "required": True,
+                }
+            ),
             "address": forms.TextInput(
                 attrs={
                     "class": "form-control",
@@ -47,22 +51,22 @@ class RentalStoryForm(forms.ModelForm):
 
     def save(self, commit=True):
         # subscribe user to newsletter, if they said so in the form
-        # send_emails = self.cleaned_data["newsletter"]
-        # if send_emails:
-        #     user_email = self.cleaned_data["email"]
-        #     headers = {
-        #         "Content-Type": "application/json",
-        #     }
-        #     payload = {
-        #         "email": user_email,
-        #         "segment": 20,
-        #     }
+        send_emails = self.cleaned_data["newsletter"]
+        if send_emails:
+            user_email = self.cleaned_data["email"]
+            headers = {
+                "Content-Type": "application/json",
+            }
+            payload = {
+                "email": user_email,
+                "segment": 20,
+            }
 
-        #     r = requests.post(
-        #         "https://podpri.djnd.si/api/subscribe/",
-        #         data=json.dumps(payload),
-        #         headers=headers,
-        #     )
+            r = requests.post(
+                "https://podpri.djnd.si/api/subscribe/",
+                data=json.dumps(payload),
+                headers=headers,
+            )
         return super(RentalStoryForm, self).save(commit=commit)
 
 
