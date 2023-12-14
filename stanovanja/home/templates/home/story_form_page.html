@@ -48,6 +48,10 @@
                         {{ rental_story_form.name }}
                         {{ rental_story_form.name.errors }}
                     </div>
+                    <div class="form-group my-3">
+                        {{ rental_story_form.email }}
+                        {{ rental_story_form.email.errors }}
+                    </div>
                     <div class="form-group mb-4">
                         {{ rental_story_form.address }}
                         {{ rental_story_form.address.errors }}
@@ -67,12 +71,12 @@
                         </div>
                     </div>
                     <hr class="my-5" />
-                    <!-- <div class="checkbox-wrapper form-check">
+                    <div class="checkbox-wrapper form-check">
                         {{ rental_story_form.newsletter }}
                         <label class="form-check-label" for="id_newsletter">
                             Strinjam se, da mi občasno pošljete elektronsko sporočilo.
                         </label>
-                    </div> -->
+                    </div>
                     <div class="checkbox-wrapper form-check">
                         {{ rental_story_form.private }}
                         <label class="form-check-label" for="id_private">
