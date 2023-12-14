@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
-from wagtail.admin.edit_handlers import (FieldPanel)
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalKey
 
@@ -56,7 +56,9 @@ class UserProblem(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
+        verbose_name=_(
+            "Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"
+        ),
     )
 
     panels = [
@@ -90,6 +92,7 @@ class RentalStory(models.Model):
         verbose_name=_("Ime uporabnika"),
     )
     email = models.EmailField(
+        blank=True,
         verbose_name=_("E-mail uporabnika"),
     )
     address = models.CharField(
@@ -106,7 +109,9 @@ class RentalStory(models.Model):
     )
     approved = models.BooleanField(
         default=False,
-        verbose_name=_("Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"),
+        verbose_name=_(
+            "Pregledano s strani administratorja (samo pregledane zgodbe so prikazane na strani)"
+        ),
     )
     displayed_name = models.CharField(
         null=True,
@@ -115,24 +120,33 @@ class RentalStory(models.Model):
         verbose_name=_("Prikazano ime in naslov uporabnika"),
     )
     lat = models.DecimalField(
-         null=True,
-         blank=True,
-         max_digits=10,
-         decimal_places=7,
-         verbose_name=_("Zemljepisna širina"),
+        null=True,
+        blank=True,
+        max_digits=10,
+        decimal_places=7,
+        verbose_name=_("Zemljepisna širina"),
     )
     lng = models.DecimalField(
-         null=True,
-         blank=True,
-         max_digits=10,
-         decimal_places=7,
-         verbose_name=_("Zemljepisna dolžina"),
+        null=True,
+        blank=True,
+        max_digits=10,
+        decimal_places=7,
+        verbose_name=_("Zemljepisna dolžina"),
+    )
+    type_of_story = models.TextField(
+        null=True,
+        blank=True,
+        choices=[
+            ("Delim zgodbo o diskriminaciji", "Delim zgodbo o diskriminaciji"),
+            ("Delim najemniško izkušnjo", "Delim najemniško izkušnjo"),
+        ],
     )
 
     def __str__(self):
         return self.description
 
     panels = [
+        FieldPanel("type_of_story"),
         FieldPanel("description"),
         FieldPanel("icon"),
         FieldPanel("name"),
@@ -149,4 +163,3 @@ class RentalStory(models.Model):
     class Meta:
         verbose_name = "Najemniška izkušnja"
         verbose_name_plural = "Najemniške izkušnje"
-

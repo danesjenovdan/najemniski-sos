@@ -1,0 +1,24 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<div class="share-and-care links">
+    <div class="row my-lg-4">
+        <div class="col-12 col-lg-6 py-3 px-4 p-lg-0">
+            <div class="box left-box position-relative">
+                <div class="border-box"></div>
+                <h2 class="my-5">{{ value.left_box.title }}</h2>
+                <div class="d-flex justify-content-center">
+                    <a href="{% if value.left_box.link %}{% pageurl value.left_box.link %}{% endif %}" class="btn btn-normal">{{ value.left_box.link_text }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 py-3 px-4 p-lg-0">
+            <div class="box right-box position-relative">
+                <div class="border-box"></div>
+                <h2 class="my-5">{{ value.right_box.title }}</h2>
+                <div class="d-flex justify-content-center">
+                    <a href="{% if value.right_box.link %}{% pageurl value.right_box.link %}{% endif %}" class="btn btn-background">{{ value.right_box.link_text }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
