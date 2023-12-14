@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-8">
             {% for story in rental_stories|slice:":3" %}
-            <div class="list-element {% if not story.hide_location %}is-clickable{% endif %}" {% if not story.hide_location %} onclick="openStoryOnMap({{ story.id }})" {% endif %}>
+            <div class="list-element {% if not story.hide_location %}is-clickable{% endif %} {% if forloop.counter == 3 %}no-bottom-border{% endif %}" {% if not story.hide_location %} onclick="openStoryOnMap({{ story.id }})" {% endif %}>
                 <div class="story-description">
                     {% if story.description|length > 200 %}
                     <p style="display: none">{{ story.description }}</p>
@@ -27,10 +27,15 @@
                 {% endif %}
             </div>
             {% endfor %}
-            <button class="btn btn-background w-100 my-4 mx-0" data-bs-toggle="modal" data-bs-target="#newStoryFormModal">
-                {{ value.button_text }}
-                <img src="{% static 'icons/curved-arrow.svg' %}" />
-            </button>
+            <div class="share-and-care mt-2 mb-5">
+                <div class="box right-box position-relative mx-0">
+                    <div class="border-box"></div>
+                    <a href="{% if new_rental_story_page %}{% pageurl new_rental_story_page %}{% endif %}" class="btn btn-background w-100 mt-3 mb-0 mx-0">
+                        <h5 class="mb-0">{{ value.button_text }}</h5>
+                        <img src="{% static 'icons/curved-arrow.svg' %}" />
+                    </a>
+                </div>
+            </div>
             {% for story in rental_stories|slice:"3:" %}
             <div class="list-element {% if not story.hide_location %}is-clickable{% endif %}" {% if not story.hide_location %} onclick="openStoryOnMap({{ story.id }})" {% endif %}>
                 <div class="story-description">

@@ -66,13 +66,6 @@ function getCookie(name) {
 })();
 
 (function () {
-    const story_form = $('#newStoryFormModal form');
-    const submit_button = story_form.find('button[type="submit"]');
-    story_form.submit(() => {
-        submit_button.text('Pošiljamo...');
-        submit_button.addClass('disabled');
-    });
-
     const problem_forms = $('.new-problem-form form');
     problem_forms.submit((e) => {
         const submit_button = $(e.target).find('button[type="submit"]');
@@ -269,9 +262,35 @@ function filterCategory() {
     document.getElementById("query-form").submit();
 }
 
-$(window).on('load', function() {
-    const story_form_message = document.getElementById('modal-story-message');
-    if (story_form_message) {
-        $('#newStoryFormModal').modal('show');
+function showStoryForm(event) {
+    const hiddenForm = document.getElementById("form-hidden");
+    const discrimination_texts = document.querySelectorAll(".discrimination-instruction");
+    const story_texts = document.querySelectorAll(".story-instruction");
+
+    if (hiddenForm) {
+        hiddenForm.classList.remove("hide");
+
+        if (event.target.id == "id_type_of_story_1") {
+            discrimination_texts.forEach((element) => {
+                element.classList.remove("hide");
+            });
+            story_texts.forEach((element) => {
+                element.classList.add("hide");
+            });
+        } else {
+            discrimination_texts.forEach((element) => {
+                element.classList.add("hide");
+            });
+            story_texts.forEach((element) => {
+                element.classList.remove("hide");
+            });
+        }
     }
-});
+}
+
+(function () {
+    const type_of_story = document.querySelectorAll(".type-of-story input");
+    type_of_story.forEach((element) => {
+        element.addEventListener("change", showStoryForm);
+    });
+})();
