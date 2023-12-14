@@ -6,216 +6,377 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ExternalLinkBlock(blocks.StructBlock):
-    name = blocks.CharBlock(label=_('Ime'))
-    url = blocks.URLBlock(label=_('Povezava'))
+    name = blocks.CharBlock(label=_("Ime"))
+    url = blocks.URLBlock(label=_("Povezava"))
 
     class Meta:
-        label = _('Zunanja povezava')
-        icon = 'link'
+        label = _("Zunanja povezava")
+        icon = "link"
 
 
 class PageLinkBlock(blocks.StructBlock):
-    name = blocks.CharBlock(required=False, label=_('Ime'), help_text=_('Če je prazno se uporabi naslov strani.'))
-    page = blocks.PageChooserBlock(label=_('Stran'))
+    name = blocks.CharBlock(
+        required=False,
+        label=_("Ime"),
+        help_text=_("Če je prazno se uporabi naslov strani."),
+    )
+    page = blocks.PageChooserBlock(label=_("Stran"))
 
     class Meta:
-        label = _('Povezava do strani')
-        icon = 'link'
+        label = _("Povezava do strani")
+        icon = "link"
 
 
 class ButtonsBlock(blocks.StreamBlock):
     button = blocks.StructBlock(
-    [
-        ('style', blocks.ChoiceBlock(
-            choices = [
-                ('underlined', 'Samo podčrtan'),
-                ('normal', 'Z obrobo'),
-                ('background', 'Z obrobo in ozadjem')
-            ],
-            label=_('Stil gumba'),
-        )),
-        ('arrow', blocks.BooleanBlock(default=False, label=_('Gumb s puščico'), required=False)),
-        ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-        ('function', blocks.ChoiceBlock(
-            choices = [
-                ('redirect', 'Povezava na stran'),
-                ('new_story_modal', 'Odpre okno za oddajo nove zgodbe'),
-            ],
-            label=_('Funkcija gumba'),
-        )),
-        ('page', blocks.PageChooserBlock(required=False, label=_('Stran'))),
-    ],
-    label=_('Gumb'),)
+        [
+            (
+                "style",
+                blocks.ChoiceBlock(
+                    choices=[
+                        ("underlined", "Samo podčrtan"),
+                        ("normal", "Z obrobo"),
+                        ("background", "Z obrobo in ozadjem"),
+                    ],
+                    label=_("Stil gumba"),
+                ),
+            ),
+            (
+                "arrow",
+                blocks.BooleanBlock(
+                    default=False, label=_("Gumb s puščico"), required=False
+                ),
+            ),
+            ("text", blocks.CharBlock(label=_("Besedilo na gumbu"))),
+            ("page", blocks.PageChooserBlock(required=False, label=_("Stran"))),
+        ],
+        label=_("Gumb"),
+    )
 
     class Meta:
-        label = _('Gumbi')
-        icon = 'snippet'
+        label = _("Gumbi")
+        icon = "snippet"
 
 
 class ContentBlock(blocks.StreamBlock):
     headline = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('title_position', blocks.ChoiceBlock(
-                choices = [
-                    ('center', 'Sredinska'),
-                    ('start', 'Leva')
-                ],
-                label=_('Poravnava naslova'),
-            )),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
-            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
-            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            (
+                "title_position",
+                blocks.ChoiceBlock(
+                    choices=[("center", "Sredinska"), ("start", "Leva")],
+                    label=_("Poravnava naslova"),
+                ),
+            ),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            ("image_left", ImageChooserBlock(required=False, label=_("Slika na levi"))),
+            (
+                "image_right",
+                ImageChooserBlock(required=False, label=_("Slika na desni")),
+            ),
+            ("buttons", ButtonsBlock(required=False, label=_("Gumbi"))),
         ],
-        label=_('Naslov (večji)'),
-        template='home/blocks/headline.html',
-        icon='title',
+        label=_("Naslov (večji)"),
+        template="home/blocks/headline.html",
+        icon="title",
     )
     headline_small = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('title_position', blocks.ChoiceBlock(
-                choices = [
-                    ('center', 'Sredinska'),
-                    ('start', 'Leva')
-                ],
-                label=_('Poravnava naslova'),
-            )),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
-            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
-            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            (
+                "title_position",
+                blocks.ChoiceBlock(
+                    choices=[("center", "Sredinska"), ("start", "Leva")],
+                    label=_("Poravnava naslova"),
+                ),
+            ),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            ("image_left", ImageChooserBlock(required=False, label=_("Slika na levi"))),
+            (
+                "image_right",
+                ImageChooserBlock(required=False, label=_("Slika na desni")),
+            ),
+            ("buttons", ButtonsBlock(required=False, label=_("Gumbi"))),
         ],
-        label=_('Naslov (manjši)'),
-        template='home/blocks/headline_small.html',
-        icon='title',
+        label=_("Naslov (manjši)"),
+        template="home/blocks/headline_small.html",
+        icon="title",
     )
     newsletter = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('image_left', ImageChooserBlock(required=False, label=_('Slika na levi'))),
-            ('image_right', ImageChooserBlock(required=False, label=_('Slika na desni'))),
-            ('submit_button', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-            ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            ("image_left", ImageChooserBlock(required=False, label=_("Slika na levi"))),
+            (
+                "image_right",
+                ImageChooserBlock(required=False, label=_("Slika na desni")),
+            ),
+            ("submit_button", blocks.CharBlock(label=_("Besedilo na gumbu"))),
+            ("checkbox_text", blocks.CharBlock(label=_("Tekst ob checkboxu"))),
         ],
-        label=_('Obvestilnik'),
-        template='home/blocks/newsletter.html',
-        icon='title',
+        label=_("Obvestilnik"),
+        template="home/blocks/newsletter.html",
+        icon="title",
     )
     share_and_care = blocks.StructBlock(
         [
-            ('left_box', blocks.StructBlock(
-                [
-                  ('title', blocks.CharBlock(label=_('Naslov'))),
-                  ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-                ],
-                label=_('Leva škatla'),
-            )),
-            ('right_box', blocks.StructBlock(
-                [
-                    ('title', blocks.CharBlock(label=_('Naslov'))),
-                    ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-                ],
-                label=_('Desna škatla'),
-            )),
+            (
+                "left_box",
+                blocks.StructBlock(
+                    [
+                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        (
+                            "description",
+                            blocks.RichTextBlock(required=False, label=_("Opis")),
+                        ),
+                    ],
+                    label=_("Leva škatla"),
+                ),
+            ),
+            (
+                "right_box",
+                blocks.StructBlock(
+                    [
+                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        (
+                            "description",
+                            blocks.RichTextBlock(required=False, label=_("Opis")),
+                        ),
+                    ],
+                    label=_("Desna škatla"),
+                ),
+            ),
         ],
-        label=_('Deli naprej'),
-        template='home/blocks/share_and_care.html',
-        icon='title',
+        label=_("Škatle - deli naprej"),
+        template="home/blocks/share_and_care.html",
+        icon="title",
+    )
+    links_boxes = blocks.StructBlock(
+        [
+            (
+                "left_box",
+                blocks.StructBlock(
+                    [
+                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        (
+                            "description",
+                            blocks.RichTextBlock(required=False, label=_("Opis")),
+                        ),
+                        ("link", blocks.PageChooserBlock(label=_("Gumb"))),
+                        ("link_text", blocks.CharBlock(label=_("Besedilo na gumbu"))),
+                    ],
+                    label=_("Leva škatla"),
+                ),
+            ),
+            (
+                "right_box",
+                blocks.StructBlock(
+                    [
+                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        (
+                            "description",
+                            blocks.RichTextBlock(required=False, label=_("Opis")),
+                        ),
+                        ("link", blocks.PageChooserBlock(label=_("Gumb"))),
+                        ("link_text", blocks.CharBlock(label=_("Besedilo na gumbu"))),
+                    ],
+                    label=_("Desna škatla"),
+                ),
+            ),
+        ],
+        label=_("Škatle - preberi več"),
+        template="home/blocks/links_boxes.html",
+        icon="title",
+    )
+    single_box = blocks.StructBlock(
+        [
+            (
+                "box",
+                blocks.StructBlock(
+                    [
+                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        (
+                            "description",
+                            blocks.RichTextBlock(required=False, label=_("Opis")),
+                        ),
+                        (
+                            "color",
+                            blocks.ChoiceBlock(
+                                choices=[
+                                    ("purple", "Vijolična"),
+                                    ("green", "Zelena"),
+                                ],
+                                label=_("Barva"),
+                            ),
+                        ),
+                    ],
+                    label=_("Vsebina škatle"),
+                ),
+            ),
+        ],
+        label=_("Škatla"),
+        template="home/blocks/single_box.html",
+        icon="title",
     )
     frequent_questions = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('button1', blocks.StructBlock(
-                [
-                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
-                ],
-                label=_('Prvi gumb'),
-            )),
-            ('button2', blocks.StructBlock(
-                [
-                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
-                ],
-                label=_('Drugi gumb'),
-            )),
-            ('button3', blocks.StructBlock(
-                [
-                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
-                ],
-                label=_('Tretji gumb'),
-            )),
-            ('button4', blocks.StructBlock(
-                [
-                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
-                ],
-                label=_('Četrti gumb'),
-            )),
-            ('button_redirect', blocks.StructBlock(
-                [
-                    ('text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
-                    ('page', blocks.PageChooserBlock(label=_('Stran'))),
-                ],
-                label=_('Gumb za preusmeritev'),
-            )),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            (
+                "button1",
+                blocks.StructBlock(
+                    [
+                        (
+                            "text",
+                            blocks.CharBlock(
+                                label=_("Besedilo na gumbu"), required=False
+                            ),
+                        ),
+                        (
+                            "page",
+                            blocks.PageChooserBlock(label=_("Stran"), required=False),
+                        ),
+                    ],
+                    label=_("Prvi gumb"),
+                ),
+            ),
+            (
+                "button2",
+                blocks.StructBlock(
+                    [
+                        (
+                            "text",
+                            blocks.CharBlock(
+                                label=_("Besedilo na gumbu"), required=False
+                            ),
+                        ),
+                        (
+                            "page",
+                            blocks.PageChooserBlock(label=_("Stran"), required=False),
+                        ),
+                    ],
+                    label=_("Drugi gumb"),
+                ),
+            ),
+            (
+                "button3",
+                blocks.StructBlock(
+                    [
+                        (
+                            "text",
+                            blocks.CharBlock(
+                                label=_("Besedilo na gumbu"), required=False
+                            ),
+                        ),
+                        (
+                            "page",
+                            blocks.PageChooserBlock(label=_("Stran"), required=False),
+                        ),
+                    ],
+                    label=_("Tretji gumb"),
+                ),
+            ),
+            (
+                "button4",
+                blocks.StructBlock(
+                    [
+                        (
+                            "text",
+                            blocks.CharBlock(
+                                label=_("Besedilo na gumbu"), required=False
+                            ),
+                        ),
+                        (
+                            "page",
+                            blocks.PageChooserBlock(label=_("Stran"), required=False),
+                        ),
+                    ],
+                    label=_("Četrti gumb"),
+                ),
+            ),
+            (
+                "button_redirect",
+                blocks.StructBlock(
+                    [
+                        (
+                            "text",
+                            blocks.CharBlock(
+                                label=_("Besedilo na gumbu"), required=False
+                            ),
+                        ),
+                        (
+                            "page",
+                            blocks.PageChooserBlock(label=_("Stran"), required=False),
+                        ),
+                    ],
+                    label=_("Gumb za preusmeritev"),
+                ),
+            ),
         ],
-        label=_('Pogosta vprašanja'),
-        template='home/blocks/frequent_questions.html',
-        icon='title',
+        label=_("Pogosta vprašanja"),
+        template="home/blocks/frequent_questions.html",
+        icon="title",
     )
     image_section = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('buttons', ButtonsBlock(required=False, label=_('Gumbi'))),
-            ('display', blocks.ChoiceBlock(
-                choices=[
-                    ('image', 'Slika'),
-                    ('map', 'Zemljevid'),
-                ],
-                label=_('Slika ali zemljevid?'),
-            )),
-            ('image', ImageChooserBlock(required=False, label=_('Slika'))),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            ("buttons", ButtonsBlock(required=False, label=_("Gumbi"))),
+            (
+                "display",
+                blocks.ChoiceBlock(
+                    choices=[
+                        ("image", "Slika"),
+                        ("map", "Zemljevid"),
+                    ],
+                    label=_("Slika ali zemljevid?"),
+                ),
+            ),
+            ("image", ImageChooserBlock(required=False, label=_("Slika"))),
         ],
-        label=_('Sekcija s sliko ali zemljevidom'),
-        template='home/blocks/image_section.html',
-        icon='title',
+        label=_("Sekcija s sliko ali zemljevidom"),
+        template="home/blocks/image_section.html",
+        icon="title",
     )
     solutions_list = blocks.StructBlock(
         [
-            ('filter_categories_label', blocks.CharBlock(label=_('Navodilo za filtriranje po kategorijah'))),
-            ('search_input_label', blocks.CharBlock(label=_('Navodilo za iskanje'))),
-            ('search_input_placeholder', blocks.CharBlock(label=_('Placeholder za iskalno polje'))),
-            ('no_results', blocks.CharBlock(required=False, label=_('Tekst če ni rezultatov'))),
+            (
+                "filter_categories_label",
+                blocks.CharBlock(label=_("Navodilo za filtriranje po kategorijah")),
+            ),
+            ("search_input_label", blocks.CharBlock(label=_("Navodilo za iskanje"))),
+            (
+                "search_input_placeholder",
+                blocks.CharBlock(label=_("Placeholder za iskalno polje")),
+            ),
+            (
+                "no_results",
+                blocks.CharBlock(required=False, label=_("Tekst če ni rezultatov")),
+            ),
         ],
-        label=_('Seznam rešitev'),
-        template='home/blocks/solutions_list_section.html',
-        icon='title',
+        label=_("Seznam rešitev"),
+        template="home/blocks/solutions_list_section.html",
+        icon="title",
     )
     rental_stories_list = blocks.StructBlock(
         [
-            ('button_text', blocks.CharBlock(label=_('Besedilo na gumbu'))),
+            ("button_text", blocks.CharBlock(label=_("Besedilo na gumbu"))),
         ],
-        label=_('Seznam uporabniških zgodb'),
-        template='home/blocks/stories_list_section.html',
-        icon='title',
+        label=_("Seznam uporabniških zgodb"),
+        template="home/blocks/stories_list_section.html",
+        icon="title",
     )
     new_problem_form = blocks.StructBlock(
         [
-            ('title', blocks.CharBlock(label=_('Naslov'))),
-            ('description', blocks.RichTextBlock(required=False, label=_('Opis'))),
-            ('checkbox_text', blocks.CharBlock(label=_('Tekst ob checkboxu'))),
-            ('submit_button', blocks.CharBlock(label=_('Tekst na gumbu'))),
+            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
+            ("checkbox_text", blocks.CharBlock(label=_("Tekst ob checkboxu"))),
+            ("submit_button", blocks.CharBlock(label=_("Tekst na gumbu"))),
         ],
-        label=_('Forma za oddat nov problem'),
-        template='home/blocks/new_problem_section.html',
-        icon='title',
+        label=_("Forma za oddat nov problem"),
+        template="home/blocks/new_problem_section.html",
+        icon="title",
     )
 
     def get_context(self, value, parent_context=None):
@@ -223,45 +384,45 @@ class ContentBlock(blocks.StreamBlock):
         return context
 
     class Meta:
-        label = _('Vsebina')
-        icon = 'snippet'
+        label = _("Vsebina")
+        icon = "snippet"
 
 
 class ColorSectionBlock(blocks.StructBlock):
     color = blocks.ChoiceBlock(
         choices=[
-            ('white', 'Bela'),
-            ('yellow', 'Rumena'),
-            ('purple', 'Vijolična'),
-            ('gradient_green_yellow', 'Zeleno-rumena'),
-            ('gradient_purple_green', 'Vijolično-zelena'),
+            ("white", "Bela"),
+            ("yellow", "Rumena"),
+            ("purple", "Vijolična"),
+            ("gradient_green_yellow", "Zeleno-rumena"),
+            ("gradient_purple_green", "Vijolično-zelena"),
         ],
-        label=_('Barva'),
+        label=_("Barva"),
     )
     body = ContentBlock()
 
     class Meta:
-        label = _('Vsebinski odsek z barvo')
-        template = 'home/blocks/color_section.html'
-        icon = 'snippet'
+        label = _("Vsebinski odsek z barvo")
+        template = "home/blocks/color_section.html"
+        icon = "snippet"
 
 
 class SectionBlock(blocks.StreamBlock):
     color_section = ColorSectionBlock()
 
     class Meta:
-        label = _('Vsebinski odsek')
-        template = 'home/blocks/section.html'
-        icon = 'snippet'
+        label = _("Vsebinski odsek")
+        template = "home/blocks/section.html"
+        icon = "snippet"
 
 
 class NewProblemSection(blocks.StructBlock):
-    title = blocks.CharBlock(label=_('Naslov'))
-    description = blocks.RichTextBlock(required=False, label=_('Opis'))
-    submit_button = blocks.CharBlock(label=_('Tekst na gumbu'))
-    checkbox_text = blocks.CharBlock(label=_('Tekst ob checkboxu'))
+    title = blocks.CharBlock(label=_("Naslov"))
+    description = blocks.RichTextBlock(required=False, label=_("Opis"))
+    submit_button = blocks.CharBlock(label=_("Tekst na gumbu"))
+    checkbox_text = blocks.CharBlock(label=_("Tekst ob checkboxu"))
 
     class Meta:
-        label = _('Sekcija za oddat nov problem')
-        template='home/blocks/new_problem_section.html',
-        icon='title'
+        label = _("Sekcija za oddat nov problem")
+        template = ("home/blocks/new_problem_section.html",)
+        icon = "title"

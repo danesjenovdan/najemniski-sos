@@ -1,0 +1,13 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<div class="share-and-care single-box">
+    <div class="row my-lg-4">
+        <div class="col-12 py-3 px-4 p-lg-0">
+            <div class="box position-relative {{ value.box.color }}">
+                <div class="border-box"></div>
+                <h2>{{ value.box.title }}</h2>
+                {{ value.box.description }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,8 @@
                     {{ value.description }}
                 </div>
             </div>
-            <div class="row justify-content-center justify-content-lg-start pt-4 pb-2">
+            <div class="row justify-content-center pt-4 pb-2">
+                {% if value.button1.page %}
                 <div class="col-12 col-md-8 col-lg-3 mb-4 mb-lg-0">
                     <a href="{% pageurl value.button1.page %}" class="btn btn-fq position-relative h-100 w-100">
                         <div class="border-box"></div>
@@ -17,6 +18,8 @@
                         <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     </a>
                 </div>
+                {% endif %}
+                {% if value.button2.page %}
                 <div class="col-12 col-md-8 col-lg-3 mb-4 mb-lg-0">
                     <a href="{% pageurl value.button2.page %}" class="btn btn-fq position-relative h-100 w-100">
                         <div class="border-box"></div>
@@ -24,6 +27,8 @@
                         <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     </a>
                 </div>
+                {% endif %}
+                {% if value.button3.page %}
                 <div class="col-12 col-md-8 col-lg-3 mb-4 mb-lg-0">
                     <a href="{% pageurl value.button3.page %}" class="btn btn-fq position-relative h-100 w-100">
                         <div class="border-box"></div>
@@ -31,6 +36,8 @@
                         <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     </a>
                 </div>
+                {% endif %}
+                {% if value.button4.page %}
                 <div class="col-12 col-md-8 col-lg-3">
                     <a href="{% pageurl value.button4.page %}" class="btn btn-fq position-relative h-100 w-100">
                         <div class="border-box"></div>
@@ -38,7 +45,9 @@
                         <img src="{% static 'icons/curved-arrow.svg' %}" class="position-absolute" />
                     </a>
                 </div>
+                {% endif %}
             </div>
+            {% if value.button_redirect.text %}
             <div class="row pt-4">
                 <div class="col-12">
                     <a href="{% pageurl value.button_redirect.page %}" class="btn btn-normal">
@@ -46,6 +55,7 @@
                     </a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
