@@ -2,10 +2,12 @@
 
 <div class="share-and-care single-box">
     <div class="row my-lg-4">
-        <div class="col-12 py-3 px-4 p-lg-0">
+        <div class="col-12 py-5 px-4 p-lg-0">
             <div class="box position-relative {{ value.box.color }}">
                 <div class="border-box"></div>
+                {% if value.box.title %}
                 <h2>{{ value.box.title }}</h2>
+                {% endif %}
                 {{ value.box.description }}
             </div>
         </div>

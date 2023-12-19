@@ -3,7 +3,9 @@
 <div class="image-section">
     <div class="row">
         <div class="col-12 col-lg-6 left-panel d-flex flex-column justify-content-center">
+            {% if value.title %}
             <h2>{{ value.title }}</h2>
+            {% endif %}
             {{ value.description }}
             <div class="my-2 button-group">
                 {% for button in value.buttons %}
