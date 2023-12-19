@@ -16,6 +16,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
+from wagtail.core.fields import RichTextField
 import requests
 import json
 from .blocks import SectionBlock, NewProblemSection
@@ -343,7 +344,7 @@ class NewsletterPage(Page):
 
 
 class StoryFormPage(Page):
-    intro_text = models.TextField(
+    intro_text = RichTextField(
         null=True,
         blank=True,
         verbose_name=_("Besedilo pred obrazcem"),
@@ -421,16 +422,16 @@ class StoryFormPage(Page):
                 )
 
                 # send an email to user
-                # payload = {
-                #     "email": new_rental_story.email,
-                #     "email_template_id": 648,
-                # }
+                payload = {
+                    "email": new_rental_story.email,
+                    "email_template_id": 648,
+                }
 
-                # r = requests.post(
-                #     "https://podpri.djnd.si/api/send-email/",
-                #     data=json.dumps(payload),
-                #     headers=headers,
-                # )
+                r = requests.post(
+                    "https://podpri.djnd.si/api/send-email/",
+                    data=json.dumps(payload),
+                    headers=headers,
+                )
 
                 if self.thank_you_page:
                     return HttpResponseRedirect(self.thank_you_page.get_url())

@@ -61,7 +61,7 @@ class ButtonsBlock(blocks.StreamBlock):
 class ContentBlock(blocks.StreamBlock):
     headline = blocks.StructBlock(
         [
-            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
             (
                 "title_position",
                 blocks.ChoiceBlock(
@@ -83,7 +83,7 @@ class ContentBlock(blocks.StreamBlock):
     )
     headline_small = blocks.StructBlock(
         [
-            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
             (
                 "title_position",
                 blocks.ChoiceBlock(
@@ -105,7 +105,7 @@ class ContentBlock(blocks.StreamBlock):
     )
     newsletter = blocks.StructBlock(
         [
-            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
             ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
             ("image_left", ImageChooserBlock(required=False, label=_("Slika na levi"))),
             (
@@ -195,7 +195,7 @@ class ContentBlock(blocks.StreamBlock):
                 "box",
                 blocks.StructBlock(
                     [
-                        ("title", blocks.CharBlock(label=_("Naslov"))),
+                        ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
                         (
                             "description",
                             blocks.RichTextBlock(required=False, label=_("Opis")),
@@ -221,7 +221,7 @@ class ContentBlock(blocks.StreamBlock):
     )
     frequent_questions = blocks.StructBlock(
         [
-            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
             ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
             (
                 "button1",
@@ -320,7 +320,7 @@ class ContentBlock(blocks.StreamBlock):
     )
     image_section = blocks.StructBlock(
         [
-            ("title", blocks.CharBlock(label=_("Naslov"))),
+            ("title", blocks.CharBlock(required=False, label=_("Naslov"))),
             ("description", blocks.RichTextBlock(required=False, label=_("Opis"))),
             ("buttons", ButtonsBlock(required=False, label=_("Gumbi"))),
             (
