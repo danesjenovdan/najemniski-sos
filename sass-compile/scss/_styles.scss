@@ -20,8 +20,12 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 900;
+
+  @media (min-width: 992px) {
+    font-size: 3rem;
+  }
 }
 
 h6 {
@@ -393,7 +397,11 @@ footer {
 
 .hero {
   p {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+
+    @media (min-width: 992px) {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -704,13 +712,17 @@ footer {
   .list-element, .btn.btn-background {
     margin-left: 0;
   }
-  .btn-background {
-    background-color: white;
-
-    h5 {
-      font-weight: 400;
+  .share-and-care {
+    .btn-background {
+      background-color: white;
+      height: unset;
+  
+      h5 {
+        font-weight: 400;
+      }
     }
   }
+  
   .map-wrapper {
     @media (min-width: 992px) {
       position: absolute;
@@ -799,6 +811,15 @@ footer {
           top: 0.75rem;
         }
       }
+    }
+  }
+
+  button.emoji {
+    font-size: 1.5rem;
+
+    &.chosen {
+      border-width: 3px;
+      background-color: #fef0c5;
     }
   }
 }

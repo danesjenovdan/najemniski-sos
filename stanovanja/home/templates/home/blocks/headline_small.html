@@ -10,7 +10,9 @@
         </div>
         {% endif %}
         <div class="col-12 {% if value.title_position == 'center' %}col-xl-8 {% else %} col-xl-10 {% endif %}">
+            {% if value.title %}
             <h2 class="text-{{ value.title_position }} my-4">{{ value.title }}</h2>
+            {% endif %}
             <div class="text-{{ value.title_position }}">{{ value.description }}</div>
             <div class="text-{{ value.title_position }} button-group">
                 {% for button in value.buttons %}

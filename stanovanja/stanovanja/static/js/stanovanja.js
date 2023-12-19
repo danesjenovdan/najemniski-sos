@@ -187,6 +187,20 @@ function readMoreMap(e) {
     }
 })();
 
+(function () {
+    const buttons = document.querySelectorAll('button.emoji');
+
+    for (const button of buttons) {
+        button.addEventListener("click", (event) => {
+            for (const button of buttons) {
+                button.classList.remove("chosen");
+            }
+            document.getElementById('id_icon').value = event.target.value;
+            event.target.classList.add("chosen");
+        })
+    }
+})();
+
 
 (function () {
     const csrftoken = getCookie('csrftoken');
