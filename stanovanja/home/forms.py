@@ -59,11 +59,11 @@ class RentalStoryForm(forms.ModelForm):
             }
             payload = {
                 "email": user_email,
-                "segment": 20,
+                "segment_id": 18,
             }
 
             r = requests.post(
-                "https://podpri.djnd.si/api/subscribe/",
+                "https://podpri.lb.djnd.si/api/subscribe/",
                 data=json.dumps(payload),
                 headers=headers,
             )
