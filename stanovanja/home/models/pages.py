@@ -113,11 +113,11 @@ class ContentPage(Page):
                         f"</body>"
                         f"</html>",
                         "description": "Najemniški SOS - nov uporabniški problem",
-                        "segments": [22],
+                        "segments": [19],
                     }
 
                     r = requests.post(
-                        "https://podpri.djnd.si/api/create-and-send-custom-email/",
+                        "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
                         data=json.dumps(payload),
                         headers=headers,
                     )
@@ -125,11 +125,11 @@ class ContentPage(Page):
                     # send an email to user
                     payload = {
                         "email": new_user_problem.email,
-                        "email_template_id": 644,
+                        "email_template_id": 243,
                     }
 
                     r = requests.post(
-                        "https://podpri.djnd.si/api/send-email/",
+                        "https://podpri.lb.djnd.si/api/send-email/",
                         data=json.dumps(payload),
                         headers=headers,
                     )
@@ -287,18 +287,18 @@ class SolutionPage(Page):
                     f"</body>"
                     f"</html>",
                     "description": "Najemniški SOS - nov uporabniški problem",
-                    "segments": [22],
+                    "segments": [19],
                 }
                 r = requests.post(
-                    "https://podpri.djnd.si/api/create-and-send-custom-email/",
+                    "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
 
                 # send an email to user
-                payload = {"email": new_user_problem.email, "email_template_id": 644}
+                payload = {"email": new_user_problem.email, "email_template_id": 243}
                 r = requests.post(
-                    "https://podpri.djnd.si/api/send-email/",
+                    "https://podpri.lb.djnd.si/api/send-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
@@ -411,12 +411,12 @@ class StoryFormPage(Page):
                     f"</body>"
                     f"</html>",
                     "description": "Najemniški SOS - nova uporabniška zgodba",
-                    "segments": [22],
+                    "segments": [19],
                 }
 
                 # TODO: zamenjaj na nov mautic!
                 r = requests.post(
-                    "https://podpri.djnd.si/api/create-and-send-custom-email/",
+                    "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
@@ -424,11 +424,11 @@ class StoryFormPage(Page):
                 # send an email to user
                 payload = {
                     "email": new_rental_story.email,
-                    "email_template_id": 648,
+                    "email_template_id": 244,
                 }
 
                 r = requests.post(
-                    "https://podpri.djnd.si/api/send-email/",
+                    "https://podpri.lb.djnd.si/api/send-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
