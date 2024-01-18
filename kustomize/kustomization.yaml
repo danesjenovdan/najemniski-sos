@@ -8,4 +8,4 @@ resources:
 images:
   - name: najemniski-sos
     newName: rg.fr-par.scw.cloud/djnd/najemniski-sos
-    newTag: 'cceb1d06199cae409574aeb217249ce12407d7a1'
+    newTag: 'c554adc39169eb1dcb6738f0c58cd5f02e35fb6a'
