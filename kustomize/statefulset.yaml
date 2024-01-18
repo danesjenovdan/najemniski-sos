@@ -17,12 +17,15 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
+      volumes:
+        - name: najemniski-sos-storage
+          emptyDir: {}
       containers:
       - name: najemniski-sos
         image: najemniski-sos # kustomize thing
         volumeMounts:
-        - name: najemniski-sos-persistent-storage
-          mountPath: /pvc
+        - name: najemniski-sos-storage
+          mountPath: /storage
         command:
           - gunicorn
           - stanovanja.wsgi:application
@@ -66,7 +69,7 @@ spec:
             protocol: TCP
         image: nginx:alpine
         volumeMounts:
-          - name: najemniski-sos-persistent-storage
+          - name: najemniski-sos-storage
             mountPath: /usr/share/nginx/html
         resources:
           requests:
@@ -79,8 +82,8 @@ spec:
         - name: collectstatic
           image: najemniski-sos
           volumeMounts:
-            - name: najemniski-sos-persistent-storage
-              mountPath: /pvc
+            - name: najemniski-sos-storage
+              mountPath: /storage
           command:
             - python
             - manage.py
@@ -118,15 +121,3 @@ spec:
             limits:
               memory: 500Mi
               cpu: 500m
-  volumeClaimTemplates:
-  - metadata:
-      name: najemniski-sos-persistent-storage
-      annotations:
-          pv.beta.kubernetes.io/gid: "1000"
-    spec:
-      storageClassName: 'scw-bssd-retain'
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 2Gi
