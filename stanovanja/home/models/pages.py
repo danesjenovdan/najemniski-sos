@@ -414,7 +414,6 @@ class StoryFormPage(Page):
                     "segments": [19],
                 }
 
-                # TODO: zamenjaj na nov mautic!
                 r = requests.post(
                     "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
                     data=json.dumps(payload),
