@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: najemniski-sos-deployment
+  labels:
+    app: najemniski-sos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: najemniski-sos
+  template:
+    metadata:
+      labels:
+        app: najemniski-sos
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: najemniski-sos-storage
+          emptyDir: {}
+      initContainers:
+        - name: collectstatic
+          image: najemniski-sos
+          volumeMounts:
+            - name: najemniski-sos-storage
+              mountPath: /storage
+          command:
+            - python
+            - manage.py
+            - collectstatic
+            - --no-input
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: stanovanja.settings.production
+          envFrom:
+            - secretRef:
+                name: najemniski-sos-credentials
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+            limits:
+              memory: 200Mi
+              cpu: 100m
+        - name: migrate
+          image: najemniski-sos
+          command:
+            - python
+            - manage.py
+            - migrate
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: stanovanja.settings.production
+          envFrom:
+            - secretRef:
+                name: najemniski-sos-credentials
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+            limits:
+              memory: 200Mi
+              cpu: 100m
+      containers:
+        - name: najemniski-sos
+          image: najemniski-sos
+          volumeMounts:
+            - name: najemniski-sos-storage
+              mountPath: /storage
+          command:
+            - gunicorn
+            - obljubadeladolg.wsgi:application
+            - -b
+            - 0.0.0.0:8000
+            - --log-level
+            - DEBUG
+          ports:
+            - containerPort: 8000
+          envFrom:
+              - secretRef:
+                  name: najemniski-sos-credentials
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: najemniski-sos.settings.production
+            # - name: DJANGO_DEBUG
+            #   value: 'True'
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 1000m
+            limits:
+              memory: 200Mi
+              cpu: 1000m
+        - name: najemniski-sos-nginx
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          image: nginx:alpine
+          volumeMounts:
+            - name: najemniski-sos-storage
+              mountPath: /usr/share/nginx/html
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 50m
+            limits:
+              memory: 100Mi
+              cpu: 50m
