@@ -70,7 +70,7 @@ spec:
               mountPath: /storage
           command:
             - gunicorn
-            - obljubadeladolg.wsgi:application
+            - stanovanja.wsgi:application
             - -b
             - 0.0.0.0:8000
             - --log-level
