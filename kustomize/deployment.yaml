@@ -82,7 +82,7 @@ spec:
                   name: najemniski-sos-credentials
           env:
             - name: DJANGO_SETTINGS_MODULE
-              value: najemniski-sos.settings.production
+              value: stanovanja.settings.production
             # - name: DJANGO_DEBUG
             #   value: 'True'
           resources:
