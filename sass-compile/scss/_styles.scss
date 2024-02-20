@@ -338,6 +338,8 @@ footer {
   }
   .footer-col {
     padding: 0 2rem;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 1fr 1fr;
   }
   .small-note {
     font-size: 0.75rem;
