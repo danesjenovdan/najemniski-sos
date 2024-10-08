@@ -6,7 +6,8 @@ from wagtail.contrib.modeladmin.options import (
 )
 from wagtail.core import hooks
 from wagtail.core.rich_text import LinkHandler
-from .models import SolutionCategory, RentalStory, UserProblem
+
+from .models import RentalStory, SolutionCategory, UserProblem
 
 
 class NewTabExternalLinkHandler(LinkHandler):
@@ -46,19 +47,14 @@ class StoriesGroup(ModelAdminGroup):
     menu_label = "Najemniške izkušnje"
     menu_icon = "folder-open-inverse"
     menu_order = 200
-    items = (
-        RentalStoryAdmin,
-    )
+    items = (RentalStoryAdmin,)
 
 
 class SolutionGroup(ModelAdminGroup):
     menu_label = "Problemi in rešitve"
     menu_icon = "folder-open-inverse"
     menu_order = 300
-    items = (
-        SolutionCategoryAdmin,
-        UserProblemAdmin
-    )
+    items = (SolutionCategoryAdmin, UserProblemAdmin)
 
 
 modeladmin_register(StoriesGroup)

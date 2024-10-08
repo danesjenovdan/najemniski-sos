@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0054_auto_20210825_1417'),
+        ("home", "0054_auto_20210825_1417"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='solutionpage',
-            name='new_problem_section_background_color',
-            field=models.TextField(blank=True, choices=[('white', 'Bela'), ('yellow', 'Rumena'), ('purple', 'Vijolična'), ('gradient_green_yellow', 'Zeleno-rumena'), ('gradient_purple_green', 'Vijolično-zelena')], verbose_name='Barva ozadja'),
+            model_name="solutionpage",
+            name="new_problem_section_background_color",
+            field=models.TextField(
+                blank=True,
+                choices=[
+                    ("white", "Bela"),
+                    ("yellow", "Rumena"),
+                    ("purple", "Vijolična"),
+                    ("gradient_green_yellow", "Zeleno-rumena"),
+                    ("gradient_purple_green", "Vijolično-zelena"),
+                ],
+                verbose_name="Barva ozadja",
+            ),
         ),
     ]

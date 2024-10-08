@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0049_alter_contentpage_body'),
+        ("home", "0049_alter_contentpage_body"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='contentpage',
-            name='modal_description',
-            field=models.CharField(blank=True, max_length=1024, verbose_name='Opis v modalnem oknu'),
+            model_name="contentpage",
+            name="modal_description",
+            field=models.CharField(
+                blank=True, max_length=1024, verbose_name="Opis v modalnem oknu"
+            ),
         ),
     ]

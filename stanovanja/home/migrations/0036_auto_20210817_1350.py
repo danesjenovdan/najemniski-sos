@@ -6,23 +6,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0035_auto_20210817_0846'),
+        ("home", "0035_auto_20210817_0846"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='rentalstory',
-            name='icon',
-            field=models.CharField(blank=True, max_length=9, null=True, verbose_name='Ikona'),
+            model_name="rentalstory",
+            name="icon",
+            field=models.CharField(
+                blank=True, max_length=9, null=True, verbose_name="Ikona"
+            ),
         ),
         migrations.AlterField(
-            model_name='rentalstory',
-            name='lat',
-            field=models.DecimalField(blank=True, decimal_places=7, max_digits=10, null=True, verbose_name='Zemljepisna širina'),
+            model_name="rentalstory",
+            name="lat",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=7,
+                max_digits=10,
+                null=True,
+                verbose_name="Zemljepisna širina",
+            ),
         ),
         migrations.AlterField(
-            model_name='rentalstory',
-            name='lng',
-            field=models.DecimalField(blank=True, decimal_places=7, max_digits=10, null=True, verbose_name='Zemljepisna dolžina'),
+            model_name="rentalstory",
+            name="lng",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=7,
+                max_digits=10,
+                null=True,
+                verbose_name="Zemljepisna dolžina",
+            ),
         ),
     ]

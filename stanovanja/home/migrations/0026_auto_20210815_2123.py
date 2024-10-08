@@ -6,23 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0025_auto_20210815_1017'),
+        ("home", "0025_auto_20210815_1017"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='rentalstory',
-            name='approved',
-            field=models.BooleanField(default=False, verbose_name='Pregledano (samo pregledane zgodbe so prikazane na strani)'),
+            model_name="rentalstory",
+            name="approved",
+            field=models.BooleanField(
+                default=False,
+                verbose_name="Pregledano (samo pregledane zgodbe so prikazane na strani)",
+            ),
         ),
         migrations.AddField(
-            model_name='rentalstory',
-            name='displayed_name',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Prikazano ime in naslov uporabnika'),
+            model_name="rentalstory",
+            name="displayed_name",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                verbose_name="Prikazano ime in naslov uporabnika",
+            ),
         ),
         migrations.AddField(
-            model_name='rentalstory',
-            name='private',
-            field=models.BooleanField(default=False, verbose_name='Zgodba ni za javno objavo'),
+            model_name="rentalstory",
+            name="private",
+            field=models.BooleanField(
+                default=False, verbose_name="Zgodba ni za javno objavo"
+            ),
         ),
     ]

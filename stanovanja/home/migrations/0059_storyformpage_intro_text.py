@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0058_storyformpage'),
+        ("home", "0058_storyformpage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='storyformpage',
-            name='intro_text',
-            field=models.TextField(blank=True, null=True, verbose_name='Besedilo pred obrazcem'),
+            model_name="storyformpage",
+            name="intro_text",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="Besedilo pred obrazcem"
+            ),
         ),
     ]

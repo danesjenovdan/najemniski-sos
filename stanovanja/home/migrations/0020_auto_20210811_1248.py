@@ -6,19 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0019_rentalstory'),
+        ("home", "0019_rentalstory"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='rentalstory',
-            name='email',
-            field=models.EmailField(default='janez.novak@example.com', max_length=254, verbose_name='E-mail uporabnika'),
+            model_name="rentalstory",
+            name="email",
+            field=models.EmailField(
+                default="janez.novak@example.com",
+                max_length=254,
+                verbose_name="E-mail uporabnika",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='rentalstory',
-            name='name',
-            field=models.CharField(max_length=255, verbose_name='Ime kategorije'),
+            model_name="rentalstory",
+            name="name",
+            field=models.CharField(max_length=255, verbose_name="Ime kategorije"),
         ),
     ]

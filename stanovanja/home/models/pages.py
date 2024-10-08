@@ -1,27 +1,26 @@
-from django.db import models
+import json
+
+import requests
 from django import forms
-from django.utils.translation import gettext_lazy as _
-from django.core.mail import send_mail
-from django.core import serializers
+from django.conf import settings
 from django.contrib import messages
+from django.core import serializers
+from django.core.mail import send_mail
+from django.db import models
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks, fields
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import (
-    StreamFieldPanel,
-    FieldPanel,
-)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
-from wagtail.core.fields import RichTextField
-import requests
-import json
-from .blocks import SectionBlock, NewProblemSection
-from .solution import SolutionCategory, RentalStory, UserProblem
+
 from ..forms import RentalStoryForm, UserProblemSubmissionForm
+from .blocks import NewProblemSection, SectionBlock
+from .solution import RentalStory, SolutionCategory, UserProblem
 
 
 class ContentPage(Page):

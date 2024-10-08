@@ -6,13 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0060_auto_20231213_0915'),
+        ("home", "0060_auto_20231213_0915"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='rentalstory',
-            name='type_of_story',
-            field=models.TextField(blank=True, choices=[('discrimination', 'Delim zgodbo o diskriminaciji'), ('story', 'Delim najemniško izkušnjo')], null=True),
+            model_name="rentalstory",
+            name="type_of_story",
+            field=models.TextField(
+                blank=True,
+                choices=[
+                    ("discrimination", "Delim zgodbo o diskriminaciji"),
+                    ("story", "Delim najemniško izkušnjo"),
+                ],
+                null=True,
+            ),
         ),
     ]
