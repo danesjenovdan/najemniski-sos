@@ -9,15 +9,16 @@ from wagtail.admin.edit_handlers import (
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
-from .blocks import PageLinkBlock, ExternalLinkBlock
+
+from .blocks import ExternalLinkBlock, PageLinkBlock
 
 
-@register_setting(icon='cog')
+@register_setting(icon="cog")
 class MetaSettings(BaseSetting):
     header_links = StreamField(
         [
-            ('page_link', PageLinkBlock()),
-            ('external_link', ExternalLinkBlock()),
+            ("page_link", PageLinkBlock()),
+            ("external_link", ExternalLinkBlock()),
         ],
         verbose_name=_("Povezave v glavi"),
     )
@@ -27,7 +28,7 @@ class MetaSettings(BaseSetting):
             ("external_link", ExternalLinkBlock()),
         ],
         verbose_name=_("Povezave v nogi"),
-        )
+    )
 
     link_tab_panels = [
         StreamFieldPanel("header_links"),
@@ -52,10 +53,10 @@ class MetaSettings(BaseSetting):
     )
 
     social_tab_panels = [
-        FieldPanel('facebook'),
-        FieldPanel('twitter'),
-        FieldPanel('instagram'),
-        FieldPanel('email'),
+        FieldPanel("facebook"),
+        FieldPanel("twitter"),
+        FieldPanel("instagram"),
+        FieldPanel("email"),
     ]
 
     meta_title = models.CharField(
@@ -69,11 +70,11 @@ class MetaSettings(BaseSetting):
         blank=True,
     )
     meta_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
     share_email_text = models.TextField(
         null=True,
@@ -85,18 +86,20 @@ class MetaSettings(BaseSetting):
     )
 
     meta_tab_panels = [
-        FieldPanel('meta_title'),
-        FieldPanel('meta_description'),
-        ImageChooserPanel('meta_image'),
-        FieldPanel('share_email_text'),
-        FieldPanel('share_twitter_text'),
+        FieldPanel("meta_title"),
+        FieldPanel("meta_description"),
+        ImageChooserPanel("meta_image"),
+        FieldPanel("share_email_text"),
+        FieldPanel("share_twitter_text"),
     ]
 
-    edit_handler = TabbedInterface([
-        ObjectList(link_tab_panels, heading='Seznam povezav'),
-        ObjectList(social_tab_panels, heading='Socialna omrežja'),
-        ObjectList(meta_tab_panels, heading='Meta opisi'),
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(link_tab_panels, heading="Seznam povezav"),
+            ObjectList(social_tab_panels, heading="Socialna omrežja"),
+            ObjectList(meta_tab_panels, heading="Meta opisi"),
+        ]
+    )
 
     class Meta:
-        verbose_name = 'Meta nastavitve'
+        verbose_name = "Meta nastavitve"

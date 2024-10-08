@@ -6,41 +6,57 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0050_alter_contentpage_modal_description'),
+        ("home", "0050_alter_contentpage_modal_description"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_checkbox',
+            model_name="contentpage",
+            name="modal_form_checkbox",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_checkbox2',
+            model_name="contentpage",
+            name="modal_form_checkbox2",
         ),
         migrations.AddField(
-            model_name='contentpage',
-            name='modal_form_checkbox_hide_location',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Forma - checkbox za skrito lokacijo'),
+            model_name="contentpage",
+            name="modal_form_checkbox_hide_location",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                verbose_name="Forma - checkbox za skrito lokacijo",
+            ),
         ),
         migrations.AddField(
-            model_name='contentpage',
-            name='modal_form_checkbox_newsletter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Forma - checkbox za občasno elektronsko sporočilo'),
+            model_name="contentpage",
+            name="modal_form_checkbox_newsletter",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                verbose_name="Forma - checkbox za občasno elektronsko sporočilo",
+            ),
         ),
         migrations.AddField(
-            model_name='contentpage',
-            name='modal_form_checkbox_private',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Forma - checkbox za nejavno zgodbo'),
+            model_name="contentpage",
+            name="modal_form_checkbox_private",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                verbose_name="Forma - checkbox za nejavno zgodbo",
+            ),
         ),
         migrations.AddField(
-            model_name='rentalstory',
-            name='hide_location',
-            field=models.BooleanField(default=False, verbose_name='Zgodba naj se objavi brez lokacije'),
+            model_name="rentalstory",
+            name="hide_location",
+            field=models.BooleanField(
+                default=False, verbose_name="Zgodba naj se objavi brez lokacije"
+            ),
         ),
         migrations.AlterField(
-            model_name='rentalstory',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Ime uporabnika'),
+            model_name="rentalstory",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Ime uporabnika"
+            ),
         ),
     ]

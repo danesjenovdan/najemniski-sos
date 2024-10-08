@@ -6,42 +6,46 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0059_storyformpage_intro_text'),
+        ("home", "0059_storyformpage_intro_text"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_description',
+            model_name="contentpage",
+            name="modal_description",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_button',
+            model_name="contentpage",
+            name="modal_form_button",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_checkbox_hide_location',
+            model_name="contentpage",
+            name="modal_form_checkbox_hide_location",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_checkbox_newsletter',
+            model_name="contentpage",
+            name="modal_form_checkbox_newsletter",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_form_checkbox_private',
+            model_name="contentpage",
+            name="modal_form_checkbox_private",
         ),
         migrations.RemoveField(
-            model_name='contentpage',
-            name='modal_title',
+            model_name="contentpage",
+            name="modal_title",
         ),
         migrations.AddField(
-            model_name='storyformpage',
-            name='discrimination_text',
-            field=models.TextField(blank=True, null=True, verbose_name='Navodilo za opis diskriminacije'),
+            model_name="storyformpage",
+            name="discrimination_text",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="Navodilo za opis diskriminacije"
+            ),
         ),
         migrations.AddField(
-            model_name='storyformpage',
-            name='rental_story_text',
-            field=models.TextField(blank=True, null=True, verbose_name='Navodilo za najemniške izkušnje'),
+            model_name="storyformpage",
+            name="rental_story_text",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="Navodilo za najemniške izkušnje"
+            ),
         ),
     ]
