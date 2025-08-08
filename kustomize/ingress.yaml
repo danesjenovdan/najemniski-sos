@@ -1,0 +1,93 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: najemniski-sos-redirect
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/permanent-redirect: https://najemniski-sos.si
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - najemniski-sos.lb.djnd.si
+      secretName: najemniski-sos-redirect-tls
+  rules:
+    - host: najemniski-sos.lb.djnd.si
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: najemniski-sos
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    # nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.najemniski-sos.si
+        - najemniski-sos.si
+      secretName: najemniski-sos-tls
+  rules:
+    - host: najemniski-sos.si
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: najemniski-sos
+                port:
+                  number: 8000
+    - host: www.najemniski-sos.si
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: najemniski-sos
+                port:
+                  number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: najemniski-sos-nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*" # TODO
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - files.najemniski-sos.lb.djnd.si
+        - files.najemniski-sos.si
+      secretName: najemniski-sos-nginx-tls
+  rules:
+    - host: files.najemniski-sos.lb.djnd.si
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: najemniski-sos-nginx
+                port:
+                  number: 80
+    - host: files.najemniski-sos.si
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: najemniski-sos-nginx
+                port:
+                  number: 80
