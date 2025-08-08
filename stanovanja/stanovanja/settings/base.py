@@ -191,3 +191,6 @@ BASE_URL = "http://example.com"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+
+PODPRI_SEND_EMAIL_TOKEN = os.getenv("PODPRI_SEND_EMAIL_TOKEN", "thisshouldbesecret")
