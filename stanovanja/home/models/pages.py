@@ -377,7 +377,7 @@ class StoryFormPage(Page):
         context = super().get_context(request)
         if request.method == "GET":
             rental_story_form = RentalStoryForm()
-            context["rental_story_form"] = rental_story_form
+        context["rental_story_form"] = rental_story_form
         return context
 
     def serve(self, request):

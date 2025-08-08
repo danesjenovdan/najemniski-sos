@@ -15,7 +15,7 @@
                 <div class="form-group type-of-story my-5">
                     <div class="checkbox-wrapper">
                         <div class="form-check">
-                            <input type="radio" name="type_of_story" id="id_type_of_story_1" value="Delim zgodbo o diskriminaciji" required="">
+                            <input type="radio" name="type_of_story" id="id_type_of_story_1" value="Delim zgodbo o diskriminaciji" required="" {% if rental_story_form.type_of_story.value == "Delim zgodbo o diskriminaciji" %}checked{% endif %}>
                             <label class="form-check-label" for="id_type_of_story_1">
                                 Delim zgodbo o diskriminaciji
                             </label>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="checkbox-wrapper">
                         <div class="form-check">
-                            <input type="radio" name="type_of_story" value="Delim najemniško izkušnjo" id="id_type_of_story_2" required="">
+                            <input type="radio" name="type_of_story" value="Delim najemniško izkušnjo" id="id_type_of_story_2" required="" {% if rental_story_form.type_of_story.value == "Delim najemniško izkušnjo" %}checked{% endif %}>
                             <label class="form-check-label" for="id_type_of_story_2">
                                 Delim najemniško izkušnjo
                             </label>
@@ -55,6 +55,10 @@
                     <div class="form-group mb-4">
                         {{ rental_story_form.address }}
                         {{ rental_story_form.address.errors }}
+                    </div>
+                    <div class="form-group mb-0">
+                        {{ rental_story_form.confirm_pot }}
+                        {{ rental_story_form.confirm_pot.errors }}
                     </div>
                     <div class="form-group">
                         <label class="mb-3">Izberi ikono, ki bo predstavljala tvojo izkušnjo.</label>
@@ -133,4 +137,3 @@
 </div>
 
 {% endblock %}
-

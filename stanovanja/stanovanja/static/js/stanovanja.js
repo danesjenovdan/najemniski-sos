@@ -305,6 +305,15 @@ function showStoryForm(event) {
 (function () {
     const type_of_story = document.querySelectorAll(".type-of-story input");
     type_of_story.forEach((element) => {
+        if (element.checked) {
+            showStoryForm({ target: element });
+        }
         element.addEventListener("change", showStoryForm);
     });
+
+    const confirm_pot = document.getElementById("id_confirm_pot");
+    if (confirm_pot) {
+        confirm_pot.setAttribute("aria-hidden", "true");
+        confirm_pot.setAttribute("tabindex", "-1");
+    }
 })();

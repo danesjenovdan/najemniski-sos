@@ -8,6 +8,16 @@ from .models.solution import RentalStory, UserProblem
 
 class RentalStoryForm(forms.ModelForm):
     newsletter = forms.BooleanField(required=False)
+    # Honeypot field to prevent spam
+    confirm_pot = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Potrdi vse podatke*",
+            }
+        ),
+    )
 
     class Meta:
         model = RentalStory
@@ -50,6 +60,19 @@ class RentalStoryForm(forms.ModelForm):
             "private": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "hide_location": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if "email" in cleaned_data:
+            if cleaned_data["email"].endswith("@example.com"):
+                raise forms.ValidationError("Something went wrong.")
+
+        if "confirm_pot" in cleaned_data:
+            if cleaned_data["confirm_pot"]:
+                raise forms.ValidationError("Something went wrong!")
+
+        return cleaned_data
 
     def save(self, commit=True):
         # subscribe user to newsletter, if they said so in the form
