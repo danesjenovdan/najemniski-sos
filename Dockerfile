@@ -20,7 +20,7 @@ RUN npm run css
 # ---
 # wagtail image
 # ---
-FROM python:3.8.1-slim-buster
+FROM python:3.10-slim-bullseye
 
 # Add user that will be used in the container.
 RUN useradd wagtail
@@ -39,7 +39,7 @@ ENV PYTHONUNBUFFERED=1 \
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
-    libmariadbclient-dev \
+    libmariadb-dev \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \

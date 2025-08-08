@@ -716,13 +716,13 @@ footer {
     .btn-background {
       background-color: white;
       height: unset;
-  
+
       h5 {
         font-weight: 400;
       }
     }
   }
-  
+
   .map-wrapper {
     @media (min-width: 992px) {
       position: absolute;
@@ -826,4 +826,13 @@ footer {
 
 .hide {
   display: none;
+}
+
+#id_confirm_pot {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  top: -10000px;
+  left: -10000px;
 }
