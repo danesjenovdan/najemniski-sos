@@ -13,8 +13,8 @@ services:
     environment:
       PYTHONPATH: /app:$PYTHONPATH
       DB_HOST: db
-      DB_NAME: wagtail
-      DB_USERNAME: wagtail
+      DB_NAME: najemniski_sos
+      DB_USERNAME: najemniski_sos
       DB_PASSWORD: changeme
     depends_on:
       - db
@@ -30,10 +30,10 @@ services:
       - db
 
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     environment:
-      POSTGRES_DB: wagtail
-      POSTGRES_USER: wagtail
+      POSTGRES_DB: najemniski_sos
+      POSTGRES_USER: najemniski_sos
       POSTGRES_PASSWORD: changeme
     volumes:
       - postgres-data:/var/lib/postgresql/data
