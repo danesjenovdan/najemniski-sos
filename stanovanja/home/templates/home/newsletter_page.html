@@ -19,7 +19,7 @@
 
 <div class="bg-section">
   <section class="container">
-    <div class="row newsletter-page">
+    <div class="row newsletter-page newsletter">
       <div class="col-12 col-lg-8">
         {% for block in page.body %}
         <div class="row mb-5">
@@ -28,28 +28,26 @@
         {% endfor %}
 
         <form id="newsletter-page-form" class="row mb-5">
-          <div class="col unsubscribe" style="text-align: center;">
+          {% comment %} <div class="col unsubscribe" style="text-align: center;">
             <button disabled class="btn btn-background subscription">Nalagamo tvoje nastavitve ...</button>
-          </div>
+          </div> {% endcomment %}
           <div class="col manage">
             <div class="footer-col">
-              <h5>Nisi prijavljen_a na e-novičnik. Če želiš, se nanj lahko prijaviš spodaj.</h5>
+              <h5>Želiš, da te obveščamo o prihodnjih akcijah?</h5>
               <div class="my-4">
                 <div class="input-group text-center">
-                  <input type="email" class="form-control" id="managed-email" name="email" required>
-                  <button id="submit-managed-email" class="btn btn-background" type="button">Prijavi se</button>
+                  <input type="email" class="form-control" id="email-newsletter" name="email-newsletter" required>
+                  <button class="btn btn-normal" type="submit">Prijavi se</button>
+                </div>
+                <div class="input-group mt-1">
+                  <div class="form-text" id="response"></div>
                 </div>
                 <div class="checkbox-wrapper form-check form-check-inline">
-                  <input type="checkbox" id="confirm-managed-email" name="confirm-managed-email" class="form-check-input" required>
-                  <label class="form-check-label" for="confirm-managed-email">
-                    Strinjam se, da mi občasno pošljete elektronsko sporočilo.
-                  </label>
+                  <input type="checkbox" id="confirm-email" name="confirm-email" class="form-check-input" required>
+                  <label class="form-check-label" for="confirm-email">Strinjam se, da mi občasno pošljete elektronsko sporočilo.</label>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="mt-1">
-            <div class="form-text" id="response"></div>
           </div>
         </form>
       </div>
