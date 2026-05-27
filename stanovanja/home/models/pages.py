@@ -116,7 +116,7 @@ class ContentPage(Page):
                     }
 
                     r = requests.post(
-                        "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
+                        "https://podpri.djnd.si/api/create-and-send-custom-email/",
                         data=json.dumps(payload),
                         headers=headers,
                     )
@@ -128,7 +128,7 @@ class ContentPage(Page):
                     }
 
                     r = requests.post(
-                        "https://podpri.lb.djnd.si/api/send-email/",
+                        "https://podpri.djnd.si/api/send-email/",
                         data=json.dumps(payload),
                         headers=headers,
                     )
@@ -289,7 +289,7 @@ class SolutionPage(Page):
                     "segments": [19],
                 }
                 r = requests.post(
-                    "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
+                    "https://podpri.djnd.si/api/create-and-send-custom-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
@@ -297,7 +297,7 @@ class SolutionPage(Page):
                 # send an email to user
                 payload = {"email": new_user_problem.email, "email_template_id": 243}
                 r = requests.post(
-                    "https://podpri.lb.djnd.si/api/send-email/",
+                    "https://podpri.djnd.si/api/send-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
@@ -414,7 +414,7 @@ class StoryFormPage(Page):
                 }
 
                 r = requests.post(
-                    "https://podpri.lb.djnd.si/api/create-and-send-custom-email/",
+                    "https://podpri.djnd.si/api/create-and-send-custom-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )
@@ -426,7 +426,7 @@ class StoryFormPage(Page):
                 }
 
                 r = requests.post(
-                    "https://podpri.lb.djnd.si/api/send-email/",
+                    "https://podpri.djnd.si/api/send-email/",
                     data=json.dumps(payload),
                     headers=headers,
                 )

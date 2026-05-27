@@ -88,7 +88,7 @@ class RentalStoryForm(forms.ModelForm):
             }
 
             r = requests.post(
-                "https://podpri.lb.djnd.si/api/subscribe/",
+                "https://podpri.djnd.si/api/subscribe/",
                 data=json.dumps(payload),
                 headers=headers,
             )
