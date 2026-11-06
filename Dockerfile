@@ -70,6 +70,10 @@ USER wagtail
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
+# Copy compiled css from other image
+COPY --chown=wagtail:wagtail --from=sass-compile /app/static/css ./stanovanja/static/css
+
+
 FROM python:3.14-slim-trixie AS runtime
 
 # Add user that will be used in the container.
