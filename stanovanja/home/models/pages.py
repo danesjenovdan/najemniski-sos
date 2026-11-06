@@ -11,11 +11,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks, fields
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail import blocks, fields
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 from wagtail.search import index
 
 from ..forms import RentalStoryForm, UserProblemSubmissionForm
@@ -31,7 +30,7 @@ class ContentPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     def get_context(self, request, user_problem_form=None):
@@ -232,13 +231,13 @@ class SolutionPage(Page):
     )
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel("body"),
-        ImageChooserPanel("image"),
+        FieldPanel("body"),
+        FieldPanel("image"),
         FieldPanel("claps_no"),
         FieldPanel("category", widget=forms.Select),
-        StreamFieldPanel("related_problems"),
-        StreamFieldPanel("new_problem_section"),
-        ImageChooserPanel("meta_image"),
+        FieldPanel("related_problems"),
+        FieldPanel("new_problem_section"),
+        FieldPanel("meta_image"),
     ]
 
     search_fields = Page.search_fields + [
@@ -334,7 +333,7 @@ class NewsletterPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     class Meta:
