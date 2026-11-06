@@ -186,13 +186,8 @@ if ENABLE_S3:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-else:
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = BASE_DIR / "media"
-
 
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = "Najemniški SOS"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
