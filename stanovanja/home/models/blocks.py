@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
+from wagtail import blocks
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
 

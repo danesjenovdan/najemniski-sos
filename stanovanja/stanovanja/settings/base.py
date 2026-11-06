@@ -35,19 +35,20 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.core",
+    "wagtail",
+    "wagtail_modeladmin",
     "modelcluster",
     "taggit",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.postgres",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "wagtail.contrib.table_block",
     "wagtail.contrib.settings",
     "wagtail.contrib.styleguide",
-    "wagtail.contrib.modeladmin",
     "rest_framework",
 ]
 
@@ -160,7 +161,7 @@ MEDIA_URL = "/media/"
 # S3 Storage
 # DJANGO STORAGE SETTINGS
 if os.getenv("DJANGO_ENABLE_S3", False):
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
     AWS_ACCESS_KEY_ID = os.getenv("DJANGO_AWS_ACCESS_KEY_ID", "<TODO>")
     AWS_SECRET_ACCESS_KEY = os.getenv("DJANGO_AWS_SECRET_ACCESS_KEY", "<TODO>")
     AWS_STORAGE_BUCKET_NAME = os.getenv("DJANGO_AWS_STORAGE_BUCKET_NAME", "djnd")

@@ -1,20 +1,18 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     ObjectList,
-    StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.core.fields import StreamField
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.fields import StreamField
 
 from .blocks import ExternalLinkBlock, PageLinkBlock
 
 
 @register_setting(icon="cog")
-class MetaSettings(BaseSetting):
+class MetaSettings(BaseSiteSetting):
     header_links = StreamField(
         [
             ("page_link", PageLinkBlock()),
@@ -31,8 +29,8 @@ class MetaSettings(BaseSetting):
     )
 
     link_tab_panels = [
-        StreamFieldPanel("header_links"),
-        StreamFieldPanel("footer_links"),
+        FieldPanel("header_links"),
+        FieldPanel("footer_links"),
     ]
 
     facebook = models.URLField(
@@ -88,7 +86,7 @@ class MetaSettings(BaseSetting):
     meta_tab_panels = [
         FieldPanel("meta_title"),
         FieldPanel("meta_description"),
-        ImageChooserPanel("meta_image"),
+        FieldPanel("meta_image"),
         FieldPanel("share_email_text"),
         FieldPanel("share_twitter_text"),
     ]

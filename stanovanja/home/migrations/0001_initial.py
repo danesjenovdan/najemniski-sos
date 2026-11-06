@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 from django.db import migrations, models
 
@@ -49,19 +49,19 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "body",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         [
                             (
                                 "section",
-                                wagtail.core.blocks.StreamBlock(
+                                wagtail.blocks.StreamBlock(
                                     [
                                         (
                                             "color_section",
-                                            wagtail.core.blocks.StructBlock(
+                                            wagtail.blocks.StructBlock(
                                                 [
                                                     (
                                                         "color",
-                                                        wagtail.core.blocks.ChoiceBlock(
+                                                        wagtail.blocks.ChoiceBlock(
                                                             choices=[
                                                                 ("white", "Bela"),
                                                                 ("yellow", "Rumena"),
@@ -80,21 +80,21 @@ class Migration(migrations.Migration):
                                                     ),
                                                     (
                                                         "body",
-                                                        wagtail.core.blocks.StreamBlock(
+                                                        wagtail.blocks.StreamBlock(
                                                             [
                                                                 (
                                                                     "headline",
-                                                                    wagtail.core.blocks.StructBlock(
+                                                                    wagtail.blocks.StructBlock(
                                                                         [
                                                                             (
                                                                                 "title",
-                                                                                wagtail.core.blocks.CharBlock(
+                                                                                wagtail.blocks.CharBlock(
                                                                                     label="Naslov"
                                                                                 ),
                                                                             ),
                                                                             (
                                                                                 "description",
-                                                                                wagtail.core.blocks.RichTextBlock(
+                                                                                wagtail.blocks.RichTextBlock(
                                                                                     label="Opis",
                                                                                     required=False,
                                                                                 ),
