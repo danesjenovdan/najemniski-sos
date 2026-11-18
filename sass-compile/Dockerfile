@@ -3,7 +3,7 @@
 # See Dockerfile in repository root for production and k8s use
 # ---------------------------------- WARNING ----------------------------------
 
-FROM node:14-alpine
+FROM node:26-alpine
 
 WORKDIR /app
 
