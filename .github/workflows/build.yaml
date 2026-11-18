@@ -2,7 +2,7 @@ name: Build and publish Docker image
 on:
   push:
     branches:
-      - 'k8s'
+      - k8s
 jobs:
   push_to_registry:
     name: Build and push Docker image to registry
@@ -23,6 +23,9 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_SUMMARY: false
+          DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           context: .
           push: true
@@ -37,5 +40,5 @@ jobs:
       - name: Commit and push new image versions
         uses: EndBug/add-and-commit@v11
         with:
-          add: '.'
-          message: 'Update image versions in kustomize/kustomization.yaml'
+          add: "."
+          message: "Update image versions in kustomize/kustomization.yaml"
