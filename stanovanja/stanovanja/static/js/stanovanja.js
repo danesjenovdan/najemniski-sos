@@ -75,7 +75,12 @@ const markers = {};
 
     if (map_el) {
         var map = L.map('mapid').setView([46.2, 15], 8);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+        L.tileLayer('https://mapproxy.danesjenovdan.si/mapproxy/tms/1.0.0/osm/EPSG3857/{z}/{x}/{y}.png', {
+            tms: true,
+            zoomOffset: -1,
+            minZoom: 1,
+            maxZoom: 18,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             referrerPolicy: 'strict-origin-when-cross-origin',
         }).addTo(map);
