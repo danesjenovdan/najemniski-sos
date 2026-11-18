@@ -4,14 +4,13 @@ volumes:
 services:
   wagtail:
     build: ./stanovanja
-    working_dir: /app
     command: ./manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./stanovanja:/app:delegated,rw
+      - ./stanovanja:/app
     ports:
       - "8000:8000"
     environment:
-      PYTHONPATH: /app:$PYTHONPATH
+      DJANGO_RUNSERVER_HIDE_WARNING: "true"
       DB_HOST: db
       DB_NAME: najemniski_sos
       DB_USERNAME: najemniski_sos
@@ -21,22 +20,20 @@ services:
 
   sass-compile:
     build: ./sass-compile
-    working_dir: /app
     command: npm run watch
     volumes:
-      - ./sass-compile/scss:/app/scss:delegated,rw
-      - ./stanovanja/stanovanja/static:/app/static:delegated,rw
+      - ./sass-compile/scss:/app/scss
+      - ./stanovanja/stanovanja/static:/app/static
     depends_on:
       - db
 
   db:
     image: postgres:16-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
     environment:
       POSTGRES_DB: najemniski_sos
       POSTGRES_USER: najemniski_sos
       POSTGRES_PASSWORD: changeme
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    restart: always
-    expose:
-      - "5432"
