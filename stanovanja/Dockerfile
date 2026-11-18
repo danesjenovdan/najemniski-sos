@@ -1,5 +1,5 @@
 # Use an official Python runtime based on Debian 12 "trixie" as a parent image.
-FROM python:3.14-slim-trixie AS builder
+FROM python:3.15-slim-trixie AS builder
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
@@ -48,7 +48,7 @@ USER wagtail
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
-FROM python:3.14-slim-trixie AS runtime
+FROM python:3.15-slim-trixie AS runtime
 
 # Add user that will be used in the container.
 RUN useradd wagtail
