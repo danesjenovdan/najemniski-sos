@@ -76,7 +76,8 @@ const markers = {};
     if (map_el) {
         var map = L.map('mapid').setView([46.2, 15], 8);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            referrerPolicy: 'strict-origin-when-cross-origin',
         }).addTo(map);
 
         const iconOptions = {
